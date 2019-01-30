@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.Standard", "Bimface.SDK.Standard\Bimface.SDK.Standard.csproj", "{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.Test", "Bimface.SDK.Test\Bimface.SDK.Test.csproj", "{DD89EA15-A407-49EA-8EE8-E7C596E112B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F1A50045-6067-49F2-BC6F-838CCAD074B3}
+	EndGlobalSection
+EndGlobal
