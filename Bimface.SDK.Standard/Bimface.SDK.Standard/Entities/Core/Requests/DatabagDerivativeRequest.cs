@@ -2,7 +2,7 @@
 
 namespace Bimface.SDK.Entities.Core
 {
-    public class DatabagDerivativeRequestEntity
+    public class DatabagDerivativeRequest
     {
         public IDictionary<string, string> Config { get; set; }
     }
