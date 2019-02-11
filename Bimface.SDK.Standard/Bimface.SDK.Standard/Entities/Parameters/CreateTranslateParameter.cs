@@ -1,10 +1,13 @@
-﻿using System;
-using Bimface.SDK.Entities.Core;
+﻿using Bimface.SDK.Entities.Core.Requests;
 
 namespace Bimface.SDK.Entities.Parameters
 {
     public class CreateTranslateParameter
     {
-        FileTranslateRequest Request { get; set; }
+        #region Properties
+
+        private FileTranslateRequest Request { get; set; }
+
+        #endregion
     }
 }

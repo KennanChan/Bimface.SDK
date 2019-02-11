@@ -12,16 +12,16 @@ namespace Bimface.SDK.Interfaces.Core
 {
     public interface ISourceFileService
     {
-        Task<FileEntity> Upload(PushUploadParameter parameter, IProgress<long> progressReporter = null);
-        Task<FileEntity> Upload(PullUploadParamter parameter);
-        Task<UploadPolicyEntity> CreateUploadPolicy(FetchUploadPolicyParameter parameter);
         Task<AppendFileEntity> CreateAppendFile(CreateAppendFileParameter parameter);
+        Task<UploadPolicyEntity> CreateUploadPolicy(FetchUploadPolicyParameter parameter);
+        Task DeleteFile(DeleteFileParameter parameter);
         Task<AppendFileEntity> FetchAppendFile(FetchAppendFileParameter parameter);
-        Task<AppendFileEntity> ResumeAppendFile(ResumeAppendFileParameter parameter);
+        Task<string> FetchFileTemporaryDownloadUrl(FileDownloadAddressParameter parameter);
         Task<List<FileEntity>> ListFiles(ListFilesParameter parameter);
         Task<FileEntity> LookupFileMeta(LookupFileMetaParameter parameter);
+        Task<AppendFileEntity> ResumeAppendFile(ResumeAppendFileParameter parameter);
+        Task<FileEntity> Upload(PushUploadParameter parameter, IProgress<long> progressReporter = null);
+        Task<FileEntity> Upload(PullUploadParameter parameter);
         Task<SupportFileEntity> ViewSupportFileTypes();
-        Task<string> FetchFileTemporaryDownloadUrl(FileDownloadAddressParameter parameter);
-        Task DeleteFile(DeleteFileParameter parameter);
     }
 }

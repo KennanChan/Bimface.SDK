@@ -4,23 +4,23 @@
     ///     Parameters used to ask bimface to download a remote file as the file to be uploaded
     ///     请求bimface从指定的远程路径下载文件，并将下载得到的文件作为上传到bimface的文件
     /// </summary>
-    public class PullUploadParamter
+    public class PullUploadParameter
     {
         #region Constructors
 
-        public PullUploadParamter(string name, string url, string etag, string sourceId)
+        public PullUploadParameter(string name, string url, string etag, string sourceId)
         {
-            Name     = name;
-            Url      = url;
-            Etag     = etag;
+            Name = name;
+            Url = url;
+            Etag = etag;
             SourceId = sourceId;
         }
 
-        public PullUploadParamter(string name, string url, string etag) : this(name, url, etag, null)
+        public PullUploadParameter(string name, string url, string etag) : this(name, url, etag, null)
         {
         }
 
-        public PullUploadParamter(string name, string url) : this(name, url, null, null)
+        public PullUploadParameter(string name, string url) : this(name, url, null, null)
         {
         }
 
@@ -41,7 +41,8 @@
         public string Name { get; }
 
         /// <summary>
-        ///     The id of the file, that is usually used for establishing relationship between bimface and the invoker's business system
+        ///     The id of the file, that is usually used for establishing relationship between bimface and the invoker's business
+        ///     system
         ///     自定义文件Id，通常用于在bimface文件系统和调用方业务系统之间建立关系
         /// </summary>
         public string SourceId { get; }

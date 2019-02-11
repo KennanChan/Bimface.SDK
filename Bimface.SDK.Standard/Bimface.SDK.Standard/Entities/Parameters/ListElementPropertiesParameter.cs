@@ -1,17 +1,22 @@
-﻿using System;
-using Bimface.SDK.Entities.Core;
+﻿using Bimface.SDK.Entities.Core.Requests;
 
 namespace Bimface.SDK.Entities.Parameters
 {
-    public class ListElementPropertiesParameter
+    public class ListElementPropertiesParameter : FileParameter
     {
-        public ListElementPropertiesParameter(long? fileId, ElementPropertyFilterRequest filter)
+        #region Constructors
+
+        public ListElementPropertiesParameter(long? fileId, ElementPropertyFilterRequest filter) : base(fileId)
         {
-            FileId = fileId;
             FilterRequest = filter;
         }
 
-        public long? FileId { get; }
+        #endregion
+
+        #region Properties
+
         public ElementPropertyFilterRequest FilterRequest { get; }
+
+        #endregion
     }
 }

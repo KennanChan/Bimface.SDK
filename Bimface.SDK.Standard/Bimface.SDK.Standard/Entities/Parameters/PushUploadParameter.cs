@@ -16,8 +16,8 @@ namespace Bimface.SDK.Entities.Parameters
 
         public PushUploadParameter(string name, Stream fileStream, string sourceId)
         {
-            Name     = name;
-            Stream   = fileStream;
+            Name = name;
+            Stream = fileStream;
             SourceId = sourceId;
         }
 
@@ -25,7 +25,8 @@ namespace Bimface.SDK.Entities.Parameters
         {
         }
 
-        public PushUploadParameter(string name, string localFilePath, string sourceId) : this(name, new FileInfo(localFilePath), sourceId)
+        public PushUploadParameter(string name, string localFilePath, string sourceId) : this(name,
+            new FileInfo(localFilePath), sourceId)
         {
         }
 
@@ -33,7 +34,8 @@ namespace Bimface.SDK.Entities.Parameters
         {
         }
 
-        public PushUploadParameter(string name, FileInfo localFile, string sourceId) : this(name, localFile.AsStream(), sourceId)
+        public PushUploadParameter(string name, FileInfo localFile, string sourceId) : this(name, localFile.AsStream(),
+            sourceId)
         {
         }
 
@@ -45,9 +47,9 @@ namespace Bimface.SDK.Entities.Parameters
 
         #region Properties
 
-        internal string Name     { get; }
+        internal string Name { get; }
         internal string SourceId { get; }
-        internal Stream Stream   { get; }
+        internal Stream Stream { get; }
 
         #endregion
     }

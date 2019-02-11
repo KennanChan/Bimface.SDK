@@ -1,9 +1,13 @@
 ﻿namespace Bimface.SDK.Entities.Parameters
 {
-    public class DeleteFileParameter:FileParameter
+    public class DeleteFileParameter : FileParameter
     {
-        public DeleteFileParameter(long? fileId):base(fileId)
+        #region Constructors
+
+        public DeleteFileParameter(long? fileId) : base(fileId)
         {
         }
+
+        #endregion
     }
 }

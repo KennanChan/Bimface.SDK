@@ -1,14 +1,20 @@
 ﻿namespace Bimface.SDK.Entities.Parameters
 {
-    public class LookupElementPropertyParameter
+    public class LookupElementPropertyParameter : FileParameter
     {
-        public LookupElementPropertyParameter(long? fileId, string elementId)
+        #region Constructors
+
+        public LookupElementPropertyParameter(long? fileId, string elementId) : base(fileId)
         {
-            FileId = fileId;
             ElementId = elementId;
         }
 
+        #endregion
+
+        #region Properties
+
         public string ElementId { get; }
-        public long? FileId { get; }
+
+        #endregion
     }
 }

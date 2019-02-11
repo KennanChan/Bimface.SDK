@@ -2,6 +2,6 @@
 {
     public interface IHttpClient
     {
-        IHttpResponse Request(IHttpRequest request);
+        IHttpResponse GetResponse(IHttpRequest request);
     }
 }

@@ -1,50 +1,62 @@
-﻿using System;
+﻿using Bimface.SDK.Interfaces.Infrastructure.Http;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 namespace Bimface.SDK.Entities.Http
 {
-    internal abstract class HttpRequest : IHttpRequest
+    public abstract class HttpRequest : IHttpRequest
     {
-        public long? GetContentLength()
+        private Dictionary<string, string> _headers;
+        private long? _contentLength;
+        private string _contentType;
+        #region Interface Implementations
+
+        public virtual long? GetContentLength()
+        {
+            return GetRequestStream()?.Length;
+        }
+
+        public virtual string GetContentType()
+        {
+            return "application/json";
+        }
+
+        public virtual IDictionary<string, string> GetHeaders()
         {
             throw new NotImplementedException();
         }
 
-        public string GetContentType()
+        public virtual string GetMethod()
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<string, string> GetHeaders()
+        public virtual IDictionary<string, string> GetQueries()
         {
             throw new NotImplementedException();
         }
 
-        public string GetMethod()
+        public virtual Stream GetRequestStream()
         {
             throw new NotImplementedException();
         }
 
-        public IDictionary<string, string> GetQueries()
+        public virtual Uri GetUri()
         {
             throw new NotImplementedException();
         }
 
-        public Stream GetRequestStream()
+        public virtual string GetUrl()
         {
             throw new NotImplementedException();
         }
 
-        public Uri GetUri()
+        protected void AddHeader(string name, string value)
         {
-            throw new NotImplementedException();
+
         }
 
-        public string GetUrl()
-        {
-            throw new NotImplementedException();
-        }
+        #endregion
     }
 }

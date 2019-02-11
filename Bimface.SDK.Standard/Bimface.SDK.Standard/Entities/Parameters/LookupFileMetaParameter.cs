@@ -1,8 +1,9 @@
-﻿using System;
-namespace Bimface.SDK.Entities.Parameters
+﻿namespace Bimface.SDK.Entities.Parameters
 {
-    public class LookupFileMetaParameter
+    public class LookupFileMetaParameter : FileParameter
     {
-        public long? FileId { get; set; }
+        public LookupFileMetaParameter(long? fileId) : base(fileId)
+        {
+        }
     }
 }

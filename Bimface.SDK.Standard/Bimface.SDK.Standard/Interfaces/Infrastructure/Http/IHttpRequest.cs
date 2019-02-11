@@ -18,5 +18,6 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
         Stream GetRequestStream();
         Uri GetUri();
         string GetUrl();
+        string GetFullUrl();
     }
 }

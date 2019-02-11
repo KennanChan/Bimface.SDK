@@ -1,14 +1,20 @@
 ﻿namespace Bimface.SDK.Entities.Parameters
 {
-    public class ListElementMaterialsParameter
+    public class ListElementMaterialsParameter : FileParameter
     {
-        public string ElementId { get; }
-        public long? FileId { get; }
+        #region Constructors
 
-        public ListElementMaterialsParameter(long? fileId, string elementId)
+        public ListElementMaterialsParameter(long? fileId, string elementId) : base(fileId)
         {
-            FileId = fileId;
             ElementId = elementId;
         }
+
+        #endregion
+
+        #region Properties
+
+        public string ElementId { get; }
+
+        #endregion
     }
 }

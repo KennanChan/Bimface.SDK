@@ -9,8 +9,8 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
 {
     public interface IHttpResponse
     {
-        IDictionary<string, string> GetHeaders();
         string GetHeader(string headerName);
+        IDictionary<string, string> GetHeaders();
         Stream GetResponseStream();
         int GetStatusCode();
     }

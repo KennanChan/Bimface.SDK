@@ -1,10 +1,8 @@
-﻿using System;
-namespace Bimface.SDK.Entities.Core
+﻿namespace Bimface.SDK.Entities.Core.Requests
 {
     public class ElementPropertyFilterRequest
     {
-        public ElementPropertyFilterRequest()
-        {
-        }
+        public string[] ElementIds { get; set; }
+        public GroupAndKeysPair[] Filter { get; set; }
     }
 }

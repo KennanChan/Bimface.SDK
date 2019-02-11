@@ -4,6 +4,8 @@ namespace Bimface.SDK.Entities.Core
 {
     public class ModelCompareEntity
     {
+        #region Properties
+
         public long? CompareId { get; set; }
         public DateTime CreateTime { get; set; }
         public string Name { get; set; }
@@ -12,5 +14,7 @@ namespace Bimface.SDK.Entities.Core
         public string SourceId { get; set; }
         public string Status { get; set; }
         public object[] Thumbnails { get; set; }
+
+        #endregion
     }
 }

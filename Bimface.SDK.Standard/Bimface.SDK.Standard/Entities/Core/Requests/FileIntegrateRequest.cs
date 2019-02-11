@@ -1,14 +1,16 @@
 using System.Collections.Generic;
 
-namespace Bimface.SDK.Entities.Core
+namespace Bimface.SDK.Entities.Core.Requests
 {
-  public class FileIntegrateRequest
-  {
+    public class FileIntegrateRequest
+    {
+        #region Properties
+
         public string Callback { get; set; }
         public string Config { get; set; }
         public FloorMappingItem[] FloorMapping { get; set; }
         public string[] FlootSort { get; set; }
-        public IDictionary<string,string> InternalConfigMap { get; set; }
+        public IDictionary<string, string> InternalConfigMap { get; set; }
         public string Name { get; set; }
         public long? ParentIntegrateId { get; set; }
         public int? Priority { get; set; }
@@ -17,5 +19,7 @@ namespace Bimface.SDK.Entities.Core
         public string SourceId { get; set; }
         public IntegrateSource[] Sources { get; set; }
         public string[] SpecialtySort { get; set; }
+
+        #endregion
     }
 }

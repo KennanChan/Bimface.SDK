@@ -10,7 +10,6 @@
     <Compile Remove="Entities\Core\GeneralResponse.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\Core\Geometry\" />
     <Folder Include="Entities\Core\Requests\" />
   </ItemGroup>
 </Project>

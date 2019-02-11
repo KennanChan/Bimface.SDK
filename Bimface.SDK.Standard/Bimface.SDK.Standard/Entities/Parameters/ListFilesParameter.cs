@@ -1,8 +1,11 @@
 ﻿using System;
+
 namespace Bimface.SDK.Entities.Parameters
 {
     public class ListFilesParameter
     {
+        #region Properties
+
         public DateTime EndTime { get; set; }
         public long? Offset { get; set; }
         public long? Rows { get; set; }
@@ -10,5 +13,7 @@ namespace Bimface.SDK.Entities.Parameters
         public DateTime StartTime { get; set; }
         public string Status { get; set; }
         public string Suffix { get; set; }
+
+        #endregion
     }
 }
