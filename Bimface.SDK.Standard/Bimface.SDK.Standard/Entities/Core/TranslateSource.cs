@@ -4,9 +4,9 @@
     {
         #region Properties
 
-        public bool Compressed { get; set; }
-        public long? FileId { get; set; }
-        public string RootName { get; set; }
+        public bool   Compressed { get; set; }
+        public long?  FileId     { get; set; }
+        public string RootName   { get; set; }
 
         #endregion
     }

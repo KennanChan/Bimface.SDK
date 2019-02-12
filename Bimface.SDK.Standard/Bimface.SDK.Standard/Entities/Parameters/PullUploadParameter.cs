@@ -10,9 +10,9 @@
 
         public PullUploadParameter(string name, string url, string etag, string sourceId)
         {
-            Name = name;
-            Url = url;
-            Etag = etag;
+            Name     = name;
+            Url      = url;
+            Etag     = etag;
             SourceId = sourceId;
         }
 

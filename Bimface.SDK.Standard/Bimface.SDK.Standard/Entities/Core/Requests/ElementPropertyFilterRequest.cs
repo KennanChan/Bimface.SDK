@@ -2,7 +2,11 @@
 {
     public class ElementPropertyFilterRequest
     {
-        public string[] ElementIds { get; set; }
-        public GroupAndKeysPair[] Filter { get; set; }
+        #region Properties
+
+        public string[]           ElementIds { get; set; }
+        public GroupAndKeysPair[] Filter     { get; set; }
+
+        #endregion
     }
 }

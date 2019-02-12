@@ -1,6 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters;
+
+#endregion
 
 namespace Bimface.SDK.Interfaces.Core
 {

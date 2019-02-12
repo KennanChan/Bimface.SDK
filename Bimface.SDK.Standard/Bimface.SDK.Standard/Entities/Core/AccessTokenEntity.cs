@@ -11,7 +11,7 @@ namespace Bimface.SDK.Entities.Core
         #region Properties
 
         public DateTime ExpireTime { get; set; }
-        public string Token { get; set; }
+        public string   Token      { get; set; }
 
         #endregion
     }

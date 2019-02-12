@@ -1,12 +1,12 @@
 ﻿#region
 
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 #endregion
 
@@ -14,10 +14,16 @@ namespace Bimface.SDK.Services
 {
     internal class SourceFileService : HttpService, ISourceFileService
     {
+        #region Constructors
+
         public SourceFileService(IHttpClient client, IResponseResolver responseResolver) : base(client,
             responseResolver)
         {
         }
+
+        #endregion
+
+        #region Interface Implementations
 
         public Task<AppendFileEntity> CreateAppendFile(CreateAppendFileParameter parameter)
         {
@@ -73,5 +79,7 @@ namespace Bimface.SDK.Services
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

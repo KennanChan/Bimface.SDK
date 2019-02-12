@@ -1,5 +1,9 @@
-﻿using Bimface.SDK.Entities.Core.Geometry;
+﻿#region
+
 using System.Collections.Generic;
+using Bimface.SDK.Entities.Core.Geometry;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core
 {
@@ -7,16 +11,16 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        public double Area { get; set; }
-        public Coordinate BboxMax { get; set; }
-        public Coordinate BboxMin { get; set; }
-        public string Boundary { get; set; }
-        public string Id { get; set; }
-        public string LevelId { get; set; }
-        public Coordinate MaxPt { get; set; }
-        public Coordinate MinPt { get; set; }
-        public string Name { get; set; }
-        public double Perimeter { get; set; }
+        public double              Area       { get; set; }
+        public Coordinate          BboxMax    { get; set; }
+        public Coordinate          BboxMin    { get; set; }
+        public string              Boundary   { get; set; }
+        public string              Id         { get; set; }
+        public string              LevelId    { get; set; }
+        public Coordinate          MaxPt      { get; set; }
+        public Coordinate          MinPt      { get; set; }
+        public string              Name       { get; set; }
+        public double              Perimeter  { get; set; }
         public List<PropertyGroup> Properties { get; set; }
 
         #endregion

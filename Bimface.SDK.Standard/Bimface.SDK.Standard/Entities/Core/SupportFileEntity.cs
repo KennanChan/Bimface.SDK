@@ -4,8 +4,8 @@
     {
         #region Properties
 
-        public long? Length { get; set; }
-        public object[] Types { get; set; }
+        public long?    Length { get; set; }
+        public object[] Types  { get; set; }
 
         #endregion
     }

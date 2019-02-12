@@ -1,8 +1,12 @@
-﻿using Bimface.SDK.Interfaces.Infrastructure.Http;
+﻿#region
+
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Http
 {
@@ -42,7 +46,7 @@ namespace Bimface.SDK.Entities.Http
 
         public int GetStatusCode()
         {
-            return (int)Response.StatusCode;
+            return (int) Response.StatusCode;
         }
 
         #endregion

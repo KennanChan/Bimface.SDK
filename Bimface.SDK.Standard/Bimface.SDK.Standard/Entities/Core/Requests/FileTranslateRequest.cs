@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Requests
 {
@@ -6,10 +10,10 @@ namespace Bimface.SDK.Entities.Core.Requests
     {
         #region Properties
 
-        public string Callback { get; set; }
-        public IDictionary<string, string> Config { get; set; }
-        public int? Priority { get; set; }
-        public TranslateSource Source { get; set; }
+        public string                      Callback { get; set; }
+        public IDictionary<string, string> Config   { get; set; }
+        public int?                        Priority { get; set; }
+        public TranslateSource             Source   { get; set; }
 
         #endregion
     }

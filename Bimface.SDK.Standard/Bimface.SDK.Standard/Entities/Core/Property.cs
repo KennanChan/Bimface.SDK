@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Core.Geometry;
+﻿#region
+
+using Bimface.SDK.Entities.Core.Geometry;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core
 {
@@ -6,12 +10,12 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        public BoundingBox BoundingBox { get; set; }
-        public string ElementId { get; set; }
-        public string FamilyGuid { get; set; }
-        public string Guid { get; set; }
-        public string Name { get; set; }
-        public PropertyGroup[] Properties { get; set; }
+        public BoundingBox     BoundingBox { get; set; }
+        public string          ElementId   { get; set; }
+        public string          FamilyGuid  { get; set; }
+        public string          Guid        { get; set; }
+        public string          Name        { get; set; }
+        public PropertyGroup[] Properties  { get; set; }
 
         #endregion
     }

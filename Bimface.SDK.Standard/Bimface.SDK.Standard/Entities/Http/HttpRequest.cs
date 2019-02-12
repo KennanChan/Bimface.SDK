@@ -1,15 +1,24 @@
-﻿using Bimface.SDK.Interfaces.Infrastructure.Http;
+﻿#region
+
 using System;
 using System.Collections.Generic;
 using System.IO;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Http
 {
     public abstract class HttpRequest : IHttpRequest
     {
+        #region Fields
+
+        private long?                      _contentLength;
+        private string                     _contentType;
         private Dictionary<string, string> _headers;
-        private long? _contentLength;
-        private string _contentType;
+
+        #endregion
+
         #region Interface Implementations
 
         public virtual long? GetContentLength()
@@ -52,11 +61,10 @@ namespace Bimface.SDK.Entities.Http
             throw new NotImplementedException();
         }
 
+        #endregion
+
         protected void AddHeader(string name, string value)
         {
-
         }
-
-        #endregion
     }
 }

@@ -4,11 +4,11 @@
     {
         #region Properties
 
-        public string Building { get; set; }
+        public string Building  { get; set; }
         public string DatabagId { get; set; }
-        public long? FileId { get; set; }
-        public string FileName { get; set; }
-        public string Floor { get; set; }
+        public long?  FileId    { get; set; }
+        public string FileName  { get; set; }
+        public string Floor     { get; set; }
         public float? FloorSort { get; set; }
 
         /// <summary>
@@ -17,8 +17,8 @@
         /// <value>The name of the domain.</value>
         public string Specialty { get; set; }
 
-        public float? SpecialtySort { get; set; }
-        public double[] Transform { get; set; }
+        public float?   SpecialtySort { get; set; }
+        public double[] Transform     { get; set; }
 
         #endregion
     }

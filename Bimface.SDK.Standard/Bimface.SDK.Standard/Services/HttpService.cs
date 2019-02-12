@@ -1,9 +1,9 @@
 ﻿#region
 
+using System.Threading.Tasks;
 using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
-using System.Threading.Tasks;
 
 #endregion
 
@@ -11,19 +11,22 @@ namespace Bimface.SDK.Services
 {
     internal abstract class HttpService : LogObject
     {
+        #region Constructors
+
         protected HttpService(IHttpClient client, IResponseResolver responseResolver)
         {
-            Client = client;
+            Client           = client;
             ResponseResolver = responseResolver;
         }
 
-        protected IHttpClient Client { get; }
+        #endregion
+
+        #region Properties
+
+        protected IHttpClient       Client           { get; }
         protected IResponseResolver ResponseResolver { get; }
 
-        protected async Task<T> FetchAsync<T>(IHttpRequest request)
-        {
-            return await Task.Run(() => Fetch<T>(request));
-        }
+        #endregion
 
         protected T Fetch<T>(IHttpRequest request)
         {
@@ -31,14 +34,19 @@ namespace Bimface.SDK.Services
             return ResponseResolver.Resolve<T>(response);
         }
 
-        protected void SendAsync(IHttpRequest request)
+        protected async Task<T> FetchAsync<T>(IHttpRequest request)
         {
-            Task.Run(() => Send(request));
+            return await Task.Run(() => Fetch<T>(request));
         }
 
         protected void Send(IHttpRequest request)
         {
             Client.GetResponse(request);
+        }
+
+        protected void SendAsync(IHttpRequest request)
+        {
+            Task.Run(() => Send(request));
         }
     }
 }

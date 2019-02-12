@@ -5,7 +5,7 @@
         #region Properties
 
         public long? AppendFileId { get; set; }
-        public long? Position { get; set; }
+        public long? Position     { get; set; }
 
         #endregion
     }

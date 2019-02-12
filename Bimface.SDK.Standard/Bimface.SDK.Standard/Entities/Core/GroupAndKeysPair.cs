@@ -2,7 +2,11 @@
 {
     public class GroupAndKeysPair
     {
-        public string Group { get; set; }
-        public string[] Keys { get; set; }
+        #region Properties
+
+        public string   Group { get; set; }
+        public string[] Keys  { get; set; }
+
+        #endregion
     }
 }

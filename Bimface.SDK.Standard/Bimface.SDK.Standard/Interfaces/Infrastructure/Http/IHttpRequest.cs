@@ -12,12 +12,12 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
     {
         long? GetContentLength();
         string GetContentType();
+        string GetFullUrl();
         IDictionary<string, string> GetHeaders();
         string GetMethod();
         IDictionary<string, string> GetQueries();
         Stream GetRequestStream();
         Uri GetUri();
         string GetUrl();
-        string GetFullUrl();
     }
 }

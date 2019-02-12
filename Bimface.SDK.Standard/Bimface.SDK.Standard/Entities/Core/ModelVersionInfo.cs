@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core
 {
@@ -6,11 +10,11 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        public IDictionary<string, string> Config { get; set; }
-        public string DatabagId { get; set; }
-        public bool IsSupportComponentProperty { get; set; }
-        public bool IsSupportDrawing { get; set; }
-        public bool IsSupportFamilyTypeList { get; set; }
+        public IDictionary<string, string> Config                     { get; set; }
+        public string                      DatabagId                  { get; set; }
+        public bool                        IsSupportComponentProperty { get; set; }
+        public bool                        IsSupportDrawing           { get; set; }
+        public bool                        IsSupportFamilyTypeList    { get; set; }
 
         #endregion
     }

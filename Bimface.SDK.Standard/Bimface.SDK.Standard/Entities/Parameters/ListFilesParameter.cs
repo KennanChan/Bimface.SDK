@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters
 {
@@ -6,13 +10,13 @@ namespace Bimface.SDK.Entities.Parameters
     {
         #region Properties
 
-        public DateTime EndTime { get; set; }
-        public long? Offset { get; set; }
-        public long? Rows { get; set; }
-        public string Scope { get; set; }
+        public DateTime EndTime   { get; set; }
+        public long?    Offset    { get; set; }
+        public long?    Rows      { get; set; }
+        public string   Scope     { get; set; }
         public DateTime StartTime { get; set; }
-        public string Status { get; set; }
-        public string Suffix { get; set; }
+        public string   Status    { get; set; }
+        public string   Suffix    { get; set; }
 
         #endregion
     }

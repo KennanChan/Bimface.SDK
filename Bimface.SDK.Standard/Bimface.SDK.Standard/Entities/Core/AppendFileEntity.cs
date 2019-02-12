@@ -10,13 +10,13 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        public long? AppendFileId { get; set; }
-        public DateTime CreateTime { get; set; }
-        public FileEntity File { get; set; }
-        public long? Length { get; set; }
-        public string Name { get; set; }
-        public long? Position { get; set; }
-        public string Status { get; set; }
+        public long?      AppendFileId { get; set; }
+        public DateTime   CreateTime   { get; set; }
+        public FileEntity File         { get; set; }
+        public long?      Length       { get; set; }
+        public string     Name         { get; set; }
+        public long?      Position     { get; set; }
+        public string     Status       { get; set; }
 
         #endregion
     }
