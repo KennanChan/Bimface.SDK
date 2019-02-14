@@ -1,15 +1,29 @@
-﻿namespace Bimface.SDK.Entities.Core
+﻿using System.Runtime.Serialization;
+
+namespace Bimface.SDK.Entities.Core
 {
+    [DataContract]
     public class PropertyItem
     {
         #region Properties
 
-        public string Code      { get; set; }
+        [DataMember(Name = "code")]
+        public string Code { get; set; }
+
+        [DataMember(Name = "extension")]
         public object Extension { get; set; }
-        public string Key       { get; set; }
-        public string Unit      { get; set; }
-        public object Value     { get; set; }
-        public int?   ValueType { get; set; }
+
+        [DataMember(Name = "key")]
+        public string Key { get; set; }
+
+        [DataMember(Name = "unit")]
+        public string Unit { get; set; }
+
+        [DataMember(Name = "value")]
+        public object Value { get; set; }
+
+        [DataMember(Name = "valueType")]
+        public int? ValueType { get; set; }
 
         #endregion
     }

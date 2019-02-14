@@ -1,11 +1,17 @@
-﻿namespace Bimface.SDK.Entities.Core.Requests
+﻿using System.Runtime.Serialization;
+
+namespace Bimface.SDK.Entities.Core.Requests
 {
+    [DataContract]
     public class ElementPropertyFilterRequest
     {
         #region Properties
 
-        public string[]           ElementIds { get; set; }
-        public GroupAndKeysPair[] Filter     { get; set; }
+        [DataMember(Name = "elementIds")]
+        public string[] ElementIds { get; set; }
+
+        [DataMember(Name = "filter")]
+        public GroupAndKeysPair[] Filter { get; set; }
 
         #endregion
     }

@@ -1,12 +1,22 @@
-﻿namespace Bimface.SDK.Entities.Core
+﻿using System.Runtime.Serialization;
+
+namespace Bimface.SDK.Entities.Core
 {
+    [DataContract]
     public class Link
     {
         #region Properties
 
-        public string Guid      { get; set; }
-        public long?  Id        { get; set; }
-        public string Name      { get; set; }
+        [DataMember(Name = "guid")]
+        public string Guid { get; set; }
+
+        [DataMember(Name = "id")]
+        public long? Id { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "transform")]
         public string Transform { get; set; }
 
         #endregion

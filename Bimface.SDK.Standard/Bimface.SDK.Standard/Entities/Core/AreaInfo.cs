@@ -1,25 +1,46 @@
 ﻿#region
 
+using System.Runtime.Serialization;
 using Bimface.SDK.Entities.Core.Geometry;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Core
 {
+    [DataContract]
     public class AreaInfo
     {
         #region Properties
 
-        public double          Area       { get; set; }
-        public string          Boundary   { get; set; }
-        public string          Id         { get; set; }
-        public string          LevelId    { get; set; }
-        public Coordinate      MaxPt      { get; set; }
-        public Coordinate      MinPt      { get; set; }
-        public string          Name       { get; set; }
-        public double          Perimeter  { get; set; }
+        [DataMember(Name = "area")]
+        public double Area { get; set; }
+
+        [DataMember(Name = "boundary")]
+        public string Boundary { get; set; }
+
+        [DataMember(Name = "id")]
+        public string Id { get; set; }
+
+        [DataMember(Name = "levelId")]
+        public string LevelId { get; set; }
+
+        [DataMember(Name = "maxPt")]
+        public Coordinate MaxPt { get; set; }
+
+        [DataMember(Name = "minPt")]
+        public Coordinate MinPt { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "perimeter")]
+        public double Perimeter { get; set; }
+
+        [DataMember(Name = "properties")]
         public PropertyGroup[] Properties { get; set; }
-        public string          ViewName   { get; set; }
+
+        [DataMember(Name = "viewName")]
+        public string ViewName { get; set; }
 
         #endregion
     }

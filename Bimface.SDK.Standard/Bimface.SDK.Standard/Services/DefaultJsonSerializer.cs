@@ -1,5 +1,7 @@
 ﻿#region
 
+using System;
+using System.Collections.Concurrent;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using System.Text;
@@ -13,11 +15,14 @@ namespace Bimface.SDK.Services
     {
         #region Interface Implementations
 
+        private static ConcurrentDictionary<Type, DataContractJsonSerializer> Serializers { get; } =
+            new ConcurrentDictionary<Type, DataContractJsonSerializer>();
+
         public T Deserialize<T>(string @string)
         {
             using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(new StringReader(@string).ReadToEnd())))
             {
-                var serializer = new DataContractJsonSerializer(typeof(T));
+                var serializer = GetSerializer(typeof(T));
                 return (T) serializer.ReadObject(stream);
             }
         }
@@ -28,7 +33,7 @@ namespace Bimface.SDK.Services
             {
                 using (var stream = new MemoryStream())
                 {
-                    var serializer = new DataContractJsonSerializer(obj.GetType());
+                    var serializer = GetSerializer(obj.GetType());
                     serializer.WriteObject(stream, obj);
                     stream.Position = 0;
                     while (true)
@@ -46,6 +51,11 @@ namespace Bimface.SDK.Services
 
                 return stringWriter.ToString();
             }
+        }
+
+        private static DataContractJsonSerializer GetSerializer(Type t)
+        {
+            return Serializers.GetOrAdd(t, new DataContractJsonSerializer(t));
         }
 
         #endregion

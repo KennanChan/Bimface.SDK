@@ -1,17 +1,35 @@
-﻿namespace Bimface.SDK.Entities.Core
+﻿using System.Runtime.Serialization;
+
+namespace Bimface.SDK.Entities.Core
 {
+    [DataContract]
     public class UploadPolicyEntity
     {
         #region Properties
 
-        public string AccessId     { get; set; }
+        [DataMember(Name = "accessId")]
+        public string AccessId { get; set; }
+
+        [DataMember(Name = "callbackBody")]
         public string CallbackBody { get; set; }
-        public long?  Expire       { get; set; }
-        public string Host         { get; set; }
-        public string ObjectKey    { get; set; }
-        public string Policy       { get; set; }
-        public string Signature    { get; set; }
-        public string SourceId     { get; set; }
+
+        [DataMember(Name = "expire")]
+        public long? Expire { get; set; }
+
+        [DataMember(Name = "host")]
+        public string Host { get; set; }
+
+        [DataMember(Name = "objectKey")]
+        public string ObjectKey { get; set; }
+
+        [DataMember(Name = "policy")]
+        public string Policy { get; set; }
+
+        [DataMember(Name = "signature")]
+        public string Signature { get; set; }
+
+        [DataMember(Name = "sourceId")]
+        public string SourceId { get; set; }
 
         #endregion
     }

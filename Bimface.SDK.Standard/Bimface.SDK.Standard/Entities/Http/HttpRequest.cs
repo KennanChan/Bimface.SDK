@@ -13,10 +13,6 @@ namespace Bimface.SDK.Entities.Http
     {
         #region Fields
 
-        private long?                      _contentLength;
-        private string                     _contentType;
-        private Dictionary<string, string> _headers;
-
         #endregion
 
         #region Interface Implementations
@@ -29,6 +25,11 @@ namespace Bimface.SDK.Entities.Http
         public virtual string GetContentType()
         {
             return "application/json";
+        }
+
+        public string GetFullUrl()
+        {
+            throw new NotImplementedException();
         }
 
         public virtual IDictionary<string, string> GetHeaders()

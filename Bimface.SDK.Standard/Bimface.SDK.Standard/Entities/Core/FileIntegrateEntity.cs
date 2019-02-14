@@ -1,23 +1,40 @@
 #region
 
 using System;
+using System.Runtime.Serialization;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Core
 {
+    [DataContract]
     public class FileIntegrateEntity
     {
         #region Properties
 
-        public DateTime CreateTime  { get; set; }
-        public long?    IntegrateId { get; set; }
-        public string   Name        { get; set; }
-        public string   Priority    { get; set; }
-        public string   Reason      { get; set; }
-        public string   SourceId    { get; set; }
-        public string   Status      { get; set; }
-        public object[] Thumbnails  { get; set; }
+        [DataMember(Name = "createTime")]
+        public DateTime CreateTime { get; set; }
+
+        [DataMember(Name = "integrateId")]
+        public long? IntegrateId { get; set; }
+
+        [DataMember(Name = "name")]
+        public string Name { get; set; }
+
+        [DataMember(Name = "priority")]
+        public string Priority { get; set; }
+
+        [DataMember(Name = "reason")]
+        public string Reason { get; set; }
+
+        [DataMember(Name = "sourceId")]
+        public string SourceId { get; set; }
+
+        [DataMember(Name = "status")]
+        public string Status { get; set; }
+
+        [DataMember(Name = "thumbnails")]
+        public object[] Thumbnails { get; set; }
 
         #endregion
     }
