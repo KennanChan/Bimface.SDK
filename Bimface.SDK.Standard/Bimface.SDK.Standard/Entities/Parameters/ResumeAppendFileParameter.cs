@@ -2,10 +2,16 @@
 {
     public class ResumeAppendFileParameter
     {
+        public ResumeAppendFileParameter(long? appendFileId, long position)
+        {
+            AppendFileId = appendFileId;
+            Position = position;
+        }
+
         #region Properties
 
-        public long? AppendFileId { get; set; }
-        public long? Position     { get; set; }
+        public long? AppendFileId { get; }
+        public long? Position { get; }
 
         #endregion
     }

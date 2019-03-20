@@ -1,21 +1,26 @@
 ﻿#region
 
-using System.Threading.Tasks;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
+using System.Threading.Tasks;
 
 #endregion
 
 namespace Bimface.SDK.Services
 {
+    /// <summary>
+    ///     A base service to interact with server using HTTP
+    /// </summary>
     internal abstract class HttpService : LogObject
     {
         #region Constructors
 
         protected HttpService(IHttpClient client, IResponseResolver responseResolver)
         {
-            Client           = client;
+            Client = client;
             ResponseResolver = responseResolver;
         }
 
@@ -23,30 +28,37 @@ namespace Bimface.SDK.Services
 
         #region Properties
 
-        protected IHttpClient       Client           { get; }
+        protected IHttpClient Client { get; }
         protected IResponseResolver ResponseResolver { get; }
+        [Inject] internal IHttpContext Context { get; set; }
 
         #endregion
 
-        protected T Fetch<T>(IHttpRequest request)
+        protected async Task<T> FetchAsync<T>(HttpRequest request)
         {
-            var response = Client.GetResponse(request);
-            return ResponseResolver.Resolve<T>(response);
+            var middlewares = Context.GetMiddlewares();
+            foreach (var middleware in middlewares)
+            {
+                await middleware.Handle(request);
+            }
+
+            return await Task.Run(() =>
+            {
+                var response = Client.GetResponse(request);
+                return ResponseResolver.Resolve<T>(response);
+            });
         }
 
-        protected async Task<T> FetchAsync<T>(IHttpRequest request)
+        protected async Task SendAsync(HttpRequest request)
         {
-            return await Task.Run(() => Fetch<T>(request));
-        }
+            var middlewares = Context.GetMiddlewares();
+            foreach (var middleware in middlewares)
+            {
+                await middleware.Handle(request);
+            }
 
-        protected void Send(IHttpRequest request)
-        {
-            Client.GetResponse(request);
-        }
-
-        protected void SendAsync(IHttpRequest request)
-        {
-            Task.Run(() => Send(request));
+            await Task.Run(() =>
+                Client.GetResponse(request));
         }
     }
 }

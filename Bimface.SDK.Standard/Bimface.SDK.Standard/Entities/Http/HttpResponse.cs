@@ -1,10 +1,8 @@
 ﻿#region
 
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Net;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
+using System.IO;
+using System.Net;
 
 #endregion
 
@@ -12,6 +10,8 @@ namespace Bimface.SDK.Entities.Http
 {
     public class HttpResponse : IHttpResponse
     {
+        private Stream _body;
+
         #region Constructors
 
         internal HttpResponse(HttpWebResponse response)
@@ -29,26 +29,19 @@ namespace Bimface.SDK.Entities.Http
 
         #region Interface Implementations
 
-        public string GetHeader(string headerName)
-        {
-            return Response.GetResponseHeader(headerName);
-        }
-
-        public IDictionary<string, string> GetHeaders()
-        {
-            return Response.Headers.AllKeys.ToDictionary(key => key, key => Response.Headers[key]);
-        }
-
-        public Stream GetResponseStream()
-        {
-            return Response.GetResponseStream();
-        }
-
-        public int GetStatusCode()
-        {
-            return (int) Response.StatusCode;
-        }
-
         #endregion
+
+        public Stream Body
+        {
+            get => _body ?? Response.GetResponseStream();
+            internal set => _body = value;
+        }
+
+        public int StatusCode => (int)Response.StatusCode;
+
+        public string GetHeader(string name)
+        {
+            return Response.Headers[name];
+        }
     }
 }

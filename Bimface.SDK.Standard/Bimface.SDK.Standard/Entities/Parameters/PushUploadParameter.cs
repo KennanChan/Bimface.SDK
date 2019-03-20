@@ -1,7 +1,7 @@
 ﻿#region
 
-using System.IO;
 using Bimface.SDK.Extensions;
+using System.IO;
 
 #endregion
 
@@ -16,8 +16,8 @@ namespace Bimface.SDK.Entities.Parameters
 
         public PushUploadParameter(string name, Stream fileStream, string sourceId)
         {
-            Name     = name;
-            Stream   = fileStream;
+            Name = name;
+            Stream = fileStream;
             SourceId = sourceId;
         }
 
@@ -25,21 +25,13 @@ namespace Bimface.SDK.Entities.Parameters
         {
         }
 
-        public PushUploadParameter(string name, string localFilePath, string sourceId) : this(name,
+        public PushUploadParameter(string name, string localFilePath, string sourceId = null) : this(name,
             new FileInfo(localFilePath), sourceId)
         {
         }
 
-        public PushUploadParameter(string name, string localFilePath) : this(name, new FileInfo(localFilePath), null)
-        {
-        }
-
-        public PushUploadParameter(string name, FileInfo localFile, string sourceId) : this(name, localFile.AsStream(),
+        public PushUploadParameter(string name, FileInfo localFile, string sourceId = null) : this(name, localFile.AsStream(),
             sourceId)
-        {
-        }
-
-        public PushUploadParameter(string name, FileInfo localFile) : this(name, localFile.AsStream(), null)
         {
         }
 
@@ -47,9 +39,9 @@ namespace Bimface.SDK.Entities.Parameters
 
         #region Properties
 
-        internal string Name     { get; }
-        internal string SourceId { get; }
-        internal Stream Stream   { get; }
+        internal string Name { get; }
+        internal string SourceId { get; set; }
+        internal Stream Stream { get; }
 
         #endregion
     }

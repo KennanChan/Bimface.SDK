@@ -8,20 +8,12 @@
     {
         #region Constructors
 
-        public PullUploadParameter(string name, string url, string etag, string sourceId)
+        public PullUploadParameter(string name, string url, string etag = null, string sourceId = null)
         {
-            Name     = name;
-            Url      = url;
-            Etag     = etag;
+            Name = name;
+            Url = url;
+            Etag = etag;
             SourceId = sourceId;
-        }
-
-        public PullUploadParameter(string name, string url, string etag) : this(name, url, etag, null)
-        {
-        }
-
-        public PullUploadParameter(string name, string url) : this(name, url, null, null)
-        {
         }
 
         #endregion
@@ -32,7 +24,7 @@
         ///     The fingerprint of the file, that usually means the hash of the file
         ///     文件Id，通常是文件的hash值
         /// </summary>
-        public string Etag { get; }
+        public string Etag { get; set; }
 
         /// <summary>
         ///     The name of the file
@@ -45,7 +37,7 @@
         ///     system
         ///     自定义文件Id，通常用于在bimface文件系统和调用方业务系统之间建立关系
         /// </summary>
-        public string SourceId { get; }
+        public string SourceId { get; set; }
 
         /// <summary>
         ///     The remote address of the file. HTTP is currently the only supporting protocol.

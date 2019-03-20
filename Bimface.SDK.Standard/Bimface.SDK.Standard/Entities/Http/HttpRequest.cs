@@ -1,9 +1,16 @@
 ﻿#region
 
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Extensions;
+using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
-using Bimface.SDK.Interfaces.Infrastructure.Http;
+using System.Linq;
+using System.Text;
+using System.Web;
 
 #endregion
 
@@ -13,59 +20,111 @@ namespace Bimface.SDK.Entities.Http
     {
         #region Fields
 
+        private ConcurrentDictionary<string, string> _headers;
+        private ConcurrentDictionary<string, string> _queries;
+
+        #endregion
+
+        #region Constructors
+
+        protected HttpRequest(string host, string api, string method)
+        {
+            Method = method;
+            Host = host;
+            Path = api.StartsWith("/") ? api : $"/{api}";
+        }
+
+        protected HttpRequest(string host, string api)
+        {
+            Host = host;
+            Path = api.StartsWith("/") ? api : $"/{api}";
+        }
+
+        #endregion
+
+        #region Properties
+
+        [Inject] protected IJsonSerializer Serializer { get; set; }
+        private Stream Body { get; set; }
+
+        private ConcurrentDictionary<string, string> Headers =>
+            _headers ?? (_headers = new ConcurrentDictionary<string, string>());
+
+        private string Host { get; }
+        private string Method { get; set; }
+        private string Path { get; }
+
+        private ConcurrentDictionary<string, string> Queries =>
+            _queries ?? (_queries = new ConcurrentDictionary<string, string>());
+
         #endregion
 
         #region Interface Implementations
 
-        public virtual long? GetContentLength()
+        public Stream GetBody()
         {
-            return GetRequestStream()?.Length;
+            return Body;
         }
 
-        public virtual string GetContentType()
+        public IDictionary<string, string> GetHeaders()
         {
-            return "application/json";
+            return Headers.ToDictionary(h => h.Key, h => h.Value);
         }
 
-        public string GetFullUrl()
+        public string GetMethod()
         {
-            throw new NotImplementedException();
+            return Method;
         }
 
-        public virtual IDictionary<string, string> GetHeaders()
+        public Uri GetUri()
         {
-            throw new NotImplementedException();
-        }
-
-        public virtual string GetMethod()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual IDictionary<string, string> GetQueries()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Stream GetRequestStream()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual Uri GetUri()
-        {
-            throw new NotImplementedException();
-        }
-
-        public virtual string GetUrl()
-        {
-            throw new NotImplementedException();
+            return new Uri($"{Host}{Path}?{GetQueryString()}");
         }
 
         #endregion
 
-        protected void AddHeader(string name, string value)
+        internal void AddBody(Stream stream)
         {
+            Body = stream;
+        }
+
+        internal void AddHeader(string name, string value)
+        {
+            Headers.AddOrUpdate(name, value, (n, v) => value);
+        }
+
+        internal void AddJsonBody(object body)
+        {
+            Body = Serializer.Serialize(body).ToStream();
+        }
+
+        internal void AddQuery(string name, string value)
+        {
+            Queries.AddOrUpdate(name, value, (n, v) => value);
+        }
+
+        internal string GetQueryString()
+        {
+            var queries =
+                Queries
+                    .Where(query => !string.IsNullOrWhiteSpace(query.Value))
+                    .Select(query => $"{query.Key}={HttpUtility.UrlEncode(query.Value, Encoding.UTF8)}");
+            return string.Join("&", queries);
+        }
+
+        internal void SetContentType(string type)
+        {
+            AddHeader("Content-Type", type);
+        }
+
+        internal void SetContentLength(long length)
+        {
+            AddHeader("Content-Length", length.ToString());
+        }
+
+        internal void SetMethod(string method)
+        {
+            Method = method;
         }
     }
 }

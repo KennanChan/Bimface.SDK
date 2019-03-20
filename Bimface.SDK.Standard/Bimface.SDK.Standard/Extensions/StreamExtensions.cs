@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Bimface.SDK.Extensions
 {
-    public static class StreamExtension
+    public static class StreamExtensions
     {
         public static byte[] AsBytes(this Stream stream)
         {
@@ -21,18 +21,12 @@ namespace Bimface.SDK.Extensions
             }
         }
 
-        public static string AsString(this Stream stream, Encoding encoding)
+        public static string AsString(this Stream stream, Encoding encoding = null)
         {
-            if (null == encoding)
-                encoding = Encoding.UTF8;
+            encoding = encoding ?? Encoding.UTF8;
             if (stream.CanSeek)
                 stream.Seek(0, SeekOrigin.Begin);
             return encoding.GetString(stream.AsBytes());
-        }
-
-        public static string AsString(this Stream stream)
-        {
-            return stream.AsString(null);
         }
     }
 }

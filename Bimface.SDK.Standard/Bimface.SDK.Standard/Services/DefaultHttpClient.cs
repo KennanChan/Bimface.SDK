@@ -1,16 +1,16 @@
 ﻿#region
 
-using System.Linq;
-using System.Net;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
+using System.Linq;
+using System.Net;
 
 #endregion
 
 namespace Bimface.SDK.Services
 {
     /// <summary>
-    ///     The default implementation of <see cref="IHttpClient" />
+    ///     The default implementation of <see cref="IHttpClient" /> using the built-in <see cref="HttpWebRequest"/>
     /// </summary>
     internal class DefaultHttpClient : IHttpClient
     {
@@ -32,8 +32,7 @@ namespace Bimface.SDK.Services
         protected virtual HttpWebRequest CreateRequest(IHttpRequest request)
         {
             var realRequest = WebRequest.CreateHttp(request.GetUri());
-            realRequest.Method        = request.GetMethod();
-            realRequest.ContentLength = request.GetContentLength() ?? 0;
+            realRequest.Method = request.GetMethod();
             var headers = request.GetHeaders();
             headers.Keys.ToList().ForEach(key => { realRequest.Headers.Add(key, headers[key]); });
             return realRequest;

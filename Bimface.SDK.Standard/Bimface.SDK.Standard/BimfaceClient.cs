@@ -1,5 +1,13 @@
 ﻿#region
 
+using Bimface.SDK.Entities;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Extensions;
+using Bimface.SDK.Interfaces.Core;
+using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
+using Bimface.SDK.Middlewares;
+using Bimface.SDK.Services;
 using System;
 using System.ComponentModel.Design;
 
@@ -9,43 +17,91 @@ namespace Bimface.SDK
 {
     public class BimfaceClient : IServiceContainer
     {
+        #region Constructors
+
+        private BimfaceClient(AppCredential credential, IServiceContainer container)
+        {
+            Container = container ?? new ServiceContainer();
+            Container.Singleton(credential);
+        }
+
+        #endregion
+
+        #region Properties
+
+        private IServiceContainer Container { get; }
+
+        #endregion
+
         #region Interface Implementations
 
         public void AddService(Type serviceType, ServiceCreatorCallback callback)
         {
-            throw new NotImplementedException();
+            Container.AddService(serviceType, callback);
         }
 
         public void AddService(Type serviceType, ServiceCreatorCallback callback, bool promote)
         {
-            throw new NotImplementedException();
+            Container.AddService(serviceType, callback, promote);
         }
 
         public void AddService(Type serviceType, object serviceInstance)
         {
-            throw new NotImplementedException();
+            Container.AddService(serviceType, serviceInstance);
         }
 
         public void AddService(Type serviceType, object serviceInstance, bool promote)
         {
-            throw new NotImplementedException();
+            Container.AddService(serviceType, serviceInstance, promote);
         }
 
         public void RemoveService(Type serviceType)
         {
-            throw new NotImplementedException();
+            Container.RemoveService(serviceType);
         }
 
         public void RemoveService(Type serviceType, bool promote)
         {
-            throw new NotImplementedException();
+            Container.RemoveService(serviceType, promote);
         }
 
         public object GetService(Type serviceType)
         {
-            throw new NotImplementedException();
+            return Container.GetService(serviceType);
         }
 
         #endregion
+
+        /// <summary>
+        ///     Get or create a <see cref="BimfaceClient"/> using the <see cref="AppCredential"/> acquired from bimface.com
+        /// </summary>
+        /// <param name="credential"></param>
+        /// <param name="container"></param>
+        /// <returns></returns>
+        public static BimfaceClient GetOrCreate(AppCredential credential, IServiceContainer container = null)
+        {
+            return container?.GetService<BimfaceClient>() ?? new BimfaceClient(credential, container);
+        }
+
+        public void Init()
+        {
+            Container
+                .AddService<ILog, DefaultLogger>()
+                .AddService<IHttpClient, DefaultHttpClient>()
+                .AddService<IJsonSerializer, DefaultJsonSerializer>()
+                .AddService<IResponseResolver, DefaultResponseResolver>()
+                .Singleton<ISourceFileService, SourceFileService>()
+                .Singleton<AuthHandler>()
+                .Singleton<ResolveMethodHandler>()
+                .Singleton<ResolveHeaderHandler>()
+                .Singleton<IHttpContext, HttpContext>()
+                .Singleton(this);
+            Container
+                .GetService<IHttpContext>()
+                .UseContainer(Container)
+                .UseMiddleware<AuthHandler>()
+                .UseMiddleware<ResolveHeaderHandler>()
+                .UseMiddleware<ResolveMethodHandler>();
+        }
     }
 }

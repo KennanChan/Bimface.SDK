@@ -6,7 +6,7 @@ using System.IO;
 
 namespace Bimface.SDK.Extensions
 {
-    public static class FileInfoExtension
+    public static class FileInfoExtensions
     {
         public static Stream AsStream(this FileInfo file)
         {

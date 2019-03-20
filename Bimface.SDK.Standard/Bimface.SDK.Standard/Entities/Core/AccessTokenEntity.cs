@@ -8,7 +8,7 @@ using System.Runtime.Serialization;
 namespace Bimface.SDK.Entities.Core
 {
     [DataContract]
-    internal class AccessTokenEntity
+    public class AccessTokenEntity
     {
         #region Properties
 
