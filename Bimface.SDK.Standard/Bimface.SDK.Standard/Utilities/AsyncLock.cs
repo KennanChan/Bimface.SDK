@@ -7,30 +7,30 @@ namespace Bimface.SDK.Utilities
 {
     internal class AsyncLock
     {
-        private AsyncSemaphore Semaphore       { get; }
-        private Task<Releaser> CurrentReleaser { get; }
+        private AsyncSemaphore Semaphore { get; }
+        private Task<Guard> CurrentGuard { get; }
 
         public AsyncLock()
         {
-            Semaphore       = new AsyncSemaphore(1);
-            CurrentReleaser = Task.FromResult(new Releaser(this));
+            Semaphore = new AsyncSemaphore(1);
+            CurrentGuard = Task.FromResult(new Guard(this));
         }
 
-        public Task<Releaser> LockAsync()
+        public Task<Guard> LockAsync()
         {
             var wait = Semaphore.WaitAsync();
             return wait.IsCompleted
-                       ? CurrentReleaser
-                       : wait.ContinueWith((_, state) => new Releaser((AsyncLock) state),
+                       ? CurrentGuard
+                       : wait.ContinueWith((_, state) => new Guard((AsyncLock)state),
                            this, CancellationToken.None,
                            TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
 
-        public struct Releaser : IDisposable
+        public struct Guard : IDisposable
         {
             private AsyncLock ToRelease { get; }
 
-            internal Releaser(AsyncLock toRelease)
+            internal Guard(AsyncLock toRelease)
             {
                 ToRelease = toRelease;
             }
@@ -44,7 +44,7 @@ namespace Bimface.SDK.Utilities
         private class AsyncSemaphore
         {
             private readonly Queue<TaskCompletionSource<bool>> _waiters = new Queue<TaskCompletionSource<bool>>();
-            private          int                               _currentCount;
+            private int _currentCount;
 
             public AsyncSemaphore(int initialCount)
             {
