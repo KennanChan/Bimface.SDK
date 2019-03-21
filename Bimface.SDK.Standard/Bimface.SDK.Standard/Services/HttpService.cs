@@ -20,7 +20,7 @@ namespace Bimface.SDK.Services
 
         protected HttpService(IHttpClient client, IResponseResolver responseResolver)
         {
-            Client = client;
+            Client           = client;
             ResponseResolver = responseResolver;
         }
 
@@ -28,18 +28,26 @@ namespace Bimface.SDK.Services
 
         #region Properties
 
-        protected IHttpClient Client { get; }
+        protected IHttpClient       Client           { get; }
         protected IResponseResolver ResponseResolver { get; }
-        [Inject] internal IHttpContext Context { get; set; }
+
+        [Inject]
+        internal IHttpContext Context { get; set; }
 
         #endregion
 
         protected async Task<T> FetchAsync<T>(HttpRequest request)
         {
-            var middlewares = Context.GetMiddlewares();
+            var middlewares = Context.GetRequestPlugins();
             foreach (var middleware in middlewares)
             {
                 await middleware.Handle(request);
+            }
+
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (request is IHttpConfigurable configurable)
+            {
+                await configurable.Configure();
             }
 
             return await Task.Run(() =>
@@ -51,7 +59,7 @@ namespace Bimface.SDK.Services
 
         protected async Task SendAsync(HttpRequest request)
         {
-            var middlewares = Context.GetMiddlewares();
+            var middlewares = Context.GetRequestPlugins();
             foreach (var middleware in middlewares)
             {
                 await middleware.Handle(request);

@@ -8,9 +8,14 @@ namespace Bimface.SDK.Entities.Parameters
 {
     public class CreateTranslateParameter
     {
+        public CreateTranslateParameter(FileTranslateRequest request)
+        {
+            Request = request;
+        }
+
         #region Properties
 
-        private FileTranslateRequest Request { get; set; }
+        public FileTranslateRequest Request { get; }
 
         #endregion
     }

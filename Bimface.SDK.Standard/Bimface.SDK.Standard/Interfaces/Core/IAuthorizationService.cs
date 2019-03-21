@@ -5,7 +5,6 @@ namespace Bimface.SDK.Interfaces.Core
 {
     internal interface IAuthorizationService
     {
-        Task<AccessTokenEntity> GetAccessToken();
-        Task ClearAccessToken();
+        Task<string> GetAccessToken();
     }
 }

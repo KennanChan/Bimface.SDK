@@ -40,7 +40,7 @@ namespace Bimface.SDK.Services
             throw new NotImplementedException();
         }
 
-        public Task<AppendFileEntity> FetchAppendFile(FetchAppendFileParameter parameter)
+        public Task<AppendFileEntity> FetchAppendFile(LookupAppendFileParameter parameter)
         {
             throw new NotImplementedException();
         }

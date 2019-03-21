@@ -1,17 +1,17 @@
-﻿using Bimface.SDK.Attributes.Http;
-using Bimface.SDK.Entities.Http;
-using Bimface.SDK.Entities.Internal;
-using Bimface.SDK.Interfaces.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Bimface.SDK.Attributes.Http;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Internal;
+using Bimface.SDK.Interfaces.Infrastructure;
 
-namespace Bimface.SDK.Middlewares
+namespace Bimface.SDK.Plugins
 {
-    internal class ResolveHeaderHandler : LogObject, IMiddleware
+    internal class ResolveHeadersPlugin : LogObject, IRequestPlugin
     {
         private ConcurrentDictionary<Type, List<KeyValuePair<string, string>>> Headers { get; } =
             new ConcurrentDictionary<Type, List<KeyValuePair<string, string>>>();
@@ -24,7 +24,7 @@ namespace Bimface.SDK.Middlewares
                 {
                     var headers = type.GetCustomAttributes<HttpHeaderAttribute>(true);
                     return headers.Select(header => new KeyValuePair<string, string>(header.Name, header.Value))
-                        .ToList();
+                                  .ToList();
                 });
                 headerList.ForEach(header => request.AddHeader(header.Key, header.Value));
                 return Task.FromResult(true);

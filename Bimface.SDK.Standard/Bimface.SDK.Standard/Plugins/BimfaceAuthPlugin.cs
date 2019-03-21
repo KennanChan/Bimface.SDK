@@ -1,19 +1,19 @@
-﻿using Bimface.SDK.Attributes;
-using Bimface.SDK.Entities.Http;
-using Bimface.SDK.Entities.Internal;
-using Bimface.SDK.Interfaces.Core;
-using Bimface.SDK.Interfaces.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Internal;
+using Bimface.SDK.Interfaces.Core;
+using Bimface.SDK.Interfaces.Infrastructure;
 
-namespace Bimface.SDK.Middlewares
+namespace Bimface.SDK.Plugins
 {
-    internal class AuthHandler : LogObject, IMiddleware
+    internal class BimfaceAuthPlugin : LogObject, IRequestPlugin
     {
-        internal AuthHandler(IAuthorizationService authorizationService)
+        internal BimfaceAuthPlugin(IAuthorizationService authorizationService)
         {
             AuthorizationService = authorizationService;
         }

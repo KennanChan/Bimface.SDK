@@ -10,16 +10,18 @@ namespace Bimface.SDK.Entities.Parameters
     {
         #region Constructors
 
-        public ListElementPropertiesParameter(long? fileId, ElementPropertyFilterRequest filter) : base(fileId)
+        public ListElementPropertiesParameter(long? fileId, string elementId) : base(fileId)
         {
-            FilterRequest = filter;
+            ElementId = elementId;
         }
 
         #endregion
 
         #region Properties
 
-        public ElementPropertyFilterRequest FilterRequest { get; }
+        public bool? IncludeOverrides { get; set; }
+
+        public string ElementId { get; }
 
         #endregion
     }

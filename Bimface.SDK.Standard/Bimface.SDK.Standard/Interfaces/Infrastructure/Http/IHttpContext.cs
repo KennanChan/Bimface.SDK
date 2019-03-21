@@ -4,7 +4,7 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
 {
     internal interface IHttpContext
     {
-        void UseMiddleware(IMiddleware middleware);
-        IEnumerable<IMiddleware> GetMiddlewares();
+        void UseRequestPlugin(IRequestPlugin requestPlugin);
+        IEnumerable<IRequestPlugin> GetRequestPlugins();
     }
 }

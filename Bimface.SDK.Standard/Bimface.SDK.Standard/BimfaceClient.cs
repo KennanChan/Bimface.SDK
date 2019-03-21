@@ -6,10 +6,10 @@ using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
-using Bimface.SDK.Middlewares;
 using Bimface.SDK.Services;
 using System;
 using System.ComponentModel.Design;
+using Bimface.SDK.Plugins;
 
 #endregion
 
@@ -86,20 +86,20 @@ namespace Bimface.SDK
         public void Init()
         {
             Container
-                .AddService<ILog, DefaultLogger>()
-                .AddService<IHttpClient, DefaultHttpClient>()
-                .AddService<IJsonSerializer, DefaultJsonSerializer>()
-                .AddService<IResponseResolver, DefaultResponseResolver>()
-                .Singleton<ISourceFileService, SourceFileService>()
-                .Singleton<AuthHandler>()
-                .Singleton<ResolveHeaderHandler>()
-                .Singleton<IHttpContext, HttpContext>()
-                .Singleton(this);
+               .AddService<ILog, DefaultLogger>()
+               .AddService<IHttpClient, DefaultHttpClient>()
+               .AddService<IJsonSerializer, DefaultJsonSerializer>()
+               .AddService<IResponseResolver, DefaultResponseResolver>()
+               .Singleton<ISourceFileService, SourceFileService>()
+               .Singleton<BimfaceAuthPlugin>()
+               .Singleton<ResolveHeadersPlugin>()
+               .Singleton<IHttpContext, HttpContext>()
+               .Singleton(this);
             Container
-                .GetService<IHttpContext>()
-                .UseContainer(Container)
-                .UseMiddleware<AuthHandler>()
-                .UseMiddleware<ResolveHeaderHandler>();
+               .GetService<IHttpContext>()
+               .UseContainer(Container)
+               .UseRequestPlugin<BimfaceAuthPlugin>()
+               .UseRequestPlugin<ResolveHeadersPlugin>();
         }
     }
 }

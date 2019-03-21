@@ -5,9 +5,9 @@ using Bimface.SDK.Entities.Parameters;
 namespace Bimface.SDK.Requests
 {
     [BimfaceAuth]
-    internal class FetchAppendFileRequest : BimfaceFileRequest
+    internal class LookupAppendFileRequest : BimfaceFileRequest
     {
-        public FetchAppendFileRequest(FetchAppendFileParameter parameter) : base(HttpMethods.Get,
+        public LookupAppendFileRequest(LookupAppendFileParameter parameter) : base(HttpMethods.Get,
             $"/appendFiles/{parameter.AppendFileId}")
         {
 

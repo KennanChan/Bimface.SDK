@@ -1,10 +1,10 @@
 ﻿namespace Bimface.SDK.Entities.Parameters
 {
-    public class FetchAppendFileParameter
+    public class LookupAppendFileParameter
     {
         #region Constructors
 
-        public FetchAppendFileParameter(long? appendFileId)
+        public LookupAppendFileParameter(long? appendFileId)
         {
             AppendFileId = appendFileId;
         }

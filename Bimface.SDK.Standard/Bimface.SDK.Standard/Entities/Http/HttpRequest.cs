@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 
 #endregion
@@ -38,15 +39,17 @@ namespace Bimface.SDK.Entities.Http
 
         #region Properties
 
-        [Inject] protected IJsonSerializer Serializer { get; set; }
+        [Inject]
+        protected IJsonSerializer Serializer { get; set; }
+
         private Stream Body { get; set; }
 
         private ConcurrentDictionary<string, string> Headers =>
             _headers ?? (_headers = new ConcurrentDictionary<string, string>());
 
-        private string Host { get; }
+        private string Host   { get; }
         private string Method { get; }
-        private string Path { get; }
+        private string Path   { get; }
 
         private ConcurrentDictionary<string, string> Queries =>
             _queries ?? (_queries = new ConcurrentDictionary<string, string>());
@@ -101,8 +104,8 @@ namespace Bimface.SDK.Entities.Http
         {
             var queries =
                 Queries
-                    .Where(query => !string.IsNullOrWhiteSpace(query.Value))
-                    .Select(query => $"{query.Key}={HttpUtility.UrlEncode(query.Value, Encoding.UTF8)}");
+                   .Where(query => !string.IsNullOrWhiteSpace(query.Value))
+                   .Select(query => $"{query.Key}={HttpUtility.UrlEncode(query.Value, Encoding.UTF8)}");
             return string.Join("&", queries);
         }
 

@@ -5,6 +5,7 @@ using Bimface.SDK.Interfaces.Infrastructure.Http;
 using Bimface.SDK.Requests;
 using System;
 using System.Threading.Tasks;
+using Bimface.SDK.Utilities;
 
 namespace Bimface.SDK.Services
 {
@@ -12,8 +13,7 @@ namespace Bimface.SDK.Services
     {
         #region Fields
 
-        private readonly object _locker = new object();
-        private AccessTokenEntity _viewToken;
+        private readonly AsyncLock _locker = new AsyncLock();
 
         #endregion
 
@@ -31,46 +31,33 @@ namespace Bimface.SDK.Services
         /// <summary>
         ///     In-memory cache from view token
         /// </summary>
-        private AccessTokenEntity ViewToken
-        {
-            get
-            {
-                lock (_locker)
-                {
-                    return _viewToken;
-                }
-            }
-            set
-            {
-                lock (_locker)
-                {
-                    _viewToken = value;
-                }
-            }
-        }
+        private AccessTokenEntity AccessToken { get; set; }
+
+        private TimeSpan ExpireTolerance { get; } = TimeSpan.FromSeconds(1);
 
         #endregion
 
         #region Interface Implementations
 
-        public async Task<AccessTokenEntity> GetAccessToken()
+        public async Task<string> GetAccessToken()
         {
             try
             {
-                return ViewToken ??
-                       (ViewToken = await FetchAsync<AccessTokenEntity>(Container.GetService<OAuthRequest>()));
+                using (var releaser = await _locker.LockAsync())
+                {
+                    if (AccessToken == null || DateTime.Now - AccessToken.ExpireTime > ExpireTolerance)
+                    {
+                        AccessToken = await FetchAsync<AccessTokenEntity>(Container.GetService<OAuthRequest>());
+                    }
+                }
+
+                return AccessToken.Token;
             }
             catch (Exception e)
             {
                 Error(e);
                 return null;
             }
-        }
-
-        public Task ClearAccessToken()
-        {
-            ViewToken = null;
-            return Task.CompletedTask;
         }
 
         #endregion

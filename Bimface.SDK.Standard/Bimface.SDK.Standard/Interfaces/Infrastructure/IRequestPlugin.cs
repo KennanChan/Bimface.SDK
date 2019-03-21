@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace Bimface.SDK.Interfaces.Infrastructure
 {
-    public interface IMiddleware
+    public interface IRequestPlugin
     {
         Task<bool> Handle(HttpRequest request);
     }

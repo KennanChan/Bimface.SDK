@@ -23,5 +23,11 @@ namespace Bimface.SDK.Extensions
             encoding = encoding ?? Encoding.UTF8;
             return encoding.GetString(Convert.FromBase64String(s));
         }
+
+        public static string CombinePath(this string s, string another)
+        {
+            another = another.StartsWith("/") ? another : $"/{another}";
+            return $"{s}{another}";
+        }
     }
 }
