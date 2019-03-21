@@ -1,8 +1,8 @@
 ﻿#region
 
-using Bimface.SDK.Interfaces.Infrastructure.Http;
 using System.IO;
 using System.Net;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 #endregion
 
@@ -10,8 +10,6 @@ namespace Bimface.SDK.Entities.Http
 {
     public class HttpResponse : IHttpResponse
     {
-        private Stream _body;
-
         #region Constructors
 
         internal HttpResponse(HttpWebResponse response)
@@ -29,19 +27,21 @@ namespace Bimface.SDK.Entities.Http
 
         #region Interface Implementations
 
-        #endregion
-
-        public Stream Body
+        public Stream GetResponseStream()
         {
-            get => _body ?? Response.GetResponseStream();
-            internal set => _body = value;
+            return Response.GetResponseStream();
         }
 
-        public int StatusCode => (int)Response.StatusCode;
+        public int GetStatusCode()
+        {
+            return (int) Response.StatusCode;
+        }
 
         public string GetHeader(string name)
         {
             return Response.Headers[name];
         }
+
+        #endregion
     }
 }

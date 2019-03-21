@@ -10,8 +10,8 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
     {
         #region Properties
 
-        Stream Body { get; }
-        int StatusCode { get; }
+        Stream GetResponseStream();
+        int GetStatusCode();
 
         #endregion
 
