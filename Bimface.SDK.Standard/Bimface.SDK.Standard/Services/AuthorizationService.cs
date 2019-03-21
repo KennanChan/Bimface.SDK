@@ -2,10 +2,10 @@
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
-using Bimface.SDK.Requests;
+using Bimface.SDK.Requests.Common;
+using Bimface.SDK.Utilities;
 using System;
 using System.Threading.Tasks;
-using Bimface.SDK.Utilities;
 
 namespace Bimface.SDK.Services
 {

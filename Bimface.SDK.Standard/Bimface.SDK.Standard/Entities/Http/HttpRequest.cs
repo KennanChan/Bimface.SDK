@@ -10,7 +10,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 
 #endregion
@@ -31,8 +30,8 @@ namespace Bimface.SDK.Entities.Http
         protected HttpRequest(string method, string host, string api)
         {
             Method = method;
-            Host   = host;
-            Path   = api.StartsWith("/") ? api : $"/{api}";
+            Host = host;
+            Path = api.StartsWith("/") ? api : $"/{api}";
         }
 
         #endregion
@@ -47,9 +46,9 @@ namespace Bimface.SDK.Entities.Http
         private ConcurrentDictionary<string, string> Headers =>
             _headers ?? (_headers = new ConcurrentDictionary<string, string>());
 
-        private string Host   { get; }
+        private string Host { get; }
         private string Method { get; }
-        private string Path   { get; }
+        private string Path { get; }
 
         private ConcurrentDictionary<string, string> Queries =>
             _queries ?? (_queries = new ConcurrentDictionary<string, string>());
@@ -83,6 +82,7 @@ namespace Bimface.SDK.Entities.Http
         internal void AddBody(Stream stream)
         {
             Body = stream;
+            SetContentLength(Body.Length);
         }
 
         internal void AddHeader(string name, string value)
@@ -92,7 +92,7 @@ namespace Bimface.SDK.Entities.Http
 
         internal void AddJsonBody(object body)
         {
-            Body = Serializer.Serialize(body).ToStream();
+            AddBody(Serializer.Serialize(body).ToStream());
         }
 
         internal void AddQuery(string name, string value)
@@ -107,11 +107,6 @@ namespace Bimface.SDK.Entities.Http
                    .Where(query => !string.IsNullOrWhiteSpace(query.Value))
                    .Select(query => $"{query.Key}={HttpUtility.UrlEncode(query.Value, Encoding.UTF8)}");
             return string.Join("&", queries);
-        }
-
-        internal void SetContentType(string type)
-        {
-            AddHeader("Content-Type", type);
         }
 
         internal void SetContentLength(long length)

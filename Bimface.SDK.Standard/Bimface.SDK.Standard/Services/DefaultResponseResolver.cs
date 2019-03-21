@@ -1,5 +1,6 @@
 ﻿#region
 
+using Bimface.SDK.Entities;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
@@ -31,7 +32,7 @@ namespace Bimface.SDK.Services
         public T Resolve<T>(IHttpResponse response)
         {
             var contentStream = response.GetResponseStream();
-            return Serializer.Deserialize<T>(contentStream.AsString());
+            return Serializer.Deserialize<GeneralResponse<T>>(contentStream.AsString()).Data;
         }
 
         #endregion

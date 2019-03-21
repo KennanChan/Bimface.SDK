@@ -9,7 +9,9 @@
   <ItemGroup>
     <Compile Remove="Entities\Core\GeneralResponse.cs" />
   </ItemGroup>
+
   <ItemGroup>
-    <Folder Include="Entities\Core\Requests\" />
+    <Folder Include="Entities\Parameters\Integrate\" />
+    <Folder Include="Requests\Integrate\" />
   </ItemGroup>
 </Project>
