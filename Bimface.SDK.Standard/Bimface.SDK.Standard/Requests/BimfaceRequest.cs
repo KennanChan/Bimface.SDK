@@ -7,11 +7,7 @@ namespace Bimface.SDK.Requests
     {
         #region Constructors
 
-        protected BimfaceRequest(string host, string api, string method) : base(host, api, method)
-        {
-        }
-
-        protected BimfaceRequest(string host, string api) : base(host, api)
+        protected BimfaceRequest(string method, string host, string api) : base(method, host, api)
         {
         }
 

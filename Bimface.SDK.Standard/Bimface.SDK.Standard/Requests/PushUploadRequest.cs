@@ -1,15 +1,16 @@
-﻿using Bimface.SDK.Attributes;
+﻿using System.Net;
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Attributes.Http;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters;
 
 namespace Bimface.SDK.Requests
 {
     [BimfaceAuth]
-    [HttpPut]
     [HttpBinaryMime]
     internal sealed class PushUploadRequest : BimfaceFileRequest
     {
-        public PushUploadRequest(PushUploadParameter parameter) : base("/upload")
+        public PushUploadRequest(PushUploadParameter parameter) : base(HttpMethods.Put, "/upload")
         {
             SetContentLength(parameter.Stream.Length);
             AddQuery("name", parameter.Name);

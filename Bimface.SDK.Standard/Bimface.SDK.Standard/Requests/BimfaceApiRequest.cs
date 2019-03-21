@@ -4,11 +4,7 @@
     {
         private const string Host = "https://api.bimface.com";
 
-        protected BimfaceApiRequest(string api, string method) : base(Host, api, method)
-        {
-        }
-
-        protected BimfaceApiRequest(string api) : base(Host, api)
+        protected BimfaceApiRequest(string method, string api) : base(method, Host, api)
         {
         }
     }

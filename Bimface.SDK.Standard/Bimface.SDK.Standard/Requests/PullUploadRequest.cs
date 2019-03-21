@@ -1,4 +1,6 @@
-﻿using Bimface.SDK.Attributes;
+﻿using System.Net;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters;
 
 namespace Bimface.SDK.Requests
@@ -6,7 +8,7 @@ namespace Bimface.SDK.Requests
     [BimfaceAuth]
     internal sealed class PullUploadRequest : BimfaceFileRequest
     {
-        public PullUploadRequest(PullUploadParameter parameter) : base("/upload")
+        public PullUploadRequest(PullUploadParameter parameter) : base(HttpMethods.Put, "/upload")
         {
             AddQuery("url", parameter.Url);
             AddQuery("name", parameter.Name);

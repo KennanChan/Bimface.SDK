@@ -92,7 +92,6 @@ namespace Bimface.SDK
                 .AddService<IResponseResolver, DefaultResponseResolver>()
                 .Singleton<ISourceFileService, SourceFileService>()
                 .Singleton<AuthHandler>()
-                .Singleton<ResolveMethodHandler>()
                 .Singleton<ResolveHeaderHandler>()
                 .Singleton<IHttpContext, HttpContext>()
                 .Singleton(this);
@@ -100,8 +99,7 @@ namespace Bimface.SDK
                 .GetService<IHttpContext>()
                 .UseContainer(Container)
                 .UseMiddleware<AuthHandler>()
-                .UseMiddleware<ResolveHeaderHandler>()
-                .UseMiddleware<ResolveMethodHandler>();
+                .UseMiddleware<ResolveHeaderHandler>();
         }
     }
 }

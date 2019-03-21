@@ -1,16 +1,17 @@
-﻿using Bimface.SDK.Attributes;
-using Bimface.SDK.Attributes.Http;
+﻿using System.Net;
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Extensions;
 
 namespace Bimface.SDK.Requests
 {
-    [HttpGet]
     public class OAuthRequest : BimfaceApiRequest
     {
-        [Inject] protected AppCredential Credential { get; set; }
+        [Inject]
+        protected AppCredential Credential { get; set; }
 
-        public OAuthRequest() : base("/oauth2/token")
+        public OAuthRequest() : base(HttpMethods.Get, "/oauth2/token")
         {
             AddHeader("Authorization", $"Basic {$"{Credential.AppKey}:{Credential.AppSecret}".Base64Encode()}");
         }

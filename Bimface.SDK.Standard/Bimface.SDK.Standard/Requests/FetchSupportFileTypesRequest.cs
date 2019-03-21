@@ -1,13 +1,13 @@
-﻿using Bimface.SDK.Attributes;
-using Bimface.SDK.Attributes.Http;
+﻿using System.Net;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Entities.Http;
 
 namespace Bimface.SDK.Requests
 {
     [BimfaceAuth]
-    [HttpGet]
     internal class FetchSupportFileTypesRequest : BimfaceFileRequest
     {
-        public FetchSupportFileTypesRequest() : base("/support")
+        public FetchSupportFileTypesRequest() : base(HttpMethods.Get, "/support")
         {
         }
     }

@@ -27,17 +27,11 @@ namespace Bimface.SDK.Entities.Http
 
         #region Constructors
 
-        protected HttpRequest(string host, string api, string method)
+        protected HttpRequest(string method, string host, string api)
         {
             Method = method;
-            Host = host;
-            Path = api.StartsWith("/") ? api : $"/{api}";
-        }
-
-        protected HttpRequest(string host, string api)
-        {
-            Host = host;
-            Path = api.StartsWith("/") ? api : $"/{api}";
+            Host   = host;
+            Path   = api.StartsWith("/") ? api : $"/{api}";
         }
 
         #endregion
@@ -51,7 +45,7 @@ namespace Bimface.SDK.Entities.Http
             _headers ?? (_headers = new ConcurrentDictionary<string, string>());
 
         private string Host { get; }
-        private string Method { get; set; }
+        private string Method { get; }
         private string Path { get; }
 
         private ConcurrentDictionary<string, string> Queries =>
@@ -120,11 +114,6 @@ namespace Bimface.SDK.Entities.Http
         internal void SetContentLength(long length)
         {
             AddHeader("Content-Length", length.ToString());
-        }
-
-        internal void SetMethod(string method)
-        {
-            Method = method;
         }
     }
 }

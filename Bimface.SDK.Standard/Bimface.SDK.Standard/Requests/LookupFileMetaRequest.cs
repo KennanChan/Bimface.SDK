@@ -1,14 +1,14 @@
-﻿using Bimface.SDK.Attributes;
-using Bimface.SDK.Attributes.Http;
+﻿using System.Net;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters;
 
 namespace Bimface.SDK.Requests
 {
     [BimfaceAuth]
-    [HttpGet]
     internal class LookupFileMetaRequest : BimfaceFileRequest
     {
-        public LookupFileMetaRequest(LookupFileMetaParameter parameter) : base("/metadata")
+        public LookupFileMetaRequest(LookupFileMetaParameter parameter) : base(HttpMethods.Get, "/metadata")
         {
             AddNullableQuery("fileId", parameter.FileId);
         }

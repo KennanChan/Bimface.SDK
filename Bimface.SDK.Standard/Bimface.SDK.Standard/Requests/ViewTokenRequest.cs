@@ -1,13 +1,12 @@
 ﻿using Bimface.SDK.Attributes;
-using Bimface.SDK.Attributes.Http;
+using Bimface.SDK.Entities.Http;
 
 namespace Bimface.SDK.Requests
 {
     [BimfaceAuth]
-    [HttpGet]
     internal class ViewTokenRequest : BimfaceApiRequest
     {
-        public ViewTokenRequest() : base("/view/token")
+        public ViewTokenRequest() : base(HttpMethods.Get, "/view/token")
         {
         }
     }
