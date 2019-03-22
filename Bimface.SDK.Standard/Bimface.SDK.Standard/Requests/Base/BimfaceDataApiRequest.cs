@@ -7,11 +7,15 @@ namespace Bimface.SDK.Requests.Base
     [BimfaceAuth]
     public abstract class BimfaceDataApiRequest : BimfaceApiRequest
     {
-        protected BimfaceDataApiRequest(string method, string api, string version) : base(method, $"/data/${version}".CombinePath(api))
+        protected const string DefaultApiVersion = "v2";
+
+        protected BimfaceDataApiRequest(string method, string api, string apiVersion)
+            : base(method, $"/data/${apiVersion}".CombinePath(api))
         {
         }
 
-        protected BimfaceDataApiRequest(string api, string version) : base(HttpMethods.Get, $"/data/${version}".CombinePath(api))
+        protected BimfaceDataApiRequest(string api, string apiVersion)
+            : base(HttpMethods.Get, $"/data/${apiVersion}".CombinePath(api))
         {
         }
     }

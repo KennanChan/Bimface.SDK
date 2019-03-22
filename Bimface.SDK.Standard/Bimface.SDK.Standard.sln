@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.Standard", "Bimface.SDK.Standard\Bimface.SDK.Standard.csproj", "{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimface.SDK.Standard", "Bimface.SDK.Standard\Bimface.SDK.Standard.csproj", "{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.Test", "Bimface.SDK.Test\Bimface.SDK.Test.csproj", "{DD89EA15-A407-49EA-8EE8-E7C596E112B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimface.SDK.Test", "Bimface.SDK.Test\Bimface.SDK.Test.csproj", "{DD89EA15-A407-49EA-8EE8-E7C596E112B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.DSL.Standard", "Bimface.SDK.DSL.Standard\Bimface.SDK.DSL.Standard.csproj", "{190826CB-6552-4F53-9DC2-9AD8837DA4EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{190826CB-6552-4F53-9DC2-9AD8837DA4EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{190826CB-6552-4F53-9DC2-9AD8837DA4EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{190826CB-6552-4F53-9DC2-9AD8837DA4EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{190826CB-6552-4F53-9DC2-9AD8837DA4EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

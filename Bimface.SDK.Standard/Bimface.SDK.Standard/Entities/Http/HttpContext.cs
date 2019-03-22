@@ -1,9 +1,13 @@
-﻿using Bimface.SDK.Interfaces.Infrastructure;
-using Bimface.SDK.Interfaces.Infrastructure.Http;
+﻿#region
+
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Http
 {

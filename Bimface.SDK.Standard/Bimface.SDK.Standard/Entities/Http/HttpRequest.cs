@@ -1,9 +1,5 @@
 ﻿#region
 
-using Bimface.SDK.Attributes;
-using Bimface.SDK.Extensions;
-using Bimface.SDK.Interfaces.Infrastructure;
-using Bimface.SDK.Interfaces.Infrastructure.Http;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -11,6 +7,10 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Extensions;
+using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 #endregion
 
@@ -30,8 +30,8 @@ namespace Bimface.SDK.Entities.Http
         protected HttpRequest(string method, string host, string api)
         {
             Method = method;
-            Host = host;
-            Path = api.StartsWith("/") ? api : $"/{api}";
+            Host   = host;
+            Path   = api.StartsWith("/") ? api : $"/{api}";
         }
 
         #endregion
@@ -46,9 +46,9 @@ namespace Bimface.SDK.Entities.Http
         private ConcurrentDictionary<string, string> Headers =>
             _headers ?? (_headers = new ConcurrentDictionary<string, string>());
 
-        private string Host { get; }
+        private string Host   { get; }
         private string Method { get; }
-        private string Path { get; }
+        private string Path   { get; }
 
         private ConcurrentDictionary<string, string> Queries =>
             _queries ?? (_queries = new ConcurrentDictionary<string, string>());

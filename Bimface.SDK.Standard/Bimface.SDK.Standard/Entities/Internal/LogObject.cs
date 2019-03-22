@@ -1,6 +1,10 @@
-﻿using Bimface.SDK.Extensions;
-using Bimface.SDK.Interfaces.Infrastructure;
+﻿#region
+
 using System;
+using Bimface.SDK.Extensions;
+using Bimface.SDK.Interfaces.Infrastructure;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Internal
 {

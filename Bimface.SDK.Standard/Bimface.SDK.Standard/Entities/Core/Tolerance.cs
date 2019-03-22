@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bimface.SDK.Entities.Core
+﻿namespace Bimface.SDK.Entities.Core
 {
     public enum Tolerance
     {

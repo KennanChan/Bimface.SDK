@@ -20,7 +20,7 @@ namespace Bimface.SDK.Requests.Base
             AddQuery(name, date.ToString("yyyy-MM-dd"));
         }
 
-        protected void AddQuery<T>(string name, T value) where T : class
+        protected void AddQuery<T>(string name, T value)
         {
             base.AddQuery(name, value.ToString());
         }

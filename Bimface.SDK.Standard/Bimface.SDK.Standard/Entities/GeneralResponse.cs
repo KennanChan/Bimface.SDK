@@ -1,4 +1,8 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
+
+#endregion
 
 namespace Bimface.SDK.Entities
 {
@@ -7,7 +11,8 @@ namespace Bimface.SDK.Entities
     {
         #region Properties
 
-        [DataMember(Name = "data")] public new T Data { get; set; }
+        [DataMember(Name = "data")]
+        public new T Data { get; set; }
 
         #endregion
     }
@@ -17,9 +22,14 @@ namespace Bimface.SDK.Entities
     {
         #region Properties
 
-        [DataMember(Name = "code")] public string Code { get; set; }
-        [DataMember(Name = "data")] public object Data { get; set; }
-        [DataMember(Name = "message")] public string Message { get; set; }
+        [DataMember(Name = "code")]
+        public string Code { get; set; }
+
+        [DataMember(Name = "data")]
+        public object Data { get; set; }
+
+        [DataMember(Name = "message")]
+        public string Message { get; set; }
 
         #endregion
     }

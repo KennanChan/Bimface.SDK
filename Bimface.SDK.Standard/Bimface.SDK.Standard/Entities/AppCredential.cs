@@ -4,11 +4,11 @@
     {
         public AppCredential(string appKey, string appSecret)
         {
-            AppKey = appKey;
+            AppKey    = appKey;
             AppSecret = appSecret;
         }
 
-        public string AppKey { get; }
+        public string AppKey    { get; }
         public string AppSecret { get; }
     }
 }

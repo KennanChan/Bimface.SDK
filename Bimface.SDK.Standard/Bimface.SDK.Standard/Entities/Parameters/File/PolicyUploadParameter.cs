@@ -4,7 +4,7 @@
     {
         public PolicyUploadParameter(string name, string sourceId = null)
         {
-            Name = name;
+            Name     = name;
             SourceId = sourceId;
         }
 
