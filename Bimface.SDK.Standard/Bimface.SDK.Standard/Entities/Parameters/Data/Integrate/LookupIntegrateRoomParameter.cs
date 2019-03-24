@@ -2,9 +2,9 @@
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
-    public class LookupIntegrateCategoryTreeParameter : IntegrateParameter
+    public class LookupIntegrateRoomParameter : IntegrateParameter
     {
-        public LookupIntegrateCategoryTreeParameter(long integrateId, string roomId) : base(integrateId)
+        public LookupIntegrateRoomParameter(long integrateId, string roomId) : base(integrateId)
         {
             RoomId = roomId;
         }

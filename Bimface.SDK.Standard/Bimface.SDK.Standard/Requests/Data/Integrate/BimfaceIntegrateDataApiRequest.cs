@@ -8,7 +8,7 @@ namespace Bimface.SDK.Requests.Data.Integrate
     [BimfaceAuth]
     internal abstract class BimfaceIntegrateDataApiRequest : BimfaceDataApiRequest
     {
-        protected new const string DefaultApiVersion = "v2";
+        protected const string DefaultApiVersion = "v2";
 
         protected BimfaceIntegrateDataApiRequest(IntegrateParameter parameter, string method, string relativeApi, string apiVersion)
             : base(method, $"/integrates/{parameter.IntegrateId}".CombinePath(relativeApi), apiVersion)
