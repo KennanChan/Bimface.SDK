@@ -11,11 +11,9 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "next")]
-        public long? Next { get; set; }
+        [DataMember(Name = "next")] public long? Next { get; set; }
 
-        [DataMember(Name = "prev")]
-        public long? Prev { get; set; }
+        [DataMember(Name = "prev")] public long? Prev { get; set; }
 
         #endregion
     }

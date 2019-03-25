@@ -8,9 +8,13 @@ namespace Bimface.SDK.Requests.File
     [BimfaceAuth]
     internal class LookupFileMetaRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public LookupFileMetaRequest(LookupFileMetaParameter parameter) : base(HttpMethods.Get, "/metadata")
         {
             AddNullableQuery("fileId", parameter.FileId);
         }
+
+        #endregion
     }
 }

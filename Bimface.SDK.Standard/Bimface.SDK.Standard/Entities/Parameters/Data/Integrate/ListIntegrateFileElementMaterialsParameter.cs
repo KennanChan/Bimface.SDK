@@ -4,6 +4,8 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
     public class ListIntegrateFileElementMaterialsParameter : IntegrateParameter
     {
+        #region Constructors
+
         public ListIntegrateFileElementMaterialsParameter(long integrateId, string fileIdHash, string elementId) :
             base(integrateId)
         {
@@ -11,8 +13,14 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
             ElementId = elementId;
         }
 
-        public string FileIdHash { get; }
+        #endregion
+
+        #region Properties
 
         public string ElementId { get; }
+
+        public string FileIdHash { get; }
+
+        #endregion
     }
 }

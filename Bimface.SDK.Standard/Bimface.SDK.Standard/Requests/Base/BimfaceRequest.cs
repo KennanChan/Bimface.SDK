@@ -1,7 +1,7 @@
-﻿using Bimface.SDK.Entities.Http;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Bimface.SDK.Entities.Http;
 
 namespace Bimface.SDK.Requests.Base
 {
@@ -15,14 +15,21 @@ namespace Bimface.SDK.Requests.Base
 
         #endregion
 
+        protected void AddArrayQuery<T>(string name, IEnumerable<T> value) where T : class
+        {
+            var items = value.ToList();
+            if (items.Count > 0) items.ForEach(item => AddQuery(name, item));
+        }
+
         protected void AddDateQuery(string name, DateTime date)
         {
             AddQuery(name, date.ToString("yyyy-MM-dd"));
         }
 
-        protected void AddQuery<T>(string name, T value)
+        protected void AddNullableArrayQuery<T>(string name, IEnumerable<T?> value) where T : struct
         {
-            base.AddQuery(name, value.ToString());
+            var items = value.ToList();
+            if (items.Count > 0) items.ForEach(item => AddNullableQuery(name, item));
         }
 
         protected void AddNullableQuery<T>(string name, T? value) where T : struct
@@ -31,22 +38,9 @@ namespace Bimface.SDK.Requests.Base
                 AddQuery(name, value.Value.ToString());
         }
 
-        protected void AddNullableArrayQuery<T>(string name, IEnumerable<T?> value) where T : struct
+        protected void AddQuery<T>(string name, T value)
         {
-            var items = value.ToList();
-            if (items.Count > 0)
-            {
-                items.ForEach(item => AddNullableQuery(name, item));
-            }
-        }
-
-        protected void AddArrayQuery<T>(string name, IEnumerable<T> value) where T : class
-        {
-            var items = value.ToList();
-            if (items.Count > 0)
-            {
-                items.ForEach(item => AddQuery(name, item));
-            }
+            base.AddQuery(name, value.ToString());
         }
     }
 }

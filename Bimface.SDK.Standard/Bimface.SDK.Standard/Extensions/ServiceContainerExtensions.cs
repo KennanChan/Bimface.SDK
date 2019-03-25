@@ -57,7 +57,8 @@ namespace Bimface.SDK.Extensions
         }
 
         /// <summary>
-        ///     Add a service instance by providing the implementing type, a new singleton will be automatically created from the <see cref="IServiceContainer"/> 
+        ///     Add a service instance by providing the implementing type, a new singleton will be automatically created from the
+        ///     <see cref="IServiceContainer" />
         /// </summary>
         /// <typeparam name="TService">Service to add to the </typeparam>
         /// <typeparam name="TImplementation"></typeparam>

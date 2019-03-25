@@ -29,12 +29,12 @@ namespace Bimface.SDK.Extensions
 
         public static T CreateInstance<T>(this IServiceProvider container)
         {
-            return (T)container.CreateInstance(typeof(T));
+            return (T) container.CreateInstance(typeof(T));
         }
 
         public static T GetService<T>(this IServiceProvider container)
         {
-            return (T)container.GetService(typeof(T));
+            return (T) container.GetService(typeof(T));
         }
 
         internal static void InjectProperties(this IServiceProvider container, object instance)

@@ -8,10 +8,15 @@ namespace Bimface.SDK.Requests.File
     [BimfaceAuth]
     internal class FileDownloadAddressRequest : BimfaceFileRequest
     {
-        public FileDownloadAddressRequest(FileDownloadAddressParameter parameter) : base(HttpMethods.Get, "/download/url")
+        #region Constructors
+
+        public FileDownloadAddressRequest(FileDownloadAddressParameter parameter) : base(HttpMethods.Get,
+            "/download/url")
         {
             AddNullableQuery("fileId", parameter.FileId);
             AddQuery("name", parameter.Name);
         }
+
+        #endregion
     }
 }

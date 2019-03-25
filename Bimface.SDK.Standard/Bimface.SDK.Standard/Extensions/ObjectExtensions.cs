@@ -1,7 +1,7 @@
-﻿using Bimface.SDK.Attributes;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using Bimface.SDK.Attributes;
 
 namespace Bimface.SDK.Extensions
 {

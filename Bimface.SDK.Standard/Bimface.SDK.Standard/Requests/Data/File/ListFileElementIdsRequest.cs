@@ -4,6 +4,8 @@ namespace Bimface.SDK.Requests.Data.File
 {
     internal class ListFileElementIdsRequest : BimfaceFileDataApiRequest
     {
+        #region Constructors
+
         public ListFileElementIdsRequest(ListFileElementIdsParameter parameter, string apiVersion = DefaultApiVersion)
             : base(parameter, "/elementIds", apiVersion)
         {
@@ -21,5 +23,7 @@ namespace Bimface.SDK.Requests.Data.File
             AddQuery("specialty", parameter.Specialty);
             AddQuery("systemType", parameter.SystemType);
         }
+
+        #endregion
     }
 }

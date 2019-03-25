@@ -4,6 +4,8 @@ namespace Bimface.SDK.Requests.Data.Compare
 {
     internal class ListCompareDiffRequest : BimfaceCompareDataApiRequest
     {
+        #region Constructors
+
         public ListCompareDiffRequest(ListCompareDiffParameter parameter, string apiVersion = DefaultApiVersion)
             : base(parameter, "/diff", apiVersion)
         {
@@ -12,5 +14,7 @@ namespace Bimface.SDK.Requests.Data.Compare
             AddNullableQuery("page", parameter.Page);
             AddNullableQuery("pageSize", parameter.PageSize);
         }
+
+        #endregion
     }
 }

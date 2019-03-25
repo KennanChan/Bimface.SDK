@@ -1,5 +1,4 @@
-﻿using Bimface.SDK.Entities.Core;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace Bimface.SDK.Interfaces.Core
 {

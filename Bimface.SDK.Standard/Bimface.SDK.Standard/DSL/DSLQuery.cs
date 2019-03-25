@@ -1,14 +1,18 @@
-﻿using Bimface.SDK.DSL.Clauses;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Runtime.Serialization;
+using Bimface.SDK.DSL.Clauses;
 
 namespace Bimface.SDK.DSL
 {
     [DataContract]
     public class DSLQuery
     {
+        #region Fields
+
         private readonly IDictionary<string, IClause> _clauses = new Dictionary<string, IClause>();
+
+        #endregion
 
         #region Constructors
 

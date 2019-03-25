@@ -8,13 +8,9 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
 {
     public interface IHttpResponse
     {
-        #region Properties
+        string GetHeader(string name);
 
         Stream GetResponseStream();
         int GetStatusCode();
-
-        #endregion
-
-        string GetHeader(string name);
     }
 }

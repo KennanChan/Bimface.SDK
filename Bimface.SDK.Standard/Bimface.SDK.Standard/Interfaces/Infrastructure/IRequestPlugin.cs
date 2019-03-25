@@ -1,5 +1,5 @@
-﻿using Bimface.SDK.Entities.Http;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
+using Bimface.SDK.Entities.Http;
 
 namespace Bimface.SDK.Interfaces.Infrastructure
 {

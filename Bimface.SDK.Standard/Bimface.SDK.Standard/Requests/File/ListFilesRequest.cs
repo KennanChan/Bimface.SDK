@@ -8,6 +8,8 @@ namespace Bimface.SDK.Requests.File
     [BimfaceAuth]
     internal class ListFilesRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public ListFilesRequest(ListFilesParameter parameter) : base(HttpMethods.Get, "/files")
         {
             AddDateQuery("endTime", parameter.EndTime);
@@ -18,5 +20,7 @@ namespace Bimface.SDK.Requests.File
             AddQuery("status", parameter.Status);
             AddQuery("suffix", parameter.Suffix);
         }
+
+        #endregion
     }
 }

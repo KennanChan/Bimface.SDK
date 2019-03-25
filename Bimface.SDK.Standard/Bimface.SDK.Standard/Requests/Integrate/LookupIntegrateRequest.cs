@@ -6,9 +6,13 @@ namespace Bimface.SDK.Requests.Integrate
 {
     internal class LookupIntegrateRequest : BimfaceApiRequest
     {
+        #region Constructors
+
         public LookupIntegrateRequest(LookupIntegrateParameter parameter) : base(HttpMethods.Get, "/integrate")
         {
             AddQuery("integrateId", parameter.IntegrateId);
         }
+
+        #endregion
     }
 }

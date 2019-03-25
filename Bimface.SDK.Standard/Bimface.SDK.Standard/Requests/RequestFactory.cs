@@ -7,9 +7,13 @@ namespace Bimface.SDK.Requests
 {
     internal class RequestFactory : IRequestFactory
     {
+        #region Interface Implementations
+
         public IHttpRequest GetRequest(IBimfaceParameter parameter)
         {
             throw new NotImplementedException();
         }
+
+        #endregion
     }
 }

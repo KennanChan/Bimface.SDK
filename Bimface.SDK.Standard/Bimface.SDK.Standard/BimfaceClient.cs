@@ -1,5 +1,7 @@
 ﻿#region
 
+using System;
+using System.ComponentModel.Design;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Extensions;
@@ -8,8 +10,6 @@ using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 using Bimface.SDK.Plugins;
 using Bimface.SDK.Services;
-using System;
-using System.ComponentModel.Design;
 
 #endregion
 
@@ -73,7 +73,7 @@ namespace Bimface.SDK
         #endregion
 
         /// <summary>
-        ///     Get or create a <see cref="BimfaceClient"/> using the <see cref="AppCredential"/> acquired from bimface.com
+        ///     Get or create a <see cref="BimfaceClient" /> using the <see cref="AppCredential" /> acquired from bimface.com
         /// </summary>
         /// <param name="credential"></param>
         /// <param name="container"></param>

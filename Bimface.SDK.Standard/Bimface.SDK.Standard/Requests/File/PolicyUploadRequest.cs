@@ -8,10 +8,14 @@ namespace Bimface.SDK.Requests.File
     [BimfaceAuth]
     internal class PolicyUploadRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public PolicyUploadRequest(PolicyUploadParameter parameter) : base(HttpMethods.Get, "/upload/policy")
         {
             AddQuery("name", parameter.Name);
             AddQuery("sourceId", parameter.SourceId);
         }
+
+        #endregion
     }
 }

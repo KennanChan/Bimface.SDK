@@ -6,9 +6,13 @@ namespace Bimface.SDK.Requests.Translate
 {
     internal class LookupTranslateRequest : BimfaceApiRequest
     {
+        #region Constructors
+
         public LookupTranslateRequest(LookupTranslateParameter parameter) : base(HttpMethods.Get, "/translate")
         {
             AddNullableQuery("fileId", parameter.FileId);
         }
+
+        #endregion
     }
 }

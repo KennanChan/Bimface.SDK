@@ -5,10 +5,15 @@ namespace Bimface.SDK.Requests.Data.File
 {
     internal class ModifyFileElementPropertiesRequest : BimfaceFileDataApiRequest
     {
-        public ModifyFileElementPropertiesRequest(ModifyFileElementPropertiesParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public ModifyFileElementPropertiesRequest(ModifyFileElementPropertiesParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, HttpMethods.Put, $"/elements/{parameter.ElementId}/properties", apiVersion)
         {
             AddJsonBody(parameter.Properties);
         }
+
+        #endregion
     }
 }

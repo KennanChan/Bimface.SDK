@@ -9,13 +9,21 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
 {
     public class ListFileElementsPropertiesParameter : FileParameter
     {
+        #region Constructors
+
         public ListFileElementsPropertiesParameter(long fileId, ElementPropertyFilterRequest request) : base(fileId)
         {
             Request = request;
         }
 
-        public ElementPropertyFilterRequest Request { get; }
+        #endregion
+
+        #region Properties
 
         public bool? IncludeOverrides { get; set; }
+
+        public ElementPropertyFilterRequest Request { get; }
+
+        #endregion
     }
 }

@@ -6,10 +6,14 @@ namespace Bimface.SDK.Requests.Compare
 {
     internal class LookupCompareRequest : BimfaceCompareRequest
     {
+        #region Constructors
+
         public LookupCompareRequest(LookupCompareParameter parameter, string apiVersion = DefaultApiVersion)
             : base(HttpMethods.Get, "", apiVersion)
         {
             AddQuery("compareId", parameter.CompareId);
         }
+
+        #endregion
     }
 }

@@ -13,8 +13,14 @@ namespace Bimface.SDK.Plugins
 {
     internal class ResolveHeadersPlugin : LogObject, IRequestPlugin
     {
+        #region Properties
+
         private ConcurrentDictionary<Type, List<KeyValuePair<string, string>>> Headers { get; } =
             new ConcurrentDictionary<Type, List<KeyValuePair<string, string>>>();
+
+        #endregion
+
+        #region Interface Implementations
 
         public Task<bool> Handle(HttpRequest request)
         {
@@ -24,7 +30,7 @@ namespace Bimface.SDK.Plugins
                 {
                     var headers = type.GetCustomAttributes<HttpHeaderAttribute>(true);
                     return headers.Select(header => new KeyValuePair<string, string>(header.Name, header.Value))
-                                  .ToList();
+                        .ToList();
                 });
                 headerList.ForEach(header => request.AddHeader(header.Key, header.Value));
                 return Task.FromResult(true);
@@ -35,5 +41,7 @@ namespace Bimface.SDK.Plugins
                 return Task.FromResult(false);
             }
         }
+
+        #endregion
     }
 }

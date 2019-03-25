@@ -5,12 +5,26 @@ namespace Bimface.SDK.DSL.Clauses
 {
     public abstract class SingleClause : IClause
     {
-        protected SingleClause(string name, object value)
-        {
-            _data = new Dictionary<string, object> { { name, value } };
-        }
+        #region Fields
 
         private readonly IDictionary<string, object> _data;
+
+        #endregion
+
+        #region Constructors
+
+        protected SingleClause(string name, object value)
+        {
+            _data = new Dictionary<string, object> {{name, value}};
+        }
+
+        #endregion
+
+        #region Interface Implementations
+
+        public abstract string GetName();
+
+        #endregion
 
         protected IReadOnlyDictionary<string, object> GetData()
         {
@@ -18,7 +32,5 @@ namespace Bimface.SDK.DSL.Clauses
                 return null;
             return new ReadOnlyDictionary<string, object>(_data);
         }
-
-        public abstract string GetName();
     }
 }

@@ -9,11 +9,20 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
     public class ListIntegrateElementsCommonPropertiesParameter : IntegrateParameter
     {
+        #region Constructors
+
         public ListIntegrateElementsCommonPropertiesParameter(long integrateId) : base(integrateId)
         {
         }
 
-        public bool?                             IncludeOverrides             { get; set; }
+        #endregion
+
+        #region Properties
+
         public FileIdHashWithElementIdsRequest[] FileIdHashWithElementIdsList { get; set; }
+
+        public bool? IncludeOverrides { get; set; }
+
+        #endregion
     }
 }

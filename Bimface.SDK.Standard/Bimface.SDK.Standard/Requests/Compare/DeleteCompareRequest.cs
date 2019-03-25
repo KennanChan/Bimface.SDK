@@ -6,10 +6,14 @@ namespace Bimface.SDK.Requests.Compare
 {
     internal class DeleteCompareRequest : BimfaceCompareRequest
     {
+        #region Constructors
+
         public DeleteCompareRequest(DeleteCompareParameter parameter, string apiVersion = DefaultApiVersion)
             : base(HttpMethods.Delete, "", apiVersion)
         {
             AddQuery("compareId", parameter.CompareId);
         }
+
+        #endregion
     }
 }

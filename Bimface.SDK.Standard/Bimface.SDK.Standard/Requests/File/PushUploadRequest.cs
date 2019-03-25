@@ -10,6 +10,8 @@ namespace Bimface.SDK.Requests.File
     [HttpBinaryMime]
     internal sealed class PushUploadRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public PushUploadRequest(PushUploadParameter parameter) : base(HttpMethods.Put, "/upload")
         {
             SetContentLength(parameter.Stream.Length);
@@ -17,5 +19,7 @@ namespace Bimface.SDK.Requests.File
             AddQuery("sourceId", parameter.SourceId);
             AddBody(parameter.Stream);
         }
+
+        #endregion
     }
 }

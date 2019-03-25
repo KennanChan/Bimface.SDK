@@ -6,14 +6,24 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
     public class ModifyIntegrateFileElementPropertiesParameter : IntegrateParameter
     {
-        public ModifyIntegrateFileElementPropertiesParameter(long integrateId, string fileIdHash, string elementId) : base(integrateId)
+        #region Constructors
+
+        public ModifyIntegrateFileElementPropertiesParameter(long integrateId, string fileIdHash, string elementId) :
+            base(integrateId)
         {
             FileIdHash = fileIdHash;
-            ElementId  = elementId;
+            ElementId = elementId;
         }
 
-        public string              FileIdHash { get; }
-        public string              ElementId  { get; }
+        #endregion
+
+        #region Properties
+
+        public string ElementId { get; }
+
+        public string FileIdHash { get; }
         public List<PropertyGroup> Properties { get; set; } = new List<PropertyGroup>();
+
+        #endregion
     }
 }

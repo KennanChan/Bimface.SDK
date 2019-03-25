@@ -2,8 +2,12 @@
 {
     public class HttpBinaryMimeAttribute : HttpMimeAttribute
     {
+        #region Constructors
+
         public HttpBinaryMimeAttribute() : base("application/octet-stream")
         {
         }
+
+        #endregion
     }
 }

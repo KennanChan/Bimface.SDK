@@ -19,9 +19,9 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
 
         #region Properties
 
-        public bool? IncludeOverrides { get; set; }
-
         public string ElementId { get; }
+
+        public bool? IncludeOverrides { get; set; }
 
         #endregion
     }

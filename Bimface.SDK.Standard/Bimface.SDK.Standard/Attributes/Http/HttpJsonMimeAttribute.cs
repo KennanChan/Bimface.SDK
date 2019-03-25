@@ -2,8 +2,12 @@
 {
     public class HttpJsonMimeAttribute : HttpMimeAttribute
     {
+        #region Constructors
+
         public HttpJsonMimeAttribute() : base("application/json")
         {
         }
+
+        #endregion
     }
 }

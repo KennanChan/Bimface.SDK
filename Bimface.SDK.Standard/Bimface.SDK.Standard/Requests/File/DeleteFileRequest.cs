@@ -8,9 +8,13 @@ namespace Bimface.SDK.Requests.File
     [BimfaceAuth]
     internal class DeleteFileRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public DeleteFileRequest(DeleteFileParameter parameter) : base(HttpMethods.Delete, "/file")
         {
             AddNullableQuery("fileId", parameter.FileId);
         }
+
+        #endregion
     }
 }

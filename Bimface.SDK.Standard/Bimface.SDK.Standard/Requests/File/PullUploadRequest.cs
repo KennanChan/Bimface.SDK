@@ -8,6 +8,8 @@ namespace Bimface.SDK.Requests.File
     [BimfaceAuth]
     internal sealed class PullUploadRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public PullUploadRequest(PullUploadParameter parameter) : base(HttpMethods.Put, "/upload")
         {
             AddQuery("url", parameter.Url);
@@ -15,5 +17,7 @@ namespace Bimface.SDK.Requests.File
             AddQuery("sourceId", parameter.SourceId);
             AddQuery("etag", parameter.Etag);
         }
+
+        #endregion
     }
 }

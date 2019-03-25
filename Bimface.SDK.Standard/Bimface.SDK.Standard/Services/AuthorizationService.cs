@@ -1,11 +1,11 @@
-﻿using Bimface.SDK.Entities.Core;
+﻿using System;
+using System.Threading.Tasks;
+using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 using Bimface.SDK.Requests.Common;
 using Bimface.SDK.Utilities;
-using System;
-using System.Threading.Tasks;
 
 namespace Bimface.SDK.Services
 {
@@ -46,9 +46,7 @@ namespace Bimface.SDK.Services
                 using (var releaser = await _locker.LockAsync())
                 {
                     if (AccessToken == null || DateTime.Now - AccessToken.ExpireTime > ExpireTolerance)
-                    {
                         AccessToken = await FetchAsync<AccessTokenEntity>(Container.GetService<OAuthRequest>());
-                    }
                 }
 
                 return AccessToken.Token;

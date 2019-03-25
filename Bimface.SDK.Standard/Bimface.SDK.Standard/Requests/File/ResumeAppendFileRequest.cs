@@ -10,10 +10,14 @@ namespace Bimface.SDK.Requests.File
     [HttpJsonMime]
     internal class ResumeAppendFileRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public ResumeAppendFileRequest(ResumeAppendFileParameter parameter) : base(HttpMethods.Post,
             $"/appendFiles/{parameter.AppendFileId}/data")
         {
             AddNullableQuery("position", parameter.Position);
         }
+
+        #endregion
     }
 }

@@ -5,10 +5,15 @@ namespace Bimface.SDK.Requests.Data.File
 {
     internal class DeleteFileElementPropertiesRequest : BimfaceFileDataApiRequest
     {
-        public DeleteFileElementPropertiesRequest(DeleteFileElementPropertiesParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public DeleteFileElementPropertiesRequest(DeleteFileElementPropertiesParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, HttpMethods.Delete, $"/elements/{parameter.ElementId}/properties", apiVersion)
         {
             AddJsonBody(parameter.Properties);
         }
+
+        #endregion
     }
 }

@@ -8,9 +8,13 @@ namespace Bimface.SDK.Requests.Integrate
     [BimfaceAuth]
     internal class CreateIntegrateRequest : BimfaceApiRequest
     {
+        #region Constructors
+
         public CreateIntegrateRequest(CreateIntegrateParameter parameter) : base(HttpMethods.Put, "/integrate")
         {
             AddJsonBody(parameter.Request);
         }
+
+        #endregion
     }
 }

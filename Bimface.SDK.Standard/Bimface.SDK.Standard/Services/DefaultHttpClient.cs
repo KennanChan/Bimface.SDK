@@ -1,16 +1,16 @@
 ﻿#region
 
-using Bimface.SDK.Entities.Http;
-using Bimface.SDK.Interfaces.Infrastructure.Http;
 using System.Linq;
 using System.Net;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 #endregion
 
 namespace Bimface.SDK.Services
 {
     /// <summary>
-    ///     The default implementation of <see cref="IHttpClient" /> using the built-in <see cref="HttpWebRequest"/>
+    ///     The default implementation of <see cref="IHttpClient" /> using the built-in <see cref="HttpWebRequest" />
     /// </summary>
     internal class DefaultHttpClient : IHttpClient
     {

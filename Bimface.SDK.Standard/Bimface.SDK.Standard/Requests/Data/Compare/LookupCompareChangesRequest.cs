@@ -4,7 +4,10 @@ namespace Bimface.SDK.Requests.Data.Compare
 {
     internal class LookupCompareChangesRequest : BimfaceCompareDataApiRequest
     {
-        public LookupCompareChangesRequest(LookupCompareChangesParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public LookupCompareChangesRequest(LookupCompareChangesParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, "/elementChange", apiVersion)
         {
             AddQuery("followingElementId", parameter.FollowingElementId);
@@ -12,5 +15,7 @@ namespace Bimface.SDK.Requests.Data.Compare
             AddQuery("previousElementId", parameter.PreviousElementId);
             AddNullableQuery("previousFileId", parameter.PreviousFileId);
         }
+
+        #endregion
     }
 }

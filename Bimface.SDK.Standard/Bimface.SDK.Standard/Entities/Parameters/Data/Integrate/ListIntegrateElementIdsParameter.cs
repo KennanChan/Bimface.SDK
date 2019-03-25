@@ -1,16 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Bimface.SDK.Entities.Core;
+﻿using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
     public class ListIntegrateElementIdsParameter : IntegrateParameter
     {
+        #region Constructors
+
         public ListIntegrateElementIdsParameter(long integrateId) : base(integrateId)
         {
         }
+
+        #endregion
+
+        #region Properties
 
         public bool? AllNull { get; set; }
 
@@ -37,5 +40,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
         public string Specialty { get; set; }
 
         public string SystemType { get; set; }
+
+        #endregion
     }
 }

@@ -4,9 +4,14 @@ namespace Bimface.SDK.Requests.Data.File
 {
     internal class ListFileElementMaterialsRequest : BimfaceFileDataApiRequest
     {
-        public ListFileElementMaterialsRequest(ListFileElementMaterialsParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public ListFileElementMaterialsRequest(ListFileElementMaterialsParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, $"/elements/{parameter.ElementId}/materials", apiVersion)
         {
         }
+
+        #endregion
     }
 }

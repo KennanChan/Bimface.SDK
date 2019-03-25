@@ -12,11 +12,9 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "expireTime")]
-        public DateTime ExpireTime { get; set; }
+        [DataMember(Name = "expireTime")] public DateTime ExpireTime { get; set; }
 
-        [DataMember(Name = "token")]
-        public string Token { get; set; }
+        [DataMember(Name = "token")] public string Token { get; set; }
 
         #endregion
     }

@@ -9,12 +9,21 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
 {
     public class LookupFileCategoryTreeParameter : FileParameter
     {
+        #region Constructors
+
         public LookupFileCategoryTreeParameter(long fileId) : base(fileId)
         {
         }
 
-        public string          TreeType        { get; set; }
-        public string          V               { get; set; }
+        #endregion
+
+        #region Properties
+
         public FileTreeRequest FileTreeRequest { get; set; }
+
+        public string TreeType { get; set; }
+        public string V { get; set; }
+
+        #endregion
     }
 }

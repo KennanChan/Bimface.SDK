@@ -4,10 +4,15 @@ namespace Bimface.SDK.Requests.Data.File
 {
     internal class ListFileElementPropertiesRequest : BimfaceFileDataApiRequest
     {
-        public ListFileElementPropertiesRequest(ListFileElementPropertiesParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public ListFileElementPropertiesRequest(ListFileElementPropertiesParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, $"/elements/{parameter.ElementId}", apiVersion)
         {
             AddNullableQuery("includeOverrides", parameter.IncludeOverrides);
         }
+
+        #endregion
     }
 }

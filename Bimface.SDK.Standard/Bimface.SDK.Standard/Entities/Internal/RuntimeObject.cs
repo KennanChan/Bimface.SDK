@@ -9,7 +9,10 @@ namespace Bimface.SDK.Entities.Internal
 {
     internal abstract class RuntimeObject
     {
-        [Inject]
-        protected IServiceContainer Container { get; set; }
+        #region Properties
+
+        [Inject] protected IServiceContainer Container { get; set; }
+
+        #endregion
     }
 }

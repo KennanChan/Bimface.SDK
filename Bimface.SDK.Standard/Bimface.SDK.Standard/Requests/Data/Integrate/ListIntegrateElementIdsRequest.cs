@@ -4,7 +4,10 @@ namespace Bimface.SDK.Requests.Data.Integrate
 {
     internal class ListIntegrateElementIdsRequest : BimfaceIntegrateDataApiRequest
     {
-        public ListIntegrateElementIdsRequest(ListIntegrateElementIdsParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public ListIntegrateElementIdsRequest(ListIntegrateElementIdsParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, "/elementIds", apiVersion)
         {
             AddNullableQuery("allNull", parameter.AllNull);
@@ -21,5 +24,7 @@ namespace Bimface.SDK.Requests.Data.Integrate
             AddQuery("specialty", parameter.Specialty);
             AddQuery("systemType", parameter.SystemType);
         }
+
+        #endregion
     }
 }

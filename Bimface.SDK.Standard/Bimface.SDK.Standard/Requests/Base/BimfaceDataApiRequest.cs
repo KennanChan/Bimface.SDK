@@ -7,14 +7,20 @@ namespace Bimface.SDK.Requests.Base
     [BimfaceAuth]
     public abstract class BimfaceDataApiRequest : BimfaceApiRequest
     {
+        #region Constructors
+
         protected BimfaceDataApiRequest(string method, string relativeApi, string apiVersion)
-            : base(method, $"/data/${apiVersion}".CombinePath(relativeApi))
+            : base(method,
+                "/data".CombinePath(string.IsNullOrWhiteSpace(apiVersion) ? "" : apiVersion).CombinePath(relativeApi))
         {
         }
 
         protected BimfaceDataApiRequest(string relativeApi, string apiVersion)
-            : base(HttpMethods.Get, $"/data/${apiVersion}".CombinePath(relativeApi))
+            : base(HttpMethods.Get,
+                "/data".CombinePath(string.IsNullOrWhiteSpace(apiVersion) ? "" : apiVersion).CombinePath(relativeApi))
         {
         }
+
+        #endregion
     }
 }

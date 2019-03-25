@@ -6,12 +6,17 @@ namespace Bimface.SDK.Requests.Data.File
     [HttpJsonMime]
     internal class LookupFileCategoryTreeRequest : BimfaceFileDataApiRequest
     {
-        public LookupFileCategoryTreeRequest(LookupFileCategoryTreeParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public LookupFileCategoryTreeRequest(LookupFileCategoryTreeParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, "/tree", apiVersion)
         {
             AddQuery("treeType", parameter.TreeType);
             AddQuery("v", parameter.V);
             AddJsonBody(parameter.FileTreeRequest);
         }
+
+        #endregion
     }
 }

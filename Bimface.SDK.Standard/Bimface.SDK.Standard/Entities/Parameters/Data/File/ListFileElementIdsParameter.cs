@@ -9,9 +9,15 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
 {
     public class ListFileElementIdsParameter : FileParameter
     {
+        #region Constructors
+
         public ListFileElementIdsParameter(long fileId) : base(fileId)
         {
         }
+
+        #endregion
+
+        #region Properties
 
         public bool? AllNull { get; set; }
 
@@ -38,5 +44,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
         public string Specialty { get; set; }
 
         public string SystemType { get; set; }
+
+        #endregion
     }
 }

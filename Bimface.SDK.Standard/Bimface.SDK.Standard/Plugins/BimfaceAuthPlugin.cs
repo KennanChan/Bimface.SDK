@@ -13,14 +13,24 @@ namespace Bimface.SDK.Plugins
 {
     internal class BimfaceAuthPlugin : LogObject, IRequestPlugin
     {
+        #region Constructors
+
         internal BimfaceAuthPlugin(IAuthorizationService authorizationService)
         {
             AuthorizationService = authorizationService;
         }
 
-        private ConcurrentDictionary<Type, bool> AuthTypes { get; } = new ConcurrentDictionary<Type, bool>();
+        #endregion
+
+        #region Properties
 
         private IAuthorizationService AuthorizationService { get; }
+
+        private ConcurrentDictionary<Type, bool> AuthTypes { get; } = new ConcurrentDictionary<Type, bool>();
+
+        #endregion
+
+        #region Interface Implementations
 
         public async Task<bool> Handle(HttpRequest request)
         {
@@ -43,5 +53,7 @@ namespace Bimface.SDK.Plugins
                 return false;
             }
         }
+
+        #endregion
     }
 }

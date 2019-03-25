@@ -7,8 +7,12 @@ namespace Bimface.SDK.Requests.File
     [BimfaceAuth]
     internal class FetchSupportFileTypesRequest : BimfaceFileRequest
     {
+        #region Constructors
+
         public FetchSupportFileTypesRequest() : base(HttpMethods.Get, "/support")
         {
         }
+
+        #endregion
     }
 }

@@ -6,9 +6,13 @@ namespace Bimface.SDK.Requests.Translate
 {
     internal class CreateTranslateRequest : BimfaceApiRequest
     {
+        #region Constructors
+
         public CreateTranslateRequest(CreateTranslateParameter parameter) : base(HttpMethods.Put, "/translate")
         {
             AddJsonBody(parameter.Request);
         }
+
+        #endregion
     }
 }

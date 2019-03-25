@@ -7,8 +7,12 @@ namespace Bimface.SDK.Requests.Common
     [BimfaceAuth]
     internal class ViewTokenRequest : BimfaceApiRequest
     {
+        #region Constructors
+
         public ViewTokenRequest() : base(HttpMethods.Get, "/view/token")
         {
         }
+
+        #endregion
     }
 }

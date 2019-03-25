@@ -27,6 +27,11 @@ namespace Bimface.SDK.Entities.Http
 
         #region Interface Implementations
 
+        public string GetHeader(string name)
+        {
+            return Response.Headers[name];
+        }
+
         public Stream GetResponseStream()
         {
             return Response.GetResponseStream();
@@ -35,11 +40,6 @@ namespace Bimface.SDK.Entities.Http
         public int GetStatusCode()
         {
             return (int) Response.StatusCode;
-        }
-
-        public string GetHeader(string name)
-        {
-            return Response.Headers[name];
         }
 
         #endregion

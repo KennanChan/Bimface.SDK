@@ -8,9 +8,13 @@ namespace Bimface.SDK.Requests.Integrate
     [BimfaceAuth]
     internal class DeleteIntegrateRequest : BimfaceApiRequest
     {
+        #region Constructors
+
         public DeleteIntegrateRequest(DeleteIntegrateParameter parameter) : base(HttpMethods.Delete, "/integrate")
         {
             AddQuery("integrateId", parameter.IntegrateId);
         }
+
+        #endregion
     }
 }

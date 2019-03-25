@@ -13,17 +13,25 @@ namespace Bimface.SDK.Entities.Http
 {
     public class HttpContext : IHttpContext
     {
+        #region Properties
+
         private ConcurrentDictionary<Type, IRequestPlugin> Middlewares { get; } =
             new ConcurrentDictionary<Type, IRequestPlugin>();
+
+        #endregion
+
+        #region Interface Implementations
+
+        public IEnumerable<IRequestPlugin> GetRequestPlugins()
+        {
+            return Middlewares.Values.ToList();
+        }
 
         public void UseRequestPlugin(IRequestPlugin requestPlugin)
         {
             Middlewares.AddOrUpdate(requestPlugin.GetType(), requestPlugin, (t, m) => requestPlugin);
         }
 
-        public IEnumerable<IRequestPlugin> GetRequestPlugins()
-        {
-            return Middlewares.Values.ToList();
-        }
+        #endregion
     }
 }

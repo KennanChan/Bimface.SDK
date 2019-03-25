@@ -1,16 +1,20 @@
 ﻿using Bimface.SDK.Entities.Parameters.Data.File;
-using Bimface.SDK.Requests.Base;
 
 namespace Bimface.SDK.Requests.Data.File
 {
-    internal class ListFileFloorMappingsRequest : BimfaceDataApiRequest
+    internal class ListFileFloorMappingsRequest : BimfaceFileDataApiRequest
     {
-        public ListFileFloorMappingsRequest(ListFileFloorMappingsParameter parameter, string apiVersion = DefaultApiVersion)
-            : base("/files/fileIdfloorsMappings", apiVersion)
+        #region Constructors
+
+        public ListFileFloorMappingsRequest(ListFileFloorMappingsParameter parameter,
+            string apiVersion = DefaultApiVersion)
+            : base(parameter, $"/files/{parameter.FileId}/floorsMappings", apiVersion)
         {
             AddNullableArrayQuery("fileIds", parameter.FileIds);
             AddNullableQuery("includeArea", parameter.IncludeArea);
             AddNullableQuery("includeRoom", parameter.IncludeRoom);
         }
+
+        #endregion
     }
 }

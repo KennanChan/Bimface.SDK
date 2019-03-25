@@ -6,10 +6,14 @@ namespace Bimface.SDK.Requests.Compare
 {
     internal class CreateCompareRequest : BimfaceCompareRequest
     {
+        #region Constructors
+
         public CreateCompareRequest(CreateCompareParameter parameter, string apiVersion = DefaultApiVersion)
             : base(HttpMethods.Post, "", apiVersion)
         {
             AddJsonBody(parameter.Request);
         }
+
+        #endregion
     }
 }

@@ -4,11 +4,16 @@ namespace Bimface.SDK.Requests.Data.Integrate
 {
     internal class ListIntegrateElementsPropertiesRequest : BimfaceIntegrateDataApiRequest
     {
-        public ListIntegrateElementsPropertiesRequest(ListIntegrateElementsPropertiesParameter parameter, string apiVersion = DefaultApiVersion)
+        #region Constructors
+
+        public ListIntegrateElementsPropertiesRequest(ListIntegrateElementsPropertiesParameter parameter,
+            string apiVersion = DefaultApiVersion)
             : base(parameter, "/elements", apiVersion)
         {
             AddJsonBody(parameter.FileIdHashWithElementIdsList);
             AddNullableQuery("includeOverrides", parameter.IncludeOverrides);
         }
+
+        #endregion
     }
 }
