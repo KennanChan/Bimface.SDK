@@ -9,12 +9,14 @@ namespace Bimface.SDK.Requests.Data.File
         protected const string DefaultApiVersion = "v2";
 
         protected BimfaceFileDataApiRequest(FileParameter parameter, string method, string relativeApi, string apiVersion)
-            : base(method, $"/files/{parameter.FileId}".CombinePath(relativeApi), apiVersion)
+            : base(method, $"/files/{parameter.FileId}".CombinePath(relativeApi),
+                string.IsNullOrWhiteSpace(apiVersion) ? DefaultApiVersion : apiVersion)
         {
         }
 
         protected BimfaceFileDataApiRequest(FileParameter parameter, string relativeApi, string apiVersion)
-            : base($"/files/{parameter.FileId}".CombinePath(relativeApi), apiVersion)
+            : base($"/files/{parameter.FileId}".CombinePath(relativeApi), 
+                string.IsNullOrWhiteSpace(apiVersion) ? DefaultApiVersion : apiVersion)
         {
         }
     }

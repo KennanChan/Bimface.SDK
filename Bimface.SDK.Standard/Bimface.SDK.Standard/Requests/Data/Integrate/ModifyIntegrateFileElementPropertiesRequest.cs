@@ -1,0 +1,15 @@
+﻿using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Parameters.Data.Integrate;
+
+namespace Bimface.SDK.Requests.Data.Integrate
+{
+    internal class ModifyIntegrateFileElementPropertiesRequest : BimfaceIntegrateDataApiRequest
+    {
+        public ModifyIntegrateFileElementPropertiesRequest(ModifyIntegrateFileElementPropertiesParameter parameter,
+                                                           string                                        apiVersion = DefaultApiVersion)
+            : base(parameter, HttpMethods.Put, $"/files/{parameter.FileIdHash}/elements/{parameter.ElementId}/properties", apiVersion)
+        {
+            AddJsonBody(parameter.Properties);
+        }
+    }
+}

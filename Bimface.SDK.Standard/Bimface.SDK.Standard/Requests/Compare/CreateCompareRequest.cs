@@ -7,8 +7,9 @@ namespace Bimface.SDK.Requests.Compare
     internal class CreateCompareRequest : BimfaceCompareRequest
     {
         public CreateCompareRequest(CreateCompareParameter parameter, string apiVersion = DefaultApiVersion)
-            : base(HttpMethods.Post, relativeApi, apiVersion)
+            : base(HttpMethods.Post, "", apiVersion)
         {
+            AddJsonBody(parameter.Request);
         }
     }
 }

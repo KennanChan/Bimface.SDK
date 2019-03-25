@@ -11,12 +11,14 @@ namespace Bimface.SDK.Requests.Data.Integrate
         protected const string DefaultApiVersion = "v2";
 
         protected BimfaceIntegrateDataApiRequest(IntegrateParameter parameter, string method, string relativeApi, string apiVersion)
-            : base(method, $"/integrates/{parameter.IntegrateId}".CombinePath(relativeApi), apiVersion)
+            : base(method, $"/integrations/{parameter.IntegrateId}".CombinePath(relativeApi),
+                string.IsNullOrWhiteSpace(apiVersion) ? DefaultApiVersion : apiVersion)
         {
         }
 
         protected BimfaceIntegrateDataApiRequest(IntegrateParameter parameter, string relativeApi, string apiVersion)
-            : base($"/integrates/{parameter.IntegrateId}".CombinePath(relativeApi), apiVersion)
+            : base($"/integrations/{parameter.IntegrateId}".CombinePath(relativeApi),
+                string.IsNullOrWhiteSpace(apiVersion) ? DefaultApiVersion : apiVersion)
         {
         }
     }
