@@ -20,7 +20,9 @@ namespace Bimface.SDK.Extensions
 
         public static string CombinePath(this string s, string another)
         {
-            another = another.StartsWith("/") ? another : $"/{another}";
+            const string separator = "/";
+            s       = s.EndsWith(separator) ? s.Substring(0, s.Length - 1) : s;
+            another = another.StartsWith(separator) ? another : $"{separator}{another}";
             return $"{s}{another}";
         }
 

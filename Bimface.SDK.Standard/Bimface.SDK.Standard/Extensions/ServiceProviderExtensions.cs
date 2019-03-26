@@ -2,6 +2,7 @@
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
+using Bimface.SDK.Attributes;
 
 namespace Bimface.SDK.Extensions
 {
@@ -37,6 +38,11 @@ namespace Bimface.SDK.Extensions
             return (T) container.GetService(typeof(T));
         }
 
+        /// <summary>
+        ///     Inject all the injectable properties which are attibuted with <see cref="InjectAttribute"/>
+        /// </summary>
+        /// <param name="container"></param>
+        /// <param name="instance"></param>
         internal static void InjectProperties(this IServiceProvider container, object instance)
         {
             if (null == instance) return;

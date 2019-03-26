@@ -1,4 +1,4 @@
-﻿using Bimface.SDK.Entities.Parameters;
+﻿using Bimface.SDK.Entities.Parameters.File;
 
 namespace Bimface.SDK.Requests.Data.File
 {

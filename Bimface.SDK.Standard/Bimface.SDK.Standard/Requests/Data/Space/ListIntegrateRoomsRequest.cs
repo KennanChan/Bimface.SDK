@@ -1,13 +1,13 @@
 ﻿using Bimface.SDK.Entities.Parameters.Space;
-using Bimface.SDK.Requests.Data.File;
+using Bimface.SDK.Requests.Data.Integrate;
 
-namespace Bimface.SDK.Requests.Space
+namespace Bimface.SDK.Requests.Data.Space
 {
-    internal class ListFileRoomsRequest : BimfaceFileDataApiRequest
+    internal class ListIntegrateRoomsRequest : BimfaceIntegrateDataApiRequest
     {
         #region Constructors
 
-        public ListFileRoomsRequest(ListFileRoomsParameter parameter, string apiVersion = DefaultApiVersion)
+        public ListIntegrateRoomsRequest(ListIntegrateRoomsParameter parameter, string apiVersion = DefaultApiVersion)
             : base(parameter, "/rooms", apiVersion)
         {
             AddQuery("elementId", parameter.ElementId);

@@ -4,7 +4,7 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
-namespace Bimface.SDK.Entities.Parameters
+namespace Bimface.SDK.Entities.Parameters.File
 {
     public class ListFileViewsParameter : FileParameter
     {
