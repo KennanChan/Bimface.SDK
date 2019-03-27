@@ -12,8 +12,7 @@ using Bimface.SDK.Interfaces.Infrastructure;
 namespace Bimface.SDK.Services
 {
     /// <summary>
-    ///     The default implementation of <see cref="IJsonSerializer" /> using the built-in
-    ///     <see cref="DataContractJsonSerializer" />
+    ///     The default implementation of <see cref="IJsonSerializer" /> using the built-in <see cref="DataContractJsonSerializer" />
     /// </summary>
     internal class DefaultJsonSerializer : IJsonSerializer
     {

@@ -1,5 +1,8 @@
 ﻿namespace Bimface.SDK.Requests.Base
 {
+    /// <summary>
+    ///     Base class for
+    /// </summary>
     public abstract class BimfaceApiRequest : BimfaceRequest
     {
         #region Fields

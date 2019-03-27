@@ -15,7 +15,7 @@ namespace Bimface.SDK.Entities.Http
     {
         #region Properties
 
-        private ConcurrentDictionary<Type, IRequestPlugin> Middlewares { get; } =
+        private ConcurrentDictionary<Type, IRequestPlugin> Plugins { get; } =
             new ConcurrentDictionary<Type, IRequestPlugin>();
 
         #endregion
@@ -24,12 +24,12 @@ namespace Bimface.SDK.Entities.Http
 
         public IEnumerable<IRequestPlugin> GetRequestPlugins()
         {
-            return Middlewares.Values.ToList();
+            return Plugins.Values.ToList();
         }
 
         public void UseRequestPlugin(IRequestPlugin requestPlugin)
         {
-            Middlewares.AddOrUpdate(requestPlugin.GetType(), requestPlugin, (t, m) => requestPlugin);
+            Plugins.AddOrUpdate(requestPlugin.GetType(), requestPlugin, (t, m) => requestPlugin);
         }
 
         #endregion

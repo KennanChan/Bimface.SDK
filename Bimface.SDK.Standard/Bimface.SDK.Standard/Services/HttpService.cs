@@ -20,7 +20,7 @@ namespace Bimface.SDK.Services
 
         protected HttpService(IHttpClient client, IResponseResolver responseResolver)
         {
-            Client = client;
+            Client           = client;
             ResponseResolver = responseResolver;
         }
 
@@ -28,35 +28,44 @@ namespace Bimface.SDK.Services
 
         #region Properties
 
-        protected IHttpClient Client { get; }
+        protected IHttpClient       Client           { get; }
         protected IResponseResolver ResponseResolver { get; }
 
-        [Inject] internal IHttpContext Context { get; set; }
+        [Inject]
+        internal IHttpContext Context { get; set; }
 
         #endregion
 
         protected async Task<T> FetchAsync<T>(HttpRequest request)
         {
-            var middlewares = Context.GetRequestPlugins();
-            foreach (var middleware in middlewares) await middleware.Handle(request);
-
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            if (request is IHttpConfigurable configurable) await configurable.Configure();
-
-            return await Task.Run(() =>
-            {
-                var response = Client.GetResponse(request);
-                return ResponseResolver.Resolve<T>(response);
-            });
+            await RunPlugins(request);
+            await ConfigureRequest(request);
+            return await Task.Run(() => ResponseResolver.Resolve<T>(Client.GetResponse(request)));
         }
 
         protected async Task SendAsync(HttpRequest request)
         {
-            var middlewares = Context.GetRequestPlugins();
-            foreach (var middleware in middlewares) await middleware.Handle(request);
+            await RunPlugins(request);
+            await ConfigureRequest(request);
+            await Task.Run(() => Client.GetResponse(request));
+        }
 
-            await Task.Run(() =>
-                Client.GetResponse(request));
+        private async Task RunPlugins(HttpRequest request)
+        {
+            var plugins = Context.GetRequestPlugins();
+            foreach (var middleware in plugins)
+            {
+                await middleware.Handle(request);
+            }
+        }
+
+        private async Task ConfigureRequest(HttpRequest request)
+        {
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (request is IHttpConfigurable configurable)
+            {
+                await configurable.Configure();
+            }
         }
     }
 }

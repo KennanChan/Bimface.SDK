@@ -9,6 +9,9 @@ using Bimface.SDK.Requests.Common;
 
 namespace Bimface.SDK.Services
 {
+    /// <summary>
+    ///     The default implementation of <see cref="IAuthorizationService"/> to manage access token for other business service
+    /// </summary>
     internal class AuthorizationService : HttpService, IAuthorizationService
     {
         #region Fields
@@ -29,9 +32,13 @@ namespace Bimface.SDK.Services
         #region Properties
 
         /// <summary>
-        ///     In-memory cache from view token
+        ///     In-memory cache from access token
         /// </summary>
         private AccessTokenEntity AccessToken { get; set; }
+
+        /// <summary>
+        ///     The tolerance to refresh the token
+        /// </summary>
         private TimeSpan ExpireTolerance { get; } = TimeSpan.FromSeconds(1);
 
         #endregion
@@ -44,7 +51,8 @@ namespace Bimface.SDK.Services
             {
                 await _semaphore.WaitAsync();
 
-                if (AccessToken == null || DateTime.Now - AccessToken.ExpireTime > ExpireTolerance)
+                //Refresh the access token if there is not cache or the token is about to expire
+                if (AccessToken == null || AccessToken.ExpireTime - DateTime.Now < ExpireTolerance)
                     AccessToken = await FetchAsync<AccessTokenEntity>(Container.GetService<OAuthRequest>());
 
                 return AccessToken.Token;

@@ -3,3 +3,6 @@
 #GET https://api.bimface.com/data/integrations/{integrateId}/elements/boundingboxes
 参数fileIdWithEleIdList不明确
 
+#GET https://api.bimface.com/data/databag/dwg
+API设计包含了非领域实体，而是具体的业务实体
+

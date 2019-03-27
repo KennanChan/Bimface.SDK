@@ -3,6 +3,9 @@ using Bimface.SDK.Interfaces.Infrastructure;
 
 namespace Bimface.SDK.Services
 {
+    /// <summary>
+    ///     The default implementation of <see cref="ILog"/> to output to the console
+    /// </summary>
     internal class DefaultLogger : ILog
     {
         #region Interface Implementations

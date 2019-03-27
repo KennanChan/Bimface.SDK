@@ -32,6 +32,11 @@ namespace Bimface.SDK.Plugins
 
         #region Interface Implementations
 
+        /// <summary>
+        ///     Add Authorization header to the <see cref="HttpRequest"/>
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public async Task<bool> Handle(HttpRequest request)
         {
             try
