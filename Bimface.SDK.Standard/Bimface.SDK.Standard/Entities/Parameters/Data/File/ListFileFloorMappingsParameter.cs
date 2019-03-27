@@ -1,7 +1,7 @@
 ﻿#region
 
-using Bimface.SDK.Entities.Parameters.Base;
 using System.Collections.Generic;
+using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
