@@ -5,6 +5,7 @@ using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Interfaces.Core;
+using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 #endregion
@@ -36,6 +37,12 @@ namespace Bimface.SDK.Services
 
         #endregion
 
+        /// <summary>
+        ///     Send an http request and wait to fetch some data from the response
+        /// </summary>
+        /// <typeparam name="T">The type of the data</typeparam>
+        /// <param name="request">The http request</param>
+        /// <returns></returns>
         protected async Task<T> FetchAsync<T>(HttpRequest request)
         {
             await RunPlugins(request);
@@ -43,6 +50,11 @@ namespace Bimface.SDK.Services
             return await Task.Run(() => ResponseResolver.Resolve<T>(Client.GetResponse(request)));
         }
 
+        /// <summary>
+        ///     Send an http request without caring about the response
+        /// </summary>
+        /// <param name="request">The http request</param>
+        /// <returns>The task </returns>
         protected async Task SendAsync(HttpRequest request)
         {
             await RunPlugins(request);
@@ -50,12 +62,17 @@ namespace Bimface.SDK.Services
             await Task.Run(() => Client.GetResponse(request));
         }
 
+        /// <summary>
+        ///     Run all the registered <see cref="IRequestPlugin"/> on the <see cref="HttpRequest"/>
+        /// </summary>
+        /// <param name="request">The http request</param>
+        /// <returns></returns>
         private async Task RunPlugins(HttpRequest request)
         {
             var plugins = Context.GetRequestPlugins();
-            foreach (var middleware in plugins)
+            foreach (var plugin in plugins)
             {
-                await middleware.Handle(request);
+                await plugin.Handle(request);
             }
         }
 

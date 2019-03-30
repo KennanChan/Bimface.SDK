@@ -1,7 +1,6 @@
-﻿using Bimface.SDK.Entities.Parameters.Space;
-using Bimface.SDK.Requests.Data.File;
+﻿using Bimface.SDK.Entities.Parameters.Data.File;
 
-namespace Bimface.SDK.Requests.Data.Space
+namespace Bimface.SDK.Requests.Data.File
 {
     internal class ListFileRoomsRequest : BimfaceFileDataApiRequest
     {

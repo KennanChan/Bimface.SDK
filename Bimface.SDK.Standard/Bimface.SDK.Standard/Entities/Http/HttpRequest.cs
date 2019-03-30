@@ -92,6 +92,7 @@ namespace Bimface.SDK.Entities.Http
         internal void AddJsonBody(object body)
         {
             AddBody(Serializer.Serialize(body).ToStream());
+            AddHeader("Content-Type", "application/json");
         }
 
         internal void AddQuery(string name, string value)

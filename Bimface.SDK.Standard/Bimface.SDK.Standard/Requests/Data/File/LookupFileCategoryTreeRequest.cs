@@ -1,9 +1,7 @@
-﻿using Bimface.SDK.Attributes.Http;
-using Bimface.SDK.Entities.Parameters.Data.File;
+﻿using Bimface.SDK.Entities.Parameters.Data.File;
 
 namespace Bimface.SDK.Requests.Data.File
 {
-    [HttpJsonMime]
     internal class LookupFileCategoryTreeRequest : BimfaceFileDataApiRequest
     {
         #region Constructors

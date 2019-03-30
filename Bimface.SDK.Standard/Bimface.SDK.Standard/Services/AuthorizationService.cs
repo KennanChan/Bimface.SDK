@@ -16,7 +16,7 @@ namespace Bimface.SDK.Services
     {
         #region Fields
 
-        private readonly SemaphoreSlim _semaphore = new SemaphoreSlim(1, 1);
+        private SemaphoreSlim Semaphore { get; } = new SemaphoreSlim(1, 1);
 
         #endregion
 
@@ -47,9 +47,9 @@ namespace Bimface.SDK.Services
 
         public async Task<string> GetAccessToken()
         {
+            await Semaphore.WaitAsync();
             try
             {
-                await _semaphore.WaitAsync();
 
                 //Refresh the access token if there is not cache or the token is about to expire
                 if (AccessToken == null || AccessToken.ExpireTime - DateTime.Now < ExpireTolerance)
@@ -61,6 +61,10 @@ namespace Bimface.SDK.Services
             {
                 Error(e);
                 return null;
+            }
+            finally
+            {
+                Semaphore.Release();
             }
         }
 

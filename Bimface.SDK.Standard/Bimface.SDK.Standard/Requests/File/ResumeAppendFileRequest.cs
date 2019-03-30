@@ -1,5 +1,4 @@
 ﻿using Bimface.SDK.Attributes;
-using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.File;
 using Bimface.SDK.Requests.Base;
@@ -7,7 +6,6 @@ using Bimface.SDK.Requests.Base;
 namespace Bimface.SDK.Requests.File
 {
     [BimfaceAuth]
-    [HttpJsonMime]
     internal class ResumeAppendFileRequest : BimfaceFileRequest
     {
         #region Constructors

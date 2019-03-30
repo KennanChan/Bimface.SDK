@@ -1,6 +1,6 @@
 ﻿namespace Bimface.SDK.Interfaces.Core
 {
-    public interface IDSLService
+    public interface IDSLDataService
     {
     }
 }

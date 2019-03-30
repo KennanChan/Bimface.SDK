@@ -86,20 +86,20 @@ namespace Bimface.SDK
         public void Init()
         {
             Container
-                .AddService<ILog, DefaultLogger>()
-                .AddService<IHttpClient, DefaultHttpClient>()
-                .AddService<IJsonSerializer, DefaultJsonSerializer>()
-                .AddService<IResponseResolver, DefaultResponseResolver>()
-                .Singleton<ISourceFileService, SourceFileService>()
-                .Singleton<BimfaceAuthPlugin>()
-                .Singleton<ResolveHeadersPlugin>()
-                .Singleton<IHttpContext, HttpContext>()
-                .Singleton(this);
+               .AddService<ILog, DefaultLogger>()
+               .AddService<IHttpClient, DefaultHttpClient>()
+               .AddService<IJsonSerializer, DefaultJsonSerializer>()
+               .AddService<IResponseResolver, DefaultResponseResolver>()
+               .Singleton<IFileService, FileService>()
+               .Singleton<BimfaceAuthPlugin>()
+               .Singleton<ResolveHeadersPlugin>()
+               .Singleton<IHttpContext, HttpContext>()
+               .Singleton(this);
             Container
-                .GetService<IHttpContext>()
-                .UseContainer(Container)
-                .UseRequestPlugin<BimfaceAuthPlugin>()
-                .UseRequestPlugin<ResolveHeadersPlugin>();
+               .GetService<IHttpContext>()
+               .UseContainer(Container)
+               .UseRequestPlugin<BimfaceAuthPlugin>()
+               .UseRequestPlugin<ResolveHeadersPlugin>();
         }
     }
 }

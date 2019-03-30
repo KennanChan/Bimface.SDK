@@ -12,11 +12,11 @@ using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 namespace Bimface.SDK.Services
 {
-    internal class SourceFileService : HttpService, ISourceFileService
+    internal class FileService : HttpService, IFileService
     {
         #region Constructors
 
-        public SourceFileService(IHttpClient client, IResponseResolver responseResolver) : base(client,
+        public FileService(IHttpClient client, IResponseResolver responseResolver) : base(client,
             responseResolver)
         {
         }

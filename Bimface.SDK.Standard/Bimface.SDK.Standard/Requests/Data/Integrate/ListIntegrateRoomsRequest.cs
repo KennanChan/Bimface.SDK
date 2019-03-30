@@ -1,7 +1,6 @@
-﻿using Bimface.SDK.Entities.Parameters.Space;
-using Bimface.SDK.Requests.Data.Integrate;
+﻿using Bimface.SDK.Entities.Parameters.Data.Integrate;
 
-namespace Bimface.SDK.Requests.Data.Space
+namespace Bimface.SDK.Requests.Data.Integrate
 {
     internal class ListIntegrateRoomsRequest : BimfaceIntegrateDataApiRequest
     {

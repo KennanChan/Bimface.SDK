@@ -10,7 +10,7 @@ using Bimface.SDK.Entities.Parameters.File;
 
 namespace Bimface.SDK.Interfaces.Core
 {
-    public interface ISourceFileService
+    public interface IFileService
     {
         Task<AppendFileEntity> CreateAppendFile(CreateAppendFileParameter parameter);
         Task<UploadPolicyEntity> CreateUploadPolicy(FetchUploadPolicyParameter parameter);

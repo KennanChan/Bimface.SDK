@@ -1,7 +1,7 @@
 ﻿namespace Bimface.SDK.Requests.Base
 {
     /// <summary>
-    ///     Base class for
+    ///     Base class for requests sending to https://api.goujianwu.com
     /// </summary>
     public abstract class BimfaceApiRequest : BimfaceRequest
     {

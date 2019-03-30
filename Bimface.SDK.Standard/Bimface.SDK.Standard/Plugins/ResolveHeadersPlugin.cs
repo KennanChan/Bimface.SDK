@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +11,21 @@ using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Interfaces.Infrastructure;
 
+#endregion
+
 namespace Bimface.SDK.Plugins
 {
+    /// <summary>
+    ///     Plugin to automatically add predefined headers to an <see cref="HttpRequest"/> attributed with <see cref="HttpHeaderAttribute"/>
+    /// </summary>
     internal class ResolveHeadersPlugin : LogObject, IRequestPlugin
     {
         #region Properties
 
         private ConcurrentDictionary<Type, List<KeyValuePair<string, string>>> Headers { get; } =
             new ConcurrentDictionary<Type, List<KeyValuePair<string, string>>>();
+
+        private Type BaseRequestType { get; } = typeof(HttpRequest);
 
         #endregion
 
@@ -26,12 +35,8 @@ namespace Bimface.SDK.Plugins
         {
             try
             {
-                var headerList = Headers.GetOrAdd(request.GetType(), type =>
-                {
-                    var headers = type.GetCustomAttributes<HttpHeaderAttribute>(true);
-                    return headers.Select(header => new KeyValuePair<string, string>(header.Name, header.Value))
-                        .ToList();
-                });
+                //Get all attributed headers
+                var headerList = Headers.GetOrAdd(request.GetType(), HandleType);
                 headerList.ForEach(header => request.AddHeader(header.Key, header.Value));
                 return Task.FromResult(true);
             }
@@ -42,6 +47,44 @@ namespace Bimface.SDK.Plugins
             }
         }
 
+        public void Prebuild()
+        {
+            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(AnalyzeAssembly);
+            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+        }
+
+        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            AnalyzeAssembly(args.LoadedAssembly);
+        }
+
+        private void AnalyzeAssembly(Assembly assembly)
+        {
+            assembly.GetTypes()
+                    .Where(type => !type.IsInterface)
+                    .Where(type => !type.IsAbstract)
+                    .Where(type => BaseRequestType.IsAssignableFrom(type))
+                    .ToList()
+                    .ForEach(type =>
+                     {
+                         var headerList = HandleType(type);
+                         Headers.AddOrUpdate(type, headerList, (t, h) => headerList);
+                     });
+        }
+
+        private List<KeyValuePair<string, string>> HandleType(Type type)
+        {
+            var headers = type.GetCustomAttributes<HttpHeaderAttribute>(true);
+            return headers.Select(header => new KeyValuePair<string, string>(header.Name, header.Value))
+                          .ToList();
+        }
+
         #endregion
+
+        public void Dispose()
+        {
+            AppDomain.CurrentDomain.AssemblyLoad -= CurrentDomain_AssemblyLoad;
+            Headers.Clear();
+        }
     }
 }
