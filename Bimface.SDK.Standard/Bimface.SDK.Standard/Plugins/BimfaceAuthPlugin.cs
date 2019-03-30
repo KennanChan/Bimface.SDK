@@ -16,9 +16,10 @@ using Bimface.SDK.Interfaces.Infrastructure;
 namespace Bimface.SDK.Plugins
 {
     /// <summary>
-    ///     Use this plugin to automatically add Authorization header to an <see cref="HttpRequest"/> attributed with <see cref="BimfaceAuthAttribute"/> 
+    ///     Use this plugin to automatically add Authorization header to an <see cref="HttpRequest" /> attributed with
+    ///     <see cref="BimfaceAuthAttribute" />
     /// </summary>
-    internal class BimfaceAuthPlugin : LogObject, IRequestPlugin
+    internal class BimfaceAuthPlugin : LogObject, IRequestPlugin, IDisposable
     {
         #region Constructors
 
@@ -38,6 +39,12 @@ namespace Bimface.SDK.Plugins
         #endregion
 
         #region Interface Implementations
+
+        public void Dispose()
+        {
+            AppDomain.CurrentDomain.AssemblyLoad -= CurrentDomain_AssemblyLoad;
+            AuthTypes.Clear();
+        }
 
         /// <summary>
         ///     Add Authorization header to the <see cref="HttpRequest" />
@@ -65,16 +72,15 @@ namespace Bimface.SDK.Plugins
             }
         }
 
-        public void Prebuild()
+        public void PreBuild()
         {
             AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(AnalyzeAssembly);
             AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
         }
 
-        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
-        {
-            AnalyzeAssembly(args.LoadedAssembly);
-        }
+        #endregion
+
+        #region Others
 
         private void AnalyzeAssembly(Assembly assembly)
         {
@@ -90,17 +96,16 @@ namespace Bimface.SDK.Plugins
                      });
         }
 
+        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            AnalyzeAssembly(args.LoadedAssembly);
+        }
+
         private bool HandleType(Type type)
         {
             return type.GetCustomAttributes<BimfaceAuthAttribute>(true).Any();
         }
 
         #endregion
-
-        public void Dispose()
-        {
-            AppDomain.CurrentDomain.AssemblyLoad -= CurrentDomain_AssemblyLoad;
-            AuthTypes.Clear();
-        }
     }
 }

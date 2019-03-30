@@ -11,7 +11,8 @@ namespace Bimface.SDK.Entities.Internal
     {
         #region Properties
 
-        [Inject] protected IServiceContainer Container { get; set; }
+        [Inject]
+        protected IServiceContainer Container { get; set; }
 
         #endregion
     }

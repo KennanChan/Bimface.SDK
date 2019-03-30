@@ -1,10 +1,14 @@
-﻿using System;
+﻿#region
+
+using System;
 using Bimface.SDK.Interfaces.Infrastructure;
+
+#endregion
 
 namespace Bimface.SDK.Services
 {
     /// <summary>
-    ///     The default implementation of <see cref="ILog"/> to output to the console
+    ///     The default implementation of <see cref="ILog" /> to output to the console
     /// </summary>
     internal class DefaultLogger : ILog
     {

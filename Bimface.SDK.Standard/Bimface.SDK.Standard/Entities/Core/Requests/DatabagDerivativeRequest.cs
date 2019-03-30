@@ -12,7 +12,8 @@ namespace Bimface.SDK.Entities.Core.Requests
     {
         #region Properties
 
-        [DataMember(Name = "config")] public IDictionary<string, string> Config { get; set; }
+        [DataMember(Name = "config")]
+        public IDictionary<string, string> Config { get; set; }
 
         #endregion
     }

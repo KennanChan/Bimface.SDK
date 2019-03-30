@@ -1,6 +1,10 @@
-﻿using Bimface.SDK.Entities.Parameters.Base;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Requests.Base;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.File
 {
@@ -15,7 +19,7 @@ namespace Bimface.SDK.Requests.Data.File
         #region Constructors
 
         protected BimfaceFileDataApiRequest(FileParameter parameter, string method, string relativeApi,
-            string apiVersion)
+                                            string        apiVersion)
             : base(method, $"/files/{parameter.FileId}".CombinePath(relativeApi),
                 string.IsNullOrWhiteSpace(apiVersion) ? DefaultApiVersion : apiVersion)
         {

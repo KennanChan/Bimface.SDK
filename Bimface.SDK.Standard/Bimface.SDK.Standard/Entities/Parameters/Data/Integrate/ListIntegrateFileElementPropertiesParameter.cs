@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Base;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
@@ -10,7 +14,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
             base(integrateId)
         {
             FileIdHash = fileIdHash;
-            ElementId = elementId;
+            ElementId  = elementId;
         }
 
         #endregion
@@ -19,8 +23,8 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         public string ElementId { get; }
 
-        public string FileIdHash { get; }
-        public bool? IncludeOverrides { get; set; }
+        public string FileIdHash       { get; }
+        public bool?  IncludeOverrides { get; set; }
 
         #endregion
     }

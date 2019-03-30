@@ -1,5 +1,9 @@
-﻿using Bimface.SDK.Entities.Core;
+﻿#region
+
+using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
@@ -15,10 +19,10 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         #region Properties
 
-        public string ElementId { get; set; }
-        public string FloorId { get; set; }
+        public string    ElementId       { get; set; }
+        public string    FloorId         { get; set; }
         public Tolerance RoomToleranceXY { get; set; }
-        public Tolerance RoomToleranceZ { get; set; }
+        public Tolerance RoomToleranceZ  { get; set; }
 
         #endregion
     }

@@ -1,5 +1,9 @@
-﻿using System;
+﻿#region
+
+using System;
 using Bimface.SDK.Entities.Http;
+
+#endregion
 
 namespace Bimface.SDK.Attributes
 {

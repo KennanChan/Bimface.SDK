@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Base;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Compare
 {
@@ -15,9 +19,9 @@ namespace Bimface.SDK.Entities.Parameters.Data.Compare
         #region Properties
 
         public string ElementName { get; set; }
-        public string Family { get; set; }
-        public int? Page { get; set; }
-        public int? PageSize { get; set; }
+        public string Family      { get; set; }
+        public int?   Page        { get; set; }
+        public int?   PageSize    { get; set; }
 
         #endregion
     }

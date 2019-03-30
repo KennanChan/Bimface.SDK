@@ -9,6 +9,8 @@ namespace Bimface.SDK.Extensions
 {
     public static class StreamExtensions
     {
+        #region Others
+
         public static byte[] AsBytes(this Stream stream)
         {
             var buffer = new byte[16 * 1024];
@@ -28,5 +30,7 @@ namespace Bimface.SDK.Extensions
                 stream.Seek(0, SeekOrigin.Begin);
             return encoding.GetString(stream.AsBytes());
         }
+
+        #endregion
     }
 }

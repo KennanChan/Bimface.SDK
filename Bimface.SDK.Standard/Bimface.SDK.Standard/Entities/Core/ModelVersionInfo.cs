@@ -12,9 +12,11 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "config")] public IDictionary<string, string> Config { get; set; }
+        [DataMember(Name = "config")]
+        public IDictionary<string, string> Config { get; set; }
 
-        [DataMember(Name = "databagId")] public string DatabagId { get; set; }
+        [DataMember(Name = "databagId")]
+        public string DatabagId { get; set; }
 
         [DataMember(Name = "isSupportComponentProperty")]
         public bool IsComponentPropertySupported { get; set; }

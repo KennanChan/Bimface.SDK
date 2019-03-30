@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Base;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Integrate
 {
@@ -15,7 +19,7 @@ namespace Bimface.SDK.Entities.Parameters.Integrate
         #region Properties
 
         public string DatabagVersion { get; set; }
-        public string Type { get; set; }
+        public string Type           { get; set; }
 
         #endregion
     }

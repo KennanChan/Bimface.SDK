@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Data.Integrate;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Data.Integrate;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.Integrate
 {

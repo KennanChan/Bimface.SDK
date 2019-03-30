@@ -1,13 +1,19 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using Bimface.SDK.Attributes;
 
+#endregion
+
 namespace Bimface.SDK.Extensions
 {
     public static class ServiceProviderExtensions
     {
+        #region Others
+
         /// <summary>
         ///     Create the instance of the implementation type, inject all the constructor parameters and inject properties
         /// </summary>
@@ -17,10 +23,10 @@ namespace Bimface.SDK.Extensions
         public static object CreateInstance(this IServiceProvider container, Type implementationType)
         {
             var ctor = implementationType
-                .GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.CreateInstance |
-                                 BindingFlags.Instance).OrderByDescending(x => x.GetParameters().Length).First();
+                      .GetConstructors(BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.CreateInstance |
+                                       BindingFlags.Instance).OrderByDescending(x => x.GetParameters().Length).First();
             var parameterTypes = ctor.GetParameters().Select(p => p.ParameterType);
-            var dependencies = parameterTypes.Select(container.GetService).ToArray();
+            var dependencies   = parameterTypes.Select(container.GetService).ToArray();
             var instance = Activator.CreateInstance(implementationType,
                 BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.CreateInstance |
                 BindingFlags.Instance, null, dependencies, CultureInfo.CurrentCulture);
@@ -39,7 +45,7 @@ namespace Bimface.SDK.Extensions
         }
 
         /// <summary>
-        ///     Inject all the injectable properties which are attibuted with <see cref="InjectAttribute"/>
+        ///     Inject all the injectable properties which are attibuted with <see cref="InjectAttribute" />
         /// </summary>
         /// <param name="container"></param>
         /// <param name="instance"></param>
@@ -49,8 +55,8 @@ namespace Bimface.SDK.Extensions
             try
             {
                 instance.GetInjectableProperties().ToList()
-                    .ForEach(property =>
-                        property.SetValue(instance, container.GetService(property.PropertyType), null));
+                        .ForEach(property =>
+                             property.SetValue(instance, container.GetService(property.PropertyType), null));
             }
             catch (Exception e)
             {
@@ -58,5 +64,7 @@ namespace Bimface.SDK.Extensions
                 throw;
             }
         }
+
+        #endregion
     }
 }

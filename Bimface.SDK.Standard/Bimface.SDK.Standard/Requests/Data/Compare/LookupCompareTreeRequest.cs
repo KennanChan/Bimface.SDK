@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Data.Compare;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Data.Compare;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.Compare
 {

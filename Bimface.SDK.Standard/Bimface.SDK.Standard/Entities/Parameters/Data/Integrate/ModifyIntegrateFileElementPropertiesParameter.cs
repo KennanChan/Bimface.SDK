@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
@@ -12,7 +16,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
             base(integrateId)
         {
             FileIdHash = fileIdHash;
-            ElementId = elementId;
+            ElementId  = elementId;
         }
 
         #endregion
@@ -21,7 +25,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         public string ElementId { get; }
 
-        public string FileIdHash { get; }
+        public string              FileIdHash { get; }
         public List<PropertyGroup> Properties { get; set; } = new List<PropertyGroup>();
 
         #endregion

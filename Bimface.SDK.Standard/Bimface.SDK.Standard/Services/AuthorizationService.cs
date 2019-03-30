@@ -1,4 +1,6 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core;
@@ -7,19 +9,16 @@ using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 using Bimface.SDK.Requests.Common;
 
+#endregion
+
 namespace Bimface.SDK.Services
 {
     /// <summary>
-    ///     The default implementation of <see cref="IAuthorizationService"/> to manage access token for other business service
+    ///     The default implementation of <see cref="IAuthorizationService" /> to manage access token for other business
+    ///     service
     /// </summary>
     internal class AuthorizationService : HttpService, IAuthorizationService
     {
-        #region Fields
-
-        private SemaphoreSlim Semaphore { get; } = new SemaphoreSlim(1, 1);
-
-        #endregion
-
         #region Constructors
 
         public AuthorizationService(IHttpClient client, IResponseResolver responseResolver)
@@ -41,6 +40,8 @@ namespace Bimface.SDK.Services
         /// </summary>
         private TimeSpan ExpireTolerance { get; } = TimeSpan.FromSeconds(1);
 
+        private SemaphoreSlim Semaphore { get; } = new SemaphoreSlim(1, 1);
+
         #endregion
 
         #region Interface Implementations
@@ -50,7 +51,6 @@ namespace Bimface.SDK.Services
             await Semaphore.WaitAsync();
             try
             {
-
                 //Refresh the access token if there is not cache or the token is about to expire
                 if (AccessToken == null || AccessToken.ExpireTime - DateTime.Now < ExpireTolerance)
                     AccessToken = await FetchAsync<AccessTokenEntity>(Container.GetService<OAuthRequest>());

@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Data.Integrate;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Data.Integrate;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.Integrate
 {
@@ -7,7 +11,7 @@ namespace Bimface.SDK.Requests.Data.Integrate
         #region Constructors
 
         public LookupIntegrateCategoryTreeRequest(LookupIntegrateCategoryTreeParameter parameter,
-            string apiVersion = DefaultApiVersion)
+                                                  string                               apiVersion = DefaultApiVersion)
             : base(parameter, $"/rooms/{parameter.RoomId}", apiVersion)
         {
         }

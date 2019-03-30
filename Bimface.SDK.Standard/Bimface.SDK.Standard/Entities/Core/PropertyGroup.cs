@@ -11,9 +11,11 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "group")] public string Group { get; set; }
+        [DataMember(Name = "group")]
+        public string Group { get; set; }
 
-        [DataMember(Name = "items")] public PropertyItem[] Items { get; set; }
+        [DataMember(Name = "items")]
+        public PropertyItem[] Items { get; set; }
 
         #endregion
     }

@@ -17,8 +17,12 @@
 
         #endregion
 
+        #region Others
+
         protected virtual void Method()
         {
         }
+
+        #endregion
     }
 }

@@ -11,9 +11,11 @@ namespace Bimface.SDK.Entities.Core.Requests
     {
         #region Properties
 
-        [DataMember(Name = "elementIds")] public string[] ElementIds { get; set; }
+        [DataMember(Name = "elementIds")]
+        public string[] ElementIds { get; set; }
 
-        [DataMember(Name = "filter")] public GroupAndKeysPair[] Filter { get; set; }
+        [DataMember(Name = "filter")]
+        public GroupAndKeysPair[] Filter { get; set; }
 
         #endregion
     }

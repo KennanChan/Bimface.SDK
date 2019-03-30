@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Data.File;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Data.File;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.File
 {
@@ -7,7 +11,7 @@ namespace Bimface.SDK.Requests.Data.File
         #region Constructors
 
         public ListFileElementsCommonPropertiesRequest(ListFileElementsPropertiesParameter parameter,
-            string apiVersion = DefaultApiVersion)
+                                                       string                              apiVersion = DefaultApiVersion)
             : base(parameter, "/commonElementProperties", apiVersion)
         {
             AddNullableQuery("includeOverrides", parameter.IncludeOverrides);

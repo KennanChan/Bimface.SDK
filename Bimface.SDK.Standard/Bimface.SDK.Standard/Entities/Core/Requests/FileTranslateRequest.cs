@@ -12,13 +12,17 @@ namespace Bimface.SDK.Entities.Core.Requests
     {
         #region Properties
 
-        [DataMember(Name = "callback")] public string Callback { get; set; }
+        [DataMember(Name = "callback")]
+        public string Callback { get; set; }
 
-        [DataMember(Name = "config")] public IDictionary<string, string> Config { get; set; }
+        [DataMember(Name = "config")]
+        public IDictionary<string, string> Config { get; set; }
 
-        [DataMember(Name = "priority")] public int? Priority { get; set; }
+        [DataMember(Name = "priority")]
+        public int? Priority { get; set; }
 
-        [DataMember(Name = "source")] public TranslateSource Source { get; set; }
+        [DataMember(Name = "source")]
+        public TranslateSource Source { get; set; }
 
         #endregion
     }

@@ -11,9 +11,11 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "valueToMatch")] public string ValueToMatch { get; set; }
+        [DataMember(Name = "valueToMatch")]
+        public string ValueToMatch { get; set; }
 
-        [DataMember(Name = "valueToOverride")] public string ValueToOverride { get; set; }
+        [DataMember(Name = "valueToOverride")]
+        public string ValueToOverride { get; set; }
 
         #endregion
     }

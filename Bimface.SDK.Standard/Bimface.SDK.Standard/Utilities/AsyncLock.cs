@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+
+#endregion
 
 namespace Bimface.SDK.Utilities
 {
@@ -11,7 +15,7 @@ namespace Bimface.SDK.Utilities
 
         public AsyncLock()
         {
-            Semaphore = new AsyncSemaphore(1);
+            Semaphore    = new AsyncSemaphore(1);
             CurrentGuard = Task.FromResult(new Guard(this));
         }
 
@@ -19,27 +23,31 @@ namespace Bimface.SDK.Utilities
 
         #region Properties
 
-        private Task<Guard> CurrentGuard { get; }
-        private AsyncSemaphore Semaphore { get; }
+        private Task<Guard>    CurrentGuard { get; }
+        private AsyncSemaphore Semaphore    { get; }
 
         #endregion
+
+        #region Others
 
         public Task<Guard> LockAsync()
         {
             var wait = Semaphore.WaitAsync();
             return wait.IsCompleted
-                ? CurrentGuard
-                : wait.ContinueWith((_, state) => new Guard((AsyncLock) state),
-                    this, CancellationToken.None,
-                    TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+                       ? CurrentGuard
+                       : wait.ContinueWith((_, state) => new Guard((AsyncLock) state),
+                           this, CancellationToken.None,
+                           TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
+
+        #endregion
 
         private class AsyncSemaphore
         {
             #region Fields
 
             private readonly Queue<TaskCompletionSource<bool>> _waiters = new Queue<TaskCompletionSource<bool>>();
-            private int _currentCount;
+            private          int                               _currentCount;
 
             #endregion
 
@@ -52,6 +60,8 @@ namespace Bimface.SDK.Utilities
             }
 
             #endregion
+
+            #region Others
 
             public void Release()
             {
@@ -82,6 +92,8 @@ namespace Bimface.SDK.Utilities
                     return waiter.Task;
                 }
             }
+
+            #endregion
         }
 
         public struct Guard : IDisposable

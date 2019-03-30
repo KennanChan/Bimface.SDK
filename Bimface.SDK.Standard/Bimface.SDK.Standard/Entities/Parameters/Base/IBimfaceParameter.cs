@@ -2,6 +2,10 @@
 {
     public interface IBimfaceParameter
     {
+        #region Others
+
         string GetName();
+
+        #endregion
     }
 }

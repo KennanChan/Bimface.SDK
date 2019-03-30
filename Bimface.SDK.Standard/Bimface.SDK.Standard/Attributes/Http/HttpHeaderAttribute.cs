@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Bimface.SDK.Attributes.Http
 {
@@ -9,7 +13,7 @@ namespace Bimface.SDK.Attributes.Http
 
         public HttpHeaderAttribute(string name, string value)
         {
-            Name = name;
+            Name  = name;
             Value = value;
         }
 
@@ -17,7 +21,7 @@ namespace Bimface.SDK.Attributes.Http
 
         #region Properties
 
-        public string Name { get; }
+        public string Name  { get; }
         public string Value { get; }
 
         #endregion

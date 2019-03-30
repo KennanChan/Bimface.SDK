@@ -1,5 +1,9 @@
-﻿using Bimface.SDK.Entities.Http;
+﻿#region
+
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Data.File;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.File
 {
@@ -8,7 +12,7 @@ namespace Bimface.SDK.Requests.Data.File
         #region Constructors
 
         public DeleteFileElementPropertiesRequest(DeleteFileElementPropertiesParameter parameter,
-            string apiVersion = DefaultApiVersion)
+                                                  string                               apiVersion = DefaultApiVersion)
             : base(parameter, HttpMethods.Delete, $"/elements/{parameter.ElementId}/properties", apiVersion)
         {
             AddJsonBody(parameter.Properties);

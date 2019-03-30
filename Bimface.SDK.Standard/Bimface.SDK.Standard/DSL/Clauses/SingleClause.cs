@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
+
+#endregion
 
 namespace Bimface.SDK.DSL.Clauses
 {
@@ -26,11 +30,15 @@ namespace Bimface.SDK.DSL.Clauses
 
         #endregion
 
+        #region Others
+
         protected IReadOnlyDictionary<string, object> GetData()
         {
             if (_data == null)
                 return null;
             return new ReadOnlyDictionary<string, object>(_data);
         }
+
+        #endregion
     }
 }

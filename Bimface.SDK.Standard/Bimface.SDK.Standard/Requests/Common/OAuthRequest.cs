@@ -1,8 +1,12 @@
-﻿using Bimface.SDK.Attributes;
+﻿#region
+
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Requests.Base;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Common
 {
@@ -19,7 +23,8 @@ namespace Bimface.SDK.Requests.Common
 
         #region Properties
 
-        [Inject] protected AppCredential Credential { get; set; }
+        [Inject]
+        protected AppCredential Credential { get; set; }
 
         #endregion
     }

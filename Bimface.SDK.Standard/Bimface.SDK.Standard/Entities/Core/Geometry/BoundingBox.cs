@@ -11,9 +11,11 @@ namespace Bimface.SDK.Entities.Core.Geometry
     {
         #region Properties
 
-        [DataMember(Name = "max")] public Coordinate Max { get; set; }
+        [DataMember(Name = "max")]
+        public Coordinate Max { get; set; }
 
-        [DataMember(Name = "min")] public Coordinate Min { get; set; }
+        [DataMember(Name = "min")]
+        public Coordinate Min { get; set; }
 
         #endregion
     }

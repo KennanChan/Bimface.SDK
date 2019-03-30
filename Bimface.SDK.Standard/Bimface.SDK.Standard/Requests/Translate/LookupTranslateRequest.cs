@@ -1,6 +1,10 @@
-﻿using Bimface.SDK.Entities.Http;
+﻿#region
+
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Translate;
 using Bimface.SDK.Requests.Base;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Translate
 {

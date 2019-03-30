@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Data.DSL;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Data.DSL;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.DSL
 {

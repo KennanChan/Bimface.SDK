@@ -2,6 +2,10 @@
 {
     public interface IHttpClient
     {
+        #region Others
+
         IHttpResponse GetResponse(IHttpRequest request);
+
+        #endregion
     }
 }

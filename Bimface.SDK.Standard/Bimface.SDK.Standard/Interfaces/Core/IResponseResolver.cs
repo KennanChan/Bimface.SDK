@@ -8,6 +8,10 @@ namespace Bimface.SDK.Interfaces.Core
 {
     public interface IResponseResolver
     {
+        #region Others
+
         T Resolve<T>(IHttpResponse response);
+
+        #endregion
     }
 }

@@ -1,9 +1,15 @@
-﻿using Bimface.SDK.DSL.Clauses;
+﻿#region
+
+using Bimface.SDK.DSL.Clauses;
+
+#endregion
 
 namespace Bimface.SDK.Extensions
 {
     public static class DSLExtensions
     {
+        #region Others
+
         public static IClause And(this IClause clause, params IClause[] others)
         {
             return new BoolAndClause().AddClause(clause).AddClause(others);
@@ -13,5 +19,7 @@ namespace Bimface.SDK.Extensions
         {
             return new BoolOrClause().AddClause(clause).AddClause(others);
         }
+
+        #endregion
     }
 }

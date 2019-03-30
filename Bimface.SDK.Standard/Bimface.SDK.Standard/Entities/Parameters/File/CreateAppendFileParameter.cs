@@ -6,8 +6,8 @@
 
         public CreateAppendFileParameter(string name, long? length, string sourceId = null)
         {
-            Name = name;
-            Length = length;
+            Name     = name;
+            Length   = length;
             SourceId = sourceId;
         }
 
@@ -15,8 +15,8 @@
 
         #region Properties
 
-        public long? Length { get; }
-        public string Name { get; }
+        public long?  Length   { get; }
+        public string Name     { get; }
         public string SourceId { get; set; }
 
         #endregion

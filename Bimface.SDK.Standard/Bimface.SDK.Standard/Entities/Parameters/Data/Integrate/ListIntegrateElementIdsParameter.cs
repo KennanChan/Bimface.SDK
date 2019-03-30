@@ -1,5 +1,9 @@
-﻿using Bimface.SDK.Entities.Core;
+﻿#region
+
+using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {

@@ -1,18 +1,24 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.ComponentModel.Design;
+
+#endregion
 
 namespace Bimface.SDK.Extensions
 {
     public static class ServiceContainerExtensions
     {
+        #region Others
+
         public static IServiceContainer AddService<TService>(this IServiceContainer container, Func<TService> creator)
         {
             container.AddService(typeof(TService), (c, t) => creator());
             return container;
         }
 
-        public static IServiceContainer AddService<TService>(this IServiceContainer container,
-            Func<IServiceContainer, TService> creator)
+        public static IServiceContainer AddService<TService>(this IServiceContainer            container,
+                                                             Func<IServiceContainer, TService> creator)
         {
             container.AddService(typeof(TService), (c, t) => creator(c));
             return container;
@@ -25,27 +31,27 @@ namespace Bimface.SDK.Extensions
             {
                 var implType = typeof(TImplementation);
                 return typeof(TService) == implType
-                    ? container.CreateInstance<TImplementation>()
-                    : container.GetService<TImplementation>();
+                           ? container.CreateInstance<TImplementation>()
+                           : container.GetService<TImplementation>();
             });
         }
 
         public static IServiceContainer Singleton<TService>(this IServiceContainer container,
-            TService implementation)
+                                                            TService               implementation)
         {
             container.AddService(typeof(TService), implementation);
             return container;
         }
 
         public static IServiceContainer Singleton<TService>(this IServiceContainer container,
-            Func<TService> creator)
+                                                            Func<TService>         creator)
         {
             var lazy = new Lazy<TService>(creator);
             return container.AddService(() => lazy.Value);
         }
 
-        public static IServiceContainer Singleton<TService>(this IServiceContainer container,
-            Func<IServiceContainer, TService> creator)
+        public static IServiceContainer Singleton<TService>(this IServiceContainer            container,
+                                                            Func<IServiceContainer, TService> creator)
         {
             var lazy = new Lazy<TService>(() => creator(container));
             return container.AddService(() => lazy.Value);
@@ -71,9 +77,11 @@ namespace Bimface.SDK.Extensions
             {
                 var implType = typeof(TImplementation);
                 return typeof(TService) == implType
-                    ? container.CreateInstance<TImplementation>()
-                    : container.GetService<TImplementation>();
+                           ? container.CreateInstance<TImplementation>()
+                           : container.GetService<TImplementation>();
             });
         }
+
+        #endregion
     }
 }

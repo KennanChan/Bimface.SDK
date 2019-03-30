@@ -5,7 +5,7 @@
         #region Properties
 
         public string ElementId { get; set; }
-        public string FileId { get; set; }
+        public string FileId    { get; set; }
 
         #endregion
     }

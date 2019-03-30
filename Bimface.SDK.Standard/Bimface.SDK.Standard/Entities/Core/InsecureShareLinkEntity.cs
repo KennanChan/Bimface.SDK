@@ -12,17 +12,23 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "appKey")] public string AppKey { get; set; }
+        [DataMember(Name = "appKey")]
+        public string AppKey { get; set; }
 
-        [DataMember(Name = "expireTime")] public DateTime ExpireTime { get; set; }
+        [DataMember(Name = "expireTime")]
+        public DateTime ExpireTime { get; set; }
 
-        [DataMember(Name = "passwordProtect")] public bool PasswordProtect { get; set; }
+        [DataMember(Name = "passwordProtect")]
+        public bool PasswordProtect { get; set; }
 
-        [DataMember(Name = "sourceId")] public long? SourceId { get; set; }
+        [DataMember(Name = "sourceId")]
+        public long? SourceId { get; set; }
 
-        [DataMember(Name = "sourceType")] public string SourceType { get; set; }
+        [DataMember(Name = "sourceType")]
+        public string SourceType { get; set; }
 
-        [DataMember(Name = "url")] public string Url { get; set; }
+        [DataMember(Name = "url")]
+        public string Url { get; set; }
 
         #endregion
     }

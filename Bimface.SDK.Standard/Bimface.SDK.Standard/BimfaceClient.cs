@@ -72,6 +72,8 @@ namespace Bimface.SDK
 
         #endregion
 
+        #region Others
+
         /// <summary>
         ///     Get or create a <see cref="BimfaceClient" /> using the <see cref="AppCredential" /> acquired from bimface.com
         /// </summary>
@@ -101,5 +103,7 @@ namespace Bimface.SDK
                .UseRequestPlugin<BimfaceAuthPlugin>()
                .UseRequestPlugin<ResolveHeadersPlugin>();
         }
+
+        #endregion
     }
 }

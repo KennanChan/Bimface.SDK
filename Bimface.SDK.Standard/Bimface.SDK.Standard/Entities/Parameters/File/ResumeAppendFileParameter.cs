@@ -7,7 +7,7 @@
         public ResumeAppendFileParameter(long? appendFileId, long position)
         {
             AppendFileId = appendFileId;
-            Position = position;
+            Position     = position;
         }
 
         #endregion
@@ -15,7 +15,7 @@
         #region Properties
 
         public long? AppendFileId { get; }
-        public long? Position { get; }
+        public long? Position     { get; }
 
         #endregion
     }

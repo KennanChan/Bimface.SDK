@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Base;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Compare
 {
@@ -15,9 +19,9 @@ namespace Bimface.SDK.Entities.Parameters.Data.Compare
         #region Properties
 
         public string FollowingElementId { get; set; }
-        public long? FollowingFileId { get; set; }
-        public string PreviousElementId { get; set; }
-        public long? PreviousFileId { get; set; }
+        public long?  FollowingFileId    { get; set; }
+        public string PreviousElementId  { get; set; }
+        public long?  PreviousFileId     { get; set; }
 
         #endregion
     }

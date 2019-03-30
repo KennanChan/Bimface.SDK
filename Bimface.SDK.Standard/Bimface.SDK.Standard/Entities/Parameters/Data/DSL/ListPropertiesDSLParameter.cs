@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.DSL;
+﻿#region
+
+using Bimface.SDK.DSL;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.DSL
 {
@@ -14,8 +18,8 @@ namespace Bimface.SDK.Entities.Parameters.Data.DSL
 
         #region Properties
 
-        public bool? IncludeOverrides { get; set; }
-        public string Properties { get; set; }
+        public bool?  IncludeOverrides { get; set; }
+        public string Properties       { get; set; }
 
         #endregion
     }

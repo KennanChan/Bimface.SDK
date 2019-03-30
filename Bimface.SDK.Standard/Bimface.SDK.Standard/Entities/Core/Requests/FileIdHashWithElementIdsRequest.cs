@@ -5,7 +5,7 @@
         #region Properties
 
         public object[] ElementIds { get; set; }
-        public string FileIdHash { get; set; }
+        public string   FileIdHash { get; set; }
 
         #endregion
     }

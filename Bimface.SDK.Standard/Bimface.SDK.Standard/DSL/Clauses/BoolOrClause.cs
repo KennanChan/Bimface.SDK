@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+
+#endregion
 
 namespace Bimface.SDK.DSL.Clauses
 {
@@ -20,13 +24,18 @@ namespace Bimface.SDK.DSL.Clauses
 
         #region Properties
 
-        [DataMember(Name = "boolAnd")] public IReadOnlyCollection<IClause> Clauses => GetClauses();
+        [DataMember(Name = "boolAnd")]
+        public IReadOnlyCollection<IClause> Clauses => GetClauses();
 
         #endregion
+
+        #region Others
 
         public override string GetName()
         {
             return "boolAnd";
         }
+
+        #endregion
     }
 }

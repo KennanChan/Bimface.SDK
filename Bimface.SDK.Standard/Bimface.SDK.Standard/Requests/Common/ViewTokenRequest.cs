@@ -1,6 +1,10 @@
-﻿using Bimface.SDK.Attributes;
+﻿#region
+
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Requests.Base;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Common
 {

@@ -30,7 +30,7 @@ namespace Bimface.SDK.Entities.Http
         public void UseRequestPlugin(IRequestPlugin requestPlugin)
         {
             Plugins.AddOrUpdate(requestPlugin.GetType(), requestPlugin, (t, m) => requestPlugin);
-            requestPlugin.Prebuild();
+            requestPlugin.PreBuild();
         }
 
         #endregion

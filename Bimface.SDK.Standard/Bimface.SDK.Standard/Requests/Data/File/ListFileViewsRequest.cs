@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.File;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.File;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.File
 {

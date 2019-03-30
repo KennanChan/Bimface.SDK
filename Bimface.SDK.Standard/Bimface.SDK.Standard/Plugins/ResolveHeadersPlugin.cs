@@ -16,20 +16,27 @@ using Bimface.SDK.Interfaces.Infrastructure;
 namespace Bimface.SDK.Plugins
 {
     /// <summary>
-    ///     Plugin to automatically add predefined headers to an <see cref="HttpRequest"/> attributed with <see cref="HttpHeaderAttribute"/>
+    ///     Plugin to automatically add predefined headers to an <see cref="HttpRequest" /> attributed with
+    ///     <see cref="HttpHeaderAttribute" />
     /// </summary>
-    internal class ResolveHeadersPlugin : LogObject, IRequestPlugin
+    internal class ResolveHeadersPlugin : LogObject, IRequestPlugin, IDisposable
     {
         #region Properties
+
+        private Type BaseRequestType { get; } = typeof(HttpRequest);
 
         private ConcurrentDictionary<Type, List<KeyValuePair<string, string>>> Headers { get; } =
             new ConcurrentDictionary<Type, List<KeyValuePair<string, string>>>();
 
-        private Type BaseRequestType { get; } = typeof(HttpRequest);
-
         #endregion
 
         #region Interface Implementations
+
+        public void Dispose()
+        {
+            AppDomain.CurrentDomain.AssemblyLoad -= CurrentDomain_AssemblyLoad;
+            Headers.Clear();
+        }
 
         public Task<bool> Handle(HttpRequest request)
         {
@@ -47,16 +54,15 @@ namespace Bimface.SDK.Plugins
             }
         }
 
-        public void Prebuild()
+        public void PreBuild()
         {
             AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(AnalyzeAssembly);
             AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
         }
 
-        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
-        {
-            AnalyzeAssembly(args.LoadedAssembly);
-        }
+        #endregion
+
+        #region Others
 
         private void AnalyzeAssembly(Assembly assembly)
         {
@@ -72,6 +78,11 @@ namespace Bimface.SDK.Plugins
                      });
         }
 
+        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
+        {
+            AnalyzeAssembly(args.LoadedAssembly);
+        }
+
         private List<KeyValuePair<string, string>> HandleType(Type type)
         {
             var headers = type.GetCustomAttributes<HttpHeaderAttribute>(true);
@@ -80,11 +91,5 @@ namespace Bimface.SDK.Plugins
         }
 
         #endregion
-
-        public void Dispose()
-        {
-            AppDomain.CurrentDomain.AssemblyLoad -= CurrentDomain_AssemblyLoad;
-            Headers.Clear();
-        }
     }
 }

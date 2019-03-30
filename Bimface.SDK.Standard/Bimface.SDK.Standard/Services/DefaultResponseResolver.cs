@@ -12,7 +12,8 @@ using Bimface.SDK.Interfaces.Infrastructure.Http;
 namespace Bimface.SDK.Services
 {
     /// <summary>
-    ///     The default implementation of <see cref="IResponseResolver"/> to resolve the <see cref="IHttpResponse"/> to <see cref="GeneralResponse{T}"/>
+    ///     The default implementation of <see cref="IResponseResolver" /> to resolve the <see cref="IHttpResponse" /> to
+    ///     <see cref="GeneralResponse{T}" />
     /// </summary>
     internal class DefaultResponseResolver : IResponseResolver
     {
@@ -34,10 +35,11 @@ namespace Bimface.SDK.Services
         #region Interface Implementations
 
         /// <summary>
-        ///     Deserialize the content of the <see cref="IHttpResponse"/> to <see cref="GeneralResponse{T}"/> using the <see cref="IJsonSerializer"/>
+        ///     Deserialize the content of the <see cref="IHttpResponse" /> to <see cref="GeneralResponse{T}" /> using the
+        ///     <see cref="IJsonSerializer" />
         /// </summary>
         /// <typeparam name="T">The type of the data</typeparam>
-        /// <param name="response">The <see cref="IHttpResponse"/> instance</param>
+        /// <param name="response">The <see cref="IHttpResponse" /> instance</param>
         /// <returns></returns>
         public T Resolve<T>(IHttpResponse response)
         {

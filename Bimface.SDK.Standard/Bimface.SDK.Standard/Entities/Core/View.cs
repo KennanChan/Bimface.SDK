@@ -11,7 +11,8 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "contentType")] public string ContentType { get; set; }
+        [DataMember(Name = "contentType")]
+        public string ContentType { get; set; }
 
         #endregion
     }

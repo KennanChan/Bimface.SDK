@@ -22,7 +22,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
         public FileTreeRequest FileTreeRequest { get; set; }
 
         public string TreeType { get; set; }
-        public string V { get; set; }
+        public string V        { get; set; }
 
         #endregion
     }

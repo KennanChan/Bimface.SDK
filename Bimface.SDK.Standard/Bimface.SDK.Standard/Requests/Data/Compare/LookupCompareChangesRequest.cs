@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Entities.Parameters.Data.Compare;
+﻿#region
+
+using Bimface.SDK.Entities.Parameters.Data.Compare;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.Compare
 {
@@ -7,7 +11,7 @@ namespace Bimface.SDK.Requests.Data.Compare
         #region Constructors
 
         public LookupCompareChangesRequest(LookupCompareChangesParameter parameter,
-            string apiVersion = DefaultApiVersion)
+                                           string                        apiVersion = DefaultApiVersion)
             : base(parameter, "/elementChange", apiVersion)
         {
             AddQuery("followingElementId", parameter.FollowingElementId);

@@ -1,5 +1,9 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Runtime.Serialization;
+
+#endregion
 
 namespace Bimface.SDK.DSL.Clauses
 {
@@ -16,13 +20,18 @@ namespace Bimface.SDK.DSL.Clauses
 
         #region Properties
 
-        [DataMember(Name = "contain")] public IReadOnlyDictionary<string, object> Contain => GetData();
+        [DataMember(Name = "contain")]
+        public IReadOnlyDictionary<string, object> Contain => GetData();
 
         #endregion
+
+        #region Others
 
         public override string GetName()
         {
             return "contain";
         }
+
+        #endregion
     }
 }

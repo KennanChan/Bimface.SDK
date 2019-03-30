@@ -24,6 +24,8 @@ namespace Bimface.SDK.Entities.Internal
 
         #endregion
 
+        #region Others
+
         public void Debug(object log)
         {
             Logger.Debug(Type, log);
@@ -38,5 +40,7 @@ namespace Bimface.SDK.Entities.Internal
         {
             Logger.Info(Type, log);
         }
+
+        #endregion
     }
 }

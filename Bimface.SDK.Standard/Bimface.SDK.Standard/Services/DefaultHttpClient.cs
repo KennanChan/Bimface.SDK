@@ -24,6 +24,8 @@ namespace Bimface.SDK.Services
 
         #endregion
 
+        #region Others
+
         /// <summary>
         ///     Create an <see cref="HttpWebRequest" /> from the given <see cref="IHttpRequest" /> instance
         /// </summary>
@@ -47,5 +49,7 @@ namespace Bimface.SDK.Services
         {
             return new HttpResponse(response);
         }
+
+        #endregion
     }
 }

@@ -1,7 +1,11 @@
-﻿using Bimface.SDK.Attributes;
+﻿#region
+
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Parameters.Data.DSL;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Requests.Base;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.DSL
 {

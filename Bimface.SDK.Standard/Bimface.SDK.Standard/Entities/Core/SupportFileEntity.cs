@@ -11,9 +11,11 @@ namespace Bimface.SDK.Entities.Core
     {
         #region Properties
 
-        [DataMember(Name = "length")] public long? Length { get; set; }
+        [DataMember(Name = "length")]
+        public long? Length { get; set; }
 
-        [DataMember(Name = "types")] public object[] Types { get; set; }
+        [DataMember(Name = "types")]
+        public object[] Types { get; set; }
 
         #endregion
     }

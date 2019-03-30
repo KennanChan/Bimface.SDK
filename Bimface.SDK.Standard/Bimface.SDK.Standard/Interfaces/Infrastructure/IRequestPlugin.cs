@@ -1,12 +1,19 @@
-﻿using System;
+﻿#region
+
 using System.Threading.Tasks;
 using Bimface.SDK.Entities.Http;
 
+#endregion
+
 namespace Bimface.SDK.Interfaces.Infrastructure
 {
-    public interface IRequestPlugin : IDisposable
+    public interface IRequestPlugin
     {
+        #region Others
+
         Task<bool> Handle(HttpRequest request);
-        void Prebuild();
+        void PreBuild();
+
+        #endregion
     }
 }

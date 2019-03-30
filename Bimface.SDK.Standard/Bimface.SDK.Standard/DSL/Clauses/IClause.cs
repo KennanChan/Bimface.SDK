@@ -2,6 +2,10 @@
 {
     public interface IClause
     {
+        #region Others
+
         string GetName();
+
+        #endregion
     }
 }

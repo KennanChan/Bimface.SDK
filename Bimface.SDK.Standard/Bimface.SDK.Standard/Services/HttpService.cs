@@ -37,6 +37,8 @@ namespace Bimface.SDK.Services
 
         #endregion
 
+        #region Others
+
         /// <summary>
         ///     Send an http request and wait to fetch some data from the response
         /// </summary>
@@ -62,8 +64,17 @@ namespace Bimface.SDK.Services
             await Task.Run(() => Client.GetResponse(request));
         }
 
+        private async Task ConfigureRequest(HttpRequest request)
+        {
+            // ReSharper disable once SuspiciousTypeConversion.Global
+            if (request is IHttpConfigurable configurable)
+            {
+                await configurable.Configure();
+            }
+        }
+
         /// <summary>
-        ///     Run all the registered <see cref="IRequestPlugin"/> on the <see cref="HttpRequest"/>
+        ///     Run all the registered <see cref="IRequestPlugin" /> on the <see cref="HttpRequest" />
         /// </summary>
         /// <param name="request">The http request</param>
         /// <returns></returns>
@@ -76,13 +87,6 @@ namespace Bimface.SDK.Services
             }
         }
 
-        private async Task ConfigureRequest(HttpRequest request)
-        {
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            if (request is IHttpConfigurable configurable)
-            {
-                await configurable.Configure();
-            }
-        }
+        #endregion
     }
 }

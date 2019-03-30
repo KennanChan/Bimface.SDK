@@ -10,7 +10,11 @@ namespace Bimface.SDK.Interfaces.Core
 {
     public interface ITranslateService
     {
+        #region Others
+
         Task<FileTranslateEntity> CreateTranslate(CreateTranslateParameter parameter);
         Task<FileTranslateEntity> LookupTranslate(LookupTranslateParameter parameter);
+
+        #endregion
     }
 }

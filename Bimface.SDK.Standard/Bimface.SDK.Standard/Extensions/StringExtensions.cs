@@ -1,11 +1,17 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.IO;
 using System.Text;
+
+#endregion
 
 namespace Bimface.SDK.Extensions
 {
     public static class StringExtensions
     {
+        #region Others
+
         public static string Base64Decode(this string s, Encoding encoding = null)
         {
             encoding = encoding ?? Encoding.UTF8;
@@ -31,5 +37,7 @@ namespace Bimface.SDK.Extensions
             encoding = encoding ?? Encoding.UTF8;
             return encoding.GetBytes(s).ToStream();
         }
+
+        #endregion
     }
 }

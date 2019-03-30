@@ -1,6 +1,10 @@
-﻿using System.ComponentModel.Design;
+﻿#region
+
+using System.ComponentModel.Design;
 using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
+
+#endregion
 
 namespace Bimface.SDK.Extensions
 {
@@ -12,6 +16,8 @@ namespace Bimface.SDK.Extensions
 
         #endregion
 
+        #region Others
+
         internal static IHttpContext UseContainer(this IHttpContext context, IServiceContainer container)
         {
             Container = container;
@@ -19,7 +25,7 @@ namespace Bimface.SDK.Extensions
         }
 
         internal static IHttpContext UseRequestPlugin<TMiddleware>(this IHttpContext context,
-            IServiceContainer container = null)
+                                                                   IServiceContainer container = null)
             where TMiddleware : IRequestPlugin
         {
             container = container ?? Container;
@@ -27,5 +33,7 @@ namespace Bimface.SDK.Extensions
                 context.UseRequestPlugin(container.GetService<TMiddleware>());
             return context;
         }
+
+        #endregion
     }
 }

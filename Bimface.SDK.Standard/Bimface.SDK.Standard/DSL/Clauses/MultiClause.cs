@@ -1,6 +1,10 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+
+#endregion
 
 namespace Bimface.SDK.DSL.Clauses
 {
@@ -32,15 +36,19 @@ namespace Bimface.SDK.DSL.Clauses
 
         #endregion
 
+        #region Others
+
+        protected IReadOnlyCollection<IClause> GetClauses()
+        {
+            return new ReadOnlyCollection<IClause>(_clauses);
+        }
+
         internal MultiClause AddClause(params IClause[] clauses)
         {
             clauses.ToList().ForEach(c => _clauses.Add(c));
             return this;
         }
 
-        protected IReadOnlyCollection<IClause> GetClauses()
-        {
-            return new ReadOnlyCollection<IClause>(_clauses);
-        }
+        #endregion
     }
 }

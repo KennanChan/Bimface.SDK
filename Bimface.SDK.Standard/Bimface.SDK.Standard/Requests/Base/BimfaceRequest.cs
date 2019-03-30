@@ -1,7 +1,11 @@
-﻿using System;
+﻿#region
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Bimface.SDK.Entities.Http;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Base
 {
@@ -14,6 +18,8 @@ namespace Bimface.SDK.Requests.Base
         }
 
         #endregion
+
+        #region Others
 
         protected void AddArrayQuery<T>(string name, IEnumerable<T> value) where T : class
         {
@@ -42,5 +48,7 @@ namespace Bimface.SDK.Requests.Base
         {
             base.AddQuery(name, value.ToString());
         }
+
+        #endregion
     }
 }

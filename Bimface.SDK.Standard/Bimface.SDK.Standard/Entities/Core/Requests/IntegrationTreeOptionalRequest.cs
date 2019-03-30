@@ -1,4 +1,8 @@
-﻿using System.Collections.Generic;
+﻿#region
+
+using System.Collections.Generic;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Requests
 {
@@ -6,9 +10,9 @@ namespace Bimface.SDK.Entities.Core.Requests
     {
         #region Properties
 
-        public Dictionary<string, string> CustomizedNodeKeys { get; set; }
-        public List<ElementIdWithFileId> ElementIdWithFileIds { get; set; }
-        public List<List<string>> SortedNamesHierarchy { get; set; }
+        public Dictionary<string, string> CustomizedNodeKeys   { get; set; }
+        public List<ElementIdWithFileId>  ElementIdWithFileIds { get; set; }
+        public List<List<string>>         SortedNamesHierarchy { get; set; }
 
         #endregion
     }

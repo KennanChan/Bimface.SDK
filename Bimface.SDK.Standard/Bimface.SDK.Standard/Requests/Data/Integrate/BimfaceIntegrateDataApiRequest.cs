@@ -1,7 +1,11 @@
-﻿using Bimface.SDK.Attributes;
+﻿#region
+
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Requests.Base;
+
+#endregion
 
 namespace Bimface.SDK.Requests.Data.Integrate
 {
@@ -17,7 +21,7 @@ namespace Bimface.SDK.Requests.Data.Integrate
         #region Constructors
 
         protected BimfaceIntegrateDataApiRequest(IntegrateParameter parameter, string method, string relativeApi,
-            string apiVersion)
+                                                 string             apiVersion)
             : base(method, $"/integrations/{parameter.IntegrateId}".CombinePath(relativeApi),
                 string.IsNullOrWhiteSpace(apiVersion) ? DefaultApiVersion : apiVersion)
         {
