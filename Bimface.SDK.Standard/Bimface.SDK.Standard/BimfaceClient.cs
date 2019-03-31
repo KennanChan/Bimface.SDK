@@ -17,12 +17,15 @@ namespace Bimface.SDK
 {
     public class BimfaceClient : IServiceContainer
     {
+        private bool _initialized = false;
+
         #region Constructors
 
         private BimfaceClient(AppCredential credential, IServiceContainer container)
         {
             Container = container ?? new ServiceContainer();
             Container.Singleton(credential);
+            Init();
         }
 
         #endregion
@@ -85,8 +88,9 @@ namespace Bimface.SDK
             return container?.GetService<BimfaceClient>() ?? new BimfaceClient(credential, container);
         }
 
-        public void Init()
+        private void Init()
         {
+            if (_initialized) return;
             Container
                .AddService<ILog, DefaultLogger>()
                .AddService<IHttpClient, DefaultHttpClient>()
@@ -102,6 +106,7 @@ namespace Bimface.SDK
                .UseContainer(Container)
                .UseRequestPlugin<BimfaceAuthPlugin>()
                .UseRequestPlugin<ResolveHeadersPlugin>();
+            _initialized = true;
         }
 
         #endregion

@@ -10,11 +10,11 @@ using Bimface.SDK.Requests.Base;
 namespace Bimface.SDK.Requests.File
 {
     [BimfaceAuth]
-    internal class PolicyUploadRequest : BimfaceFileRequest
+    internal class FetchUploadPolicyRequest : BimfaceFileRequest
     {
         #region Constructors
 
-        public PolicyUploadRequest(PolicyUploadParameter parameter) : base(HttpMethods.Get, "/upload/policy")
+        public FetchUploadPolicyRequest(FetchUploadPolicyParameter parameter) : base(HttpMethods.Get, "/upload/policy")
         {
             AddQuery("name", parameter.Name);
             AddQuery("sourceId", parameter.SourceId);

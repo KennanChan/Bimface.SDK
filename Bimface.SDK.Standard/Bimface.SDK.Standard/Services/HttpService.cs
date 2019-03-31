@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.Threading.Tasks;
 using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Http;
@@ -44,24 +45,26 @@ namespace Bimface.SDK.Services
         /// </summary>
         /// <typeparam name="T">The type of the data</typeparam>
         /// <param name="request">The http request</param>
+        /// <param name="progress">The progress handler</param>
         /// <returns></returns>
-        protected async Task<T> FetchAsync<T>(HttpRequest request)
+        protected async Task<T> FetchAsync<T>(HttpRequest request, IProgress<double> progress = null)
         {
             await RunPlugins(request);
             await ConfigureRequest(request);
-            return await Task.Run(() => ResponseResolver.Resolve<T>(Client.GetResponse(request)));
+            return await Task.Run(() => ResponseResolver.Resolve<T>(Client.GetResponse(request, progress)));
         }
 
         /// <summary>
         ///     Send an http request without caring about the response
         /// </summary>
         /// <param name="request">The http request</param>
+        /// <param name="progress"></param>
         /// <returns>The task </returns>
-        protected async Task SendAsync(HttpRequest request)
+        protected async Task SendAsync(HttpRequest request, IProgress<double> progress = null)
         {
             await RunPlugins(request);
             await ConfigureRequest(request);
-            await Task.Run(() => Client.GetResponse(request));
+            await Task.Run(() => Client.GetResponse(request, null));
         }
 
         private async Task ConfigureRequest(HttpRequest request)

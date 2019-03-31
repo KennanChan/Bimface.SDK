@@ -2,9 +2,18 @@
 {
     public class FetchUploadPolicyParameter
     {
+        #region Constructors
+
+        public FetchUploadPolicyParameter(string name)
+        {
+            Name = name;
+        }
+
+        #endregion
+
         #region Properties
 
-        public string Name     { get; set; }
+        public string Name     { get; }
         public string SourceId { get; set; }
 
         #endregion

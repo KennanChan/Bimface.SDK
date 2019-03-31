@@ -7,6 +7,7 @@ using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.File;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
+using Bimface.SDK.Requests.File;
 
 #endregion
 
@@ -27,47 +28,47 @@ namespace Bimface.SDK.Services
 
         public Task<AppendFileEntity> CreateAppendFile(CreateAppendFileParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<AppendFileEntity>(new CreateAppendFileRequest(parameter));
         }
 
         public Task<UploadPolicyEntity> CreateUploadPolicy(FetchUploadPolicyParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<UploadPolicyEntity>(new FetchUploadPolicyRequest(parameter));
         }
 
         public Task DeleteFile(DeleteFileParameter parameter)
         {
-            throw new NotImplementedException();
+            return SendAsync(new DeleteFileRequest(parameter));
         }
 
         public Task<AppendFileEntity> FetchAppendFile(LookupAppendFileParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<AppendFileEntity>(new LookupAppendFileRequest(parameter));
         }
 
         public Task<string> FetchFileTemporaryDownloadUrl(FileDownloadAddressParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<string>(new FileDownloadAddressRequest(parameter));
         }
 
         public Task<List<FileEntity>> ListFiles(ListFilesParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<List<FileEntity>>(new ListFilesRequest(parameter));
         }
 
-        public Task<FileEntity> LookupFileMeta(LookupFileMetaParameter parameter)
+        public Task<FileEntity> LookupFileMeta(LookupFileParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<FileEntity>(new LookupFileRequest(parameter));
         }
 
         public Task<AppendFileEntity> ResumeAppendFile(ResumeAppendFileParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<AppendFileEntity>(new ResumeAppendFileRequest(parameter));
         }
 
-        public Task<FileEntity> Upload(PushUploadParameter parameter, IProgress<long> progressReporter = null)
+        public Task<FileEntity> Upload(PushUploadParameter parameter, IProgress<double> progressReporter = null)
         {
-            throw new NotImplementedException();
+            return FetchAsync<FileEntity>(new PushUploadRequest(parameter));
         }
 
         public Task<FileEntity> Upload(PullUploadParameter parameter)

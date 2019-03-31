@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.IO;
 using System.Text;
 
@@ -29,6 +30,27 @@ namespace Bimface.SDK.Extensions
             if (stream.CanSeek)
                 stream.Seek(0, SeekOrigin.Begin);
             return encoding.GetString(stream.AsBytes());
+        }
+
+        /// <summary>
+        ///     Copy the binary data from one <see cref="Stream"/> to another
+        /// </summary>
+        /// <param name="source">The original <see cref="Stream"/></param>
+        /// <param name="target">The target <see cref="Stream"/></param>
+        /// <param name="bufferSize">The size of memory used to buffer the binary data</param>
+        /// <param name="onBytesCopied">The handler that invoked each time some binary data copied</param>
+        public static void CopyTo(this Stream source, Stream target, int bufferSize = 1024,
+                                  Action<int> onBytesCopied = null)
+        {
+            var buffer     = new byte[bufferSize];
+            var totalCount = 0;
+            int count;
+            while ((count = source.Read(buffer, 0, buffer.Length)) > 0)
+            {
+                target.Write(buffer, 0, count);
+                totalCount += count;
+                onBytesCopied?.Invoke(totalCount);
+            }
         }
 
         #endregion

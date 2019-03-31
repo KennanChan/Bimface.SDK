@@ -10,11 +10,11 @@ using Bimface.SDK.Requests.Base;
 namespace Bimface.SDK.Requests.File
 {
     [BimfaceAuth]
-    internal class LookupFileMetaRequest : BimfaceFileRequest
+    internal class LookupFileRequest : BimfaceFileRequest
     {
         #region Constructors
 
-        public LookupFileMetaRequest(LookupFileMetaParameter parameter) : base(HttpMethods.Get, "/metadata")
+        public LookupFileRequest(LookupFileParameter parameter) : base(HttpMethods.Get, "/metadata")
         {
             AddNullableQuery("fileId", parameter.FileId);
         }

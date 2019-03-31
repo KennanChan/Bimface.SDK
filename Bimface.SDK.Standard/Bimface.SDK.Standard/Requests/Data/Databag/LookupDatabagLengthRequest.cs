@@ -14,7 +14,7 @@ namespace Bimface.SDK.Requests.Data.Databag
     {
         #region Constructors
 
-        public LookupDatabagLengthRequest(LookupDatabagLengthParameter parameter, string apiVersion)
+        public LookupDatabagLengthRequest(LookupDatabagLengthParameter parameter, string apiVersion = DefaultApiVersion)
             : base(HttpMethods.Get, "/length", apiVersion)
         {
             AddQuery("fileId", parameter.FileId);

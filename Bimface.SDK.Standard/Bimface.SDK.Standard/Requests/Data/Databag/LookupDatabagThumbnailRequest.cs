@@ -12,7 +12,7 @@ namespace Bimface.SDK.Requests.Data.Databag
     {
         #region Constructors
 
-        public LookupDatabagThumbnailRequest(LookupDatabagThumbnailParameter parameter, string apiVersion = "v2")
+        public LookupDatabagThumbnailRequest(LookupDatabagThumbnailParameter parameter, string apiVersion = DefaultApiVersion)
             : base(HttpMethods.Get, "/thumbnail", apiVersion)
         {
         }

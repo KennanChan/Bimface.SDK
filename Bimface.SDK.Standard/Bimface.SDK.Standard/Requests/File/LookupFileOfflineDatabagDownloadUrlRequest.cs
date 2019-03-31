@@ -3,6 +3,7 @@
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.File;
 using Bimface.SDK.Requests.Base;
+using Bimface.SDK.Requests.Data.Databag;
 
 #endregion
 
