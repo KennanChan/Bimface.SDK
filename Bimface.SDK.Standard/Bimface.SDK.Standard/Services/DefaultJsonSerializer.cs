@@ -2,7 +2,9 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.Globalization;
 using System.IO;
+using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
 using System.Text;
 using Bimface.SDK.Interfaces.Infrastructure;
@@ -21,6 +23,12 @@ namespace Bimface.SDK.Services
 
         private static ConcurrentDictionary<Type, DataContractJsonSerializer> Serializers { get; } =
             new ConcurrentDictionary<Type, DataContractJsonSerializer>();
+
+        private DataContractJsonSerializerSettings Settings { get; }
+            = new DataContractJsonSerializerSettings
+              {
+                  DateTimeFormat = new DateTimeFormat("yyyy-MM-dd hh:mm:ss") {DateTimeStyles = DateTimeStyles.None}
+              };
 
         #endregion
 
@@ -76,9 +84,9 @@ namespace Bimface.SDK.Services
 
         #region Others
 
-        private static DataContractJsonSerializer GetSerializer(Type t)
+        private DataContractJsonSerializer GetSerializer(Type type)
         {
-            return Serializers.GetOrAdd(t, new DataContractJsonSerializer(t));
+            return Serializers.GetOrAdd(type, t => new DataContractJsonSerializer(t, Settings));
         }
 
         #endregion

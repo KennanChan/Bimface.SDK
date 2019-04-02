@@ -24,13 +24,13 @@ namespace Bimface.SDK.Extensions
             return context;
         }
 
-        internal static IHttpContext UseRequestPlugin<TMiddleware>(this IHttpContext context,
-                                                                   IServiceContainer container = null)
-            where TMiddleware : IRequestPlugin
+        internal static IHttpContext UseRequestPlugin<TPlugin>(this IHttpContext context,
+                                                               IServiceContainer container = null)
+            where TPlugin : IRequestPlugin
         {
             container = container ?? Container;
             if (null != container)
-                context.UseRequestPlugin(container.GetService<TMiddleware>());
+                context.UseRequestPlugin(container.GetService<TPlugin>());
             return context;
         }
 

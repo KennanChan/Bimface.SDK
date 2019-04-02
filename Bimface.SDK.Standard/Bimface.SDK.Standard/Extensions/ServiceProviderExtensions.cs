@@ -41,7 +41,9 @@ namespace Bimface.SDK.Extensions
 
         public static T GetService<T>(this IServiceProvider container)
         {
-            return (T) container.GetService(typeof(T));
+            var type = typeof(T);
+            var service = container.GetService(typeof(T));
+            return (T) service;
         }
 
         /// <summary>

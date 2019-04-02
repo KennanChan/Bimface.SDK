@@ -10,7 +10,7 @@ namespace Bimface.SDK.Requests.Share
     {
         public CreateShareRequest(CreateShareParameter parameter) : base(HttpMethods.Post, "/share")
         {
-            AddNullableQuery("activeHours", parameter.ActiveHours);
+            AddQuery("activeHours", parameter.ActiveHours);
             AddDateQuery("expireDate", parameter.ExpireDate);
             AddNullableQuery("fileId", parameter.FileId);
             AddNullableQuery("integrateId", parameter.IntegrateId);

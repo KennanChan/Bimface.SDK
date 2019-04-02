@@ -1,6 +1,13 @@
-﻿namespace Bimface.SDK.Entities.Parameters.Base
+﻿#region
+
+using Bimface.SDK.Attributes;
+
+#endregion
+
+namespace Bimface.SDK.Entities.Parameters.Base
 {
-    public abstract class CompareParameter
+    [BimfaceAuth]
+    public abstract class CompareParameter : HttpParameter
     {
         #region Constructors
 

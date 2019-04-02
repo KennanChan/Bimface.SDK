@@ -1,12 +1,15 @@
 ﻿#region
 
+using Bimface.SDK.Attributes;
 using Bimface.SDK.DSL;
+using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.DSL
 {
-    public abstract class DSLParameter
+    [BimfaceAuth]
+    public abstract class DSLParameter : HttpParameter
     {
         #region Constructors
 

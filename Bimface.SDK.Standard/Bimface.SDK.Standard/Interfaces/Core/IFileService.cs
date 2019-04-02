@@ -14,17 +14,17 @@ namespace Bimface.SDK.Interfaces.Core
     {
         #region Others
 
-        Task<AppendFileEntity> CreateAppendFile(CreateAppendFileParameter       parameter);
-        Task<UploadPolicyEntity> CreateUploadPolicy(FetchUploadPolicyParameter  parameter);
-        Task DeleteFile(DeleteFileParameter                                     parameter);
-        Task<AppendFileEntity> FetchAppendFile(LookupAppendFileParameter        parameter);
-        Task<string> FetchFileTemporaryDownloadUrl(FileDownloadAddressParameter parameter);
-        Task<List<FileEntity>> ListFiles(ListFilesParameter                     parameter);
-        Task<FileEntity> LookupFileMeta(LookupFileParameter                     parameter);
-        Task<AppendFileEntity> ResumeAppendFile(ResumeAppendFileParameter       parameter);
-        Task<FileEntity> Upload(PushUploadParameter                             parameter, IProgress<double> progressReporter = null);
-        Task<FileEntity> Upload(PullUploadParameter                             parameter);
-        Task<SupportFileEntity> ViewSupportFileTypes();
+        Task<AppendFileEntity> CreateAppendFile(CreateAppendFileParameter          parameter);
+        Task<UploadPolicyEntity> CreateUploadPolicy(FetchUploadPolicyParameter     parameter);
+        Task DeleteFile(DeleteFileParameter                                        parameter);
+        Task<AppendFileEntity> FetchAppendFile(LookupAppendFileParameter           parameter);
+        Task<string> FetchFileTemporaryDownloadUrl(FileDownloadAddressParameter    parameter);
+        Task<List<FileEntity>> ListFiles(ListFilesParameter                        parameter);
+        Task<FileEntity> LookupFileMeta(LookupFileParameter                        parameter);
+        Task<AppendFileEntity> ResumeAppendFile(ResumeAppendFileParameter          parameter);
+        Task<FileEntity> Upload(PushUploadParameter                                parameter, IProgress<double> progressReporter = null);
+        Task<FileEntity> Upload(PullUploadParameter                                parameter);
+        Task<SupportFileEntity> ListSupportFileTypes(ListSupportFileTypesParameter parameter);
 
         #endregion
     }

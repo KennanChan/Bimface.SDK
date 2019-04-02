@@ -1,6 +1,14 @@
-﻿namespace Bimface.SDK.Entities.Parameters.Base
+﻿#region
+
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Attributes.Http;
+
+#endregion
+
+namespace Bimface.SDK.Entities.Parameters.Base
 {
-    public abstract class FileParameter
+    [BimfaceAuth]
+    public abstract class FileParameter : HttpParameter
     {
         #region Constructors
 
@@ -13,6 +21,7 @@
 
         #region Properties
 
+        [HttpPathComponent(Alias = "fileId")]
         public long? FileId { get; }
 
         #endregion

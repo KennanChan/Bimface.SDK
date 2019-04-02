@@ -14,8 +14,9 @@ namespace Bimface.SDK.Requests.Common
     {
         #region Constructors
 
-        public OAuthRequest() : base(HttpMethods.Get, "/oauth2/token")
+        public OAuthRequest(AppCredential credential) : base(HttpMethods.Post, "/oauth2/token")
         {
+            Credential = credential;
             AddHeader("Authorization", $"Basic {$"{Credential.AppKey}:{Credential.AppSecret}".Base64Encode()}");
         }
 
@@ -23,8 +24,7 @@ namespace Bimface.SDK.Requests.Common
 
         #region Properties
 
-        [Inject]
-        protected AppCredential Credential { get; set; }
+        protected AppCredential Credential { get; }
 
         #endregion
     }

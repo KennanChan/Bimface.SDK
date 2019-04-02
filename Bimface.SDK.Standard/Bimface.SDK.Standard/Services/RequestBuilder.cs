@@ -1,0 +1,162 @@
+﻿#region
+
+using System;
+using System.Collections.Concurrent;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Bimface.SDK.Attributes.Http;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Parameters.Base;
+using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Interfaces.Infrastructure.Http;
+
+#endregion
+
+namespace Bimface.SDK.Services
+{
+    internal class RequestBuilder<T> : IRequestBuilder<T> where T : HttpParameter
+    {
+        #region Constructors
+
+        public RequestBuilder(IHttpContext context)
+        {
+            Context = context;
+        }
+
+        #endregion
+
+        #region Properties
+
+        private ConcurrentDictionary<string, HttpComponentAttribute> Components { get; }
+            = new ConcurrentDictionary<string, HttpComponentAttribute>();
+
+        private IHttpContext Context { get; }
+
+        private ConcurrentDictionary<string, Func<T, object>> Getters { get; }
+            = new ConcurrentDictionary<string, Func<T, object>>();
+
+        private string Host          { get; set; }
+        private string Method        { get; set; }
+        private Type   ParameterType { get; } = typeof(T);
+        private string UrlPattern    { get; set; }
+
+        #endregion
+
+        #region Interface Implementations
+
+        public void Init()
+        {
+            var requestAttribute = ParameterType.GetCustomAttribute<HttpRequestAttribute>(true);
+            if (null != requestAttribute)
+            {
+                UrlPattern = requestAttribute.Api;
+                Method     = requestAttribute.Method;
+                Host       = requestAttribute.Host;
+                ParameterType.GetProperties().ToList().ForEach(propertyInfo =>
+                {
+                    var propertyName = propertyInfo.Name;
+                    var getter       = ResolveGetter(propertyInfo);
+                    Getters.AddOrUpdate(propertyName, getter, (k, v) => getter);
+                    var attribute = propertyInfo.GetCustomAttribute<HttpComponentAttribute>(true);
+                    if (null == attribute) return;
+                    Components.AddOrUpdate(propertyName, attribute, (p, a) => attribute);
+                });
+            }
+        }
+
+        public async Task<HttpRequest> Build(T parameter)
+        {
+            var request = new HttpRequest(Method, Host, BuildUrl(parameter));
+            BuildQueries(parameter, request);
+            BuildHeaders(parameter, request);
+            BuildBody(parameter, request);
+            await RunPlugins(parameter, request);
+            return request;
+        }
+
+        #endregion
+
+        #region Others
+
+        internal object GetValue(T value, string propertyName)
+        {
+            var getter = Getters.GetOrAdd(propertyName, name =>
+            {
+                var propertyInfo = GetType().GetProperty(name);
+                return ResolveGetter(propertyInfo);
+            });
+            return getter.Invoke(value);
+        }
+
+        private void BuildBody(T parameter, HttpRequest request)
+        {
+            var bodies = Components.Where(c => c.Value is HttpBodyComponentAttribute).ToArray();
+            if (bodies.Any())
+            {
+                request.AddJsonBody(GetValue(parameter, bodies[0].Key));
+            }
+        }
+
+        private void BuildHeaders(T parameter, HttpRequest request)
+        {
+            Components.Where(c => c.Value is HttpHeaderComponentAttribute)
+                      .ToList().ForEach(c =>
+                       {
+                           var name = string.IsNullOrWhiteSpace(c.Value.Alias) ? c.Key : c.Value.Alias;
+                           request.AddHeader(name, GetValue(parameter, c.Key).ToString());
+                       });
+        }
+
+        private void BuildQueries(T parameter, HttpRequest request)
+        {
+            Components.Where(c => c.Value is HttpQueryComponentAttribute)
+                      .ToList().ForEach(c =>
+                       {
+                           var name = string.IsNullOrWhiteSpace(c.Value.Alias) ? c.Key : c.Value.Alias;
+                           request.AddQuery(name, GetValue(parameter, c.Key));
+                       });
+        }
+
+        private string BuildUrl(T parameter)
+        {
+            return Components.Where(c => c.Value is HttpPathComponentAttribute)
+                             .Aggregate(UrlPattern, (result, c) =>
+                              {
+                                  var name = string.IsNullOrWhiteSpace(c.Value.Alias) ? c.Key : c.Value.Alias;
+                                  return result.Replace($":{name}", GetValue(parameter, c.Key).ToString());
+                              });
+        }
+
+        private Func<T, object> ResolveGetter(PropertyInfo propertyInfo)
+        {
+            var getMethod = propertyInfo.GetGetMethod();
+            if (!getMethod.ReturnType.IsValueType)
+            {
+                var declareType = propertyInfo.DeclaringType;
+                if (declareType == ParameterType)
+                    return (Func<T, object>) Delegate.CreateDelegate(typeof(Func<T, object>), null,
+                        propertyInfo.GetGetMethod());
+            }
+
+            return propertyInfo.GetValue;
+        }
+
+        /// <summary>
+        ///     Run all the registered <see cref="IRequestPlugin" /> on the <see cref="HttpRequest" />
+        /// </summary>
+        /// <param name="parameter">The instance of <see cref="HttpParameter" /></param>
+        /// <param name="request">The http request</param>
+        /// <returns></returns>
+        private async Task RunPlugins(HttpParameter parameter, HttpRequest request)
+        {
+            var plugins = Context.GetRequestPlugins();
+            foreach (var plugin in plugins)
+            {
+                await plugin.Handle(parameter, request);
+            }
+        }
+
+        #endregion
+    }
+}

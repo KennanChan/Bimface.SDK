@@ -1,12 +1,16 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Core.Requests;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Translate
 {
-    public class CreateTranslateParameter
+    [HttpRequest(HttpMethods.Put, "http://file.bimface.com", "/translate")]
+    public class CreateTranslateParameter : HttpParameter
     {
         #region Constructors
 
@@ -19,6 +23,7 @@ namespace Bimface.SDK.Entities.Parameters.Translate
 
         #region Properties
 
+        [HttpBodyComponent]
         public FileTranslateRequest Request { get; }
 
         #endregion

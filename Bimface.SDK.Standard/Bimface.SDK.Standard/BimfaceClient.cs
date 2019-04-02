@@ -2,8 +2,10 @@
 
 using System;
 using System.ComponentModel.Design;
+using System.Linq;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
@@ -17,7 +19,7 @@ namespace Bimface.SDK
 {
     public class BimfaceClient : IServiceContainer
     {
-        private bool _initialized = false;
+        private bool _initialized;
 
         #region Constructors
 
@@ -96,7 +98,9 @@ namespace Bimface.SDK
                .AddService<IHttpClient, DefaultHttpClient>()
                .AddService<IJsonSerializer, DefaultJsonSerializer>()
                .AddService<IResponseResolver, DefaultResponseResolver>()
+               .Singleton<IAuthorizationService, AuthorizationService>()
                .Singleton<IFileService, FileService>()
+               .Singleton<IShareService, ShareService>()
                .Singleton<BimfaceAuthPlugin>()
                .Singleton<ResolveHeadersPlugin>()
                .Singleton<IHttpContext, HttpContext>()
@@ -106,7 +110,30 @@ namespace Bimface.SDK
                .UseContainer(Container)
                .UseRequestPlugin<BimfaceAuthPlugin>()
                .UseRequestPlugin<ResolveHeadersPlugin>();
+            InitializeRequestBuilders();
             _initialized = true;
+        }
+
+        private void InitializeRequestBuilders()
+        {
+            var baseType             = typeof(HttpParameter);
+            var genericInterfaceType = typeof(IRequestBuilder<>);
+            var genericType          = typeof(RequestBuilder<>);
+            AppDomain.CurrentDomain.GetAssemblies()
+                     .SelectMany(assembly => assembly.GetTypes())
+                     .Where(type => !type.IsAbstract)
+                     .Where(type => !type.IsInterface)
+                     .Where(type => baseType.IsAssignableFrom(type))
+                     .ToList()
+                     .ForEach(type =>
+                      {
+                          var typeArgs             = new[] {type};
+                          var builderInterfaceType = genericInterfaceType.MakeGenericType(typeArgs);
+                          var builderType          = genericType.MakeGenericType(typeArgs);
+                          var builder              = Container.CreateInstance(builderType) as IRequestBuilder;
+                          builder?.Init();
+                          Container.AddService(builderInterfaceType, builder);
+                      });
         }
 
         #endregion

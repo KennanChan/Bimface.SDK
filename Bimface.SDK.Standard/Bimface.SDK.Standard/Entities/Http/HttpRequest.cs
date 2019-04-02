@@ -16,7 +16,7 @@ using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 namespace Bimface.SDK.Entities.Http
 {
-    public abstract class HttpRequest : IHttpRequest
+    public class HttpRequest : IHttpRequest
     {
         #region Fields
 
@@ -27,7 +27,7 @@ namespace Bimface.SDK.Entities.Http
 
         #region Constructors
 
-        protected HttpRequest(string method, string host, string api)
+        public HttpRequest(string method, string host, string api)
         {
             Method = method;
             Host   = host;
@@ -74,7 +74,8 @@ namespace Bimface.SDK.Entities.Http
 
         public Uri GetUri()
         {
-            return new Uri($"{Host}{Path}?{GetQueryString()}");
+            var queryString = GetQueryString();
+            return new Uri($"{Host}{Path}{(string.IsNullOrWhiteSpace(queryString) ? "" : "?")}{queryString}");
         }
 
         #endregion
@@ -98,9 +99,10 @@ namespace Bimface.SDK.Entities.Http
             AddHeader("Content-Type", "application/json");
         }
 
-        internal void AddQuery(string name, string value)
+        internal void AddQuery(string name, object value)
         {
-            Queries.AddOrUpdate(name, value, (n, v) => value);
+            var valueString = GetValueString(value);
+            Queries.AddOrUpdate(name, valueString, (n, v) => valueString);
         }
 
         internal string GetQueryString()
@@ -115,6 +117,17 @@ namespace Bimface.SDK.Entities.Http
         internal void SetContentLength(long length)
         {
             AddHeader("Content-Length", length.ToString());
+        }
+
+        private string GetValueString(object value)
+        {
+            if (value.IsValueType())
+            {
+                if (value is DateTime time)
+                    return time.ToString("yyyy-MM-dd");
+            }
+
+            return value?.ToString();
         }
 
         #endregion

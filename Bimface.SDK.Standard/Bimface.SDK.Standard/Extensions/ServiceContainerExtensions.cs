@@ -27,18 +27,17 @@ namespace Bimface.SDK.Extensions
         public static IServiceContainer AddService<TService, TImplementation>(this IServiceContainer container)
             where TImplementation : TService
         {
-            return container.AddService(() =>
+            return container.AddService<TService>(() =>
             {
                 var implType = typeof(TImplementation);
-                return typeof(TService) == implType
-                           ? container.CreateInstance<TImplementation>()
-                           : container.GetService<TImplementation>();
+                return container.CreateInstance<TImplementation>();
             });
         }
 
         public static IServiceContainer Singleton<TService>(this IServiceContainer container,
                                                             TService               implementation)
         {
+            container.RemoveService(typeof(TService));
             container.AddService(typeof(TService), implementation);
             return container;
         }
@@ -46,6 +45,7 @@ namespace Bimface.SDK.Extensions
         public static IServiceContainer Singleton<TService>(this IServiceContainer container,
                                                             Func<TService>         creator)
         {
+            container.RemoveService(typeof(TService));
             var lazy = new Lazy<TService>(creator);
             return container.AddService(() => lazy.Value);
         }
@@ -73,12 +73,10 @@ namespace Bimface.SDK.Extensions
         public static IServiceContainer Singleton<TService, TImplementation>(this IServiceContainer container)
             where TImplementation : TService
         {
-            return container.Singleton(() =>
+            return container.Singleton<TService>(() =>
             {
                 var implType = typeof(TImplementation);
-                return typeof(TService) == implType
-                           ? container.CreateInstance<TImplementation>()
-                           : container.GetService<TImplementation>();
+                return container.CreateInstance<TImplementation>();
             });
         }
 

@@ -1,5 +1,6 @@
 ﻿#region
 
+using System.Threading.Tasks;
 using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 
@@ -11,7 +12,7 @@ namespace Bimface.SDK.Interfaces.Core
     {
         #region Others
 
-        IHttpRequest GetRequest(IBimfaceParameter parameter);
+        Task<IHttpRequest> GetRequest<T>(T parameter) where T : HttpParameter;
 
         #endregion
     }

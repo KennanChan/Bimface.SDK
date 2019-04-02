@@ -2,9 +2,10 @@
 
 using System;
 using System.Threading.Tasks;
-using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Internal;
+using Bimface.SDK.Entities.Parameters.Base;
+using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
@@ -18,23 +19,10 @@ namespace Bimface.SDK.Services
     /// </summary>
     internal abstract class HttpService : LogObject
     {
-        #region Constructors
-
-        protected HttpService(IHttpClient client, IResponseResolver responseResolver)
-        {
-            Client           = client;
-            ResponseResolver = responseResolver;
-        }
-
-        #endregion
-
         #region Properties
 
-        protected IHttpClient       Client           { get; }
-        protected IResponseResolver ResponseResolver { get; }
-
-        [Inject]
-        internal IHttpContext Context { get; set; }
+        protected IHttpClient       Client           => Container.GetService<IHttpClient>();
+        protected IResponseResolver ResponseResolver => Container.GetService<IResponseResolver>();
 
         #endregion
 
@@ -49,9 +37,23 @@ namespace Bimface.SDK.Services
         /// <returns></returns>
         protected async Task<T> FetchAsync<T>(HttpRequest request, IProgress<double> progress = null)
         {
-            await RunPlugins(request);
-            await ConfigureRequest(request);
             return await Task.Run(() => ResponseResolver.Resolve<T>(Client.GetResponse(request, progress)));
+        }
+
+        /// <summary>
+        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}"/> to build a request from the <see cref="TParameter"/>
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <typeparam name="TParameter"></typeparam>
+        /// <param name="parameter"></param>
+        /// <param name="progress"></param>
+        /// <returns></returns>
+        protected async Task<TResult> FetchAsync<TResult, TParameter>(TParameter parameter, IProgress<double> progress = null)
+            where TParameter : HttpParameter
+        {
+            var builder = Container.GetService<IRequestBuilder<TParameter>>();
+            var request = await builder.Build(parameter);
+            return await FetchAsync<TResult>(request);
         }
 
         /// <summary>
@@ -62,32 +64,22 @@ namespace Bimface.SDK.Services
         /// <returns>The task </returns>
         protected async Task SendAsync(HttpRequest request, IProgress<double> progress = null)
         {
-            await RunPlugins(request);
-            await ConfigureRequest(request);
             await Task.Run(() => Client.GetResponse(request, null));
         }
 
-        private async Task ConfigureRequest(HttpRequest request)
-        {
-            // ReSharper disable once SuspiciousTypeConversion.Global
-            if (request is IHttpConfigurable configurable)
-            {
-                await configurable.Configure();
-            }
-        }
-
         /// <summary>
-        ///     Run all the registered <see cref="IRequestPlugin" /> on the <see cref="HttpRequest" />
+        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}"/> to build a request from the <see cref="TParameter"/>
         /// </summary>
-        /// <param name="request">The http request</param>
+        /// <typeparam name="TParameter"></typeparam>
+        /// <param name="parameter"></param>
+        /// <param name="progress"></param>
         /// <returns></returns>
-        private async Task RunPlugins(HttpRequest request)
+        protected async Task SendAsync<TParameter>(TParameter parameter, IProgress<double> progress = null)
+            where TParameter : HttpParameter
         {
-            var plugins = Context.GetRequestPlugins();
-            foreach (var plugin in plugins)
-            {
-                await plugin.Handle(request);
-            }
+            var builder = Container.GetService<IRequestBuilder<TParameter>>();
+            var request = await builder.Build(parameter);
+            await SendAsync(request);
         }
 
         #endregion

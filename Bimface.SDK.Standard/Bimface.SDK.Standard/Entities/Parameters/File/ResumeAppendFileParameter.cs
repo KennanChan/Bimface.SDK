@@ -1,6 +1,13 @@
-﻿namespace Bimface.SDK.Entities.Parameters.File
+﻿using Bimface.SDK.Attributes;
+using Bimface.SDK.Attributes.Http;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Parameters.Base;
+
+namespace Bimface.SDK.Entities.Parameters.File
 {
-    public class ResumeAppendFileParameter
+    [BimfaceAuth]
+    [BimfaceFileHttpRequest(HttpMethods.Post, "/appendFiles/:appendFileId/data")]
+    public class ResumeAppendFileParameter : HttpParameter
     {
         #region Constructors
 
@@ -14,8 +21,11 @@
 
         #region Properties
 
+        [HttpPathComponent(Alias = "appendFileId")]
         public long? AppendFileId { get; }
-        public long? Position     { get; }
+
+        [HttpQueryComponent(Alias = "position")]
+        public long? Position { get; }
 
         #endregion
     }

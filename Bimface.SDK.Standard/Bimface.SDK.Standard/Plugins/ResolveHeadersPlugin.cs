@@ -8,8 +8,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
-using Bimface.SDK.Entities.Internal;
+using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Services;
 
 #endregion
 
@@ -19,11 +20,11 @@ namespace Bimface.SDK.Plugins
     ///     Plugin to automatically add predefined headers to an <see cref="HttpRequest" /> attributed with
     ///     <see cref="HttpHeaderAttribute" />
     /// </summary>
-    internal class ResolveHeadersPlugin : LogObject, IRequestPlugin, IDisposable
+    internal class ResolveHeadersPlugin : AppDomainServiceInitializer, IRequestPlugin
     {
         #region Properties
 
-        private Type BaseRequestType { get; } = typeof(HttpRequest);
+        private Type BaseParameterType { get; } = typeof(HttpParameter);
 
         private ConcurrentDictionary<Type, List<KeyValuePair<string, string>>> Headers { get; } =
             new ConcurrentDictionary<Type, List<KeyValuePair<string, string>>>();
@@ -32,18 +33,12 @@ namespace Bimface.SDK.Plugins
 
         #region Interface Implementations
 
-        public void Dispose()
-        {
-            AppDomain.CurrentDomain.AssemblyLoad -= CurrentDomain_AssemblyLoad;
-            Headers.Clear();
-        }
-
-        public Task<bool> Handle(HttpRequest request)
+        public Task Handle(HttpParameter parameter, HttpRequest request)
         {
             try
             {
                 //Get all attributed headers
-                var headerList = Headers.GetOrAdd(request.GetType(), HandleType);
+                var headerList = Headers.GetOrAdd(parameter.GetType(), HandleType);
                 headerList.ForEach(header => request.AddHeader(header.Key, header.Value));
                 return Task.FromResult(true);
             }
@@ -56,31 +51,25 @@ namespace Bimface.SDK.Plugins
 
         public void PreBuild()
         {
-            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(AnalyzeAssembly);
-            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+            Initialize(Container);
         }
 
         #endregion
 
         #region Others
 
-        private void AnalyzeAssembly(Assembly assembly)
+        protected override void Handle(Assembly assembly)
         {
             assembly.GetTypes()
                     .Where(type => !type.IsInterface)
                     .Where(type => !type.IsAbstract)
-                    .Where(type => BaseRequestType.IsAssignableFrom(type))
+                    .Where(type => BaseParameterType.IsAssignableFrom(type))
                     .ToList()
                     .ForEach(type =>
                      {
                          var headerList = HandleType(type);
                          Headers.AddOrUpdate(type, headerList, (t, h) => headerList);
                      });
-        }
-
-        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
-        {
-            AnalyzeAssembly(args.LoadedAssembly);
         }
 
         private List<KeyValuePair<string, string>> HandleType(Type type)

@@ -4,6 +4,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Security;
+using System.Security.Cryptography.X509Certificates;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
@@ -17,6 +19,15 @@ namespace Bimface.SDK.Services
     /// </summary>
     internal class DefaultHttpClient : IHttpClient
     {
+        #region Constructors
+
+        public DefaultHttpClient()
+        {
+            ServicePointManager.ServerCertificateValidationCallback = CheckValidationResult;
+        }
+
+        #endregion
+
         #region Interface Implementations
 
         public IHttpResponse GetResponse(IHttpRequest request, IProgress<double> progress)
@@ -29,29 +40,9 @@ namespace Bimface.SDK.Services
 
         #region Others
 
-        /// <summary>
-        ///     Create an <see cref="HttpWebRequest" /> from the given <see cref="IHttpRequest" /> instance
-        /// </summary>
-        /// <param name="request">The instance of <see cref="IHttpRequest" /></param>
-        /// <param name="progress">The progress reporter</param>
-        /// <returns>An instance of <see cref="HttpWebRequest" /></returns>
-        protected virtual HttpWebRequest CreateRequest(IHttpRequest request, IProgress<double> progress)
+        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
         {
-            var realRequest = WebRequest.CreateHttp(request.GetUri());
-            realRequest.Method = request.GetMethod();
-            var headers = request.GetHeaders();
-            headers.Keys.ToList().ForEach(key => { realRequest.Headers.Add(key, headers[key]); });
-            return SetBody(realRequest, request.GetBody(), progress);
-        }
-
-        /// <summary>
-        ///     Create an <see cref="IHttpResponse" /> from the given <see cref="HttpWebResponse" /> instance
-        /// </summary>
-        /// <param name="response">The instance of <see cref="HttpWebResponse" /></param>
-        /// <returns>An instance of <see cref="IHttpResponse" /></returns>
-        protected virtual IHttpResponse GenerateResponse(HttpWebResponse response)
-        {
-            return new HttpResponse(response);
+            return true;
         }
 
         private static HttpWebRequest SetBody(HttpWebRequest request, Stream body, IProgress<double> progress)
@@ -72,6 +63,42 @@ namespace Bimface.SDK.Services
             }
 
             return request;
+        }
+
+        /// <summary>
+        ///     Create an <see cref="HttpWebRequest" /> from the given <see cref="IHttpRequest" /> instance
+        /// </summary>
+        /// <param name="request">The instance of <see cref="IHttpRequest" /></param>
+        /// <param name="progress">The progress reporter</param>
+        /// <returns>An instance of <see cref="HttpWebRequest" /></returns>
+        protected virtual HttpWebRequest CreateRequest(IHttpRequest request, IProgress<double> progress)
+        {
+            var            uri = request.GetUri();
+            HttpWebRequest realRequest;
+            if (uri.Scheme == Uri.UriSchemeHttps)
+            {
+                realRequest                 = WebRequest.CreateHttp(uri);
+                realRequest.ProtocolVersion = HttpVersion.Version10;
+            }
+            else
+            {
+                realRequest = WebRequest.CreateHttp(request.GetUri());
+            }
+
+            realRequest.Method = request.GetMethod();
+            var headers = request.GetHeaders();
+            headers.Keys.ToList().ForEach(key => { realRequest.Headers.Add(key, headers[key]); });
+            return SetBody(realRequest, request.GetBody(), progress);
+        }
+
+        /// <summary>
+        ///     Create an <see cref="IHttpResponse" /> from the given <see cref="HttpWebResponse" /> instance
+        /// </summary>
+        /// <param name="response">The instance of <see cref="HttpWebResponse" /></param>
+        /// <returns>An instance of <see cref="IHttpResponse" /></returns>
+        protected virtual IHttpResponse GenerateResponse(HttpWebResponse response)
+        {
+            return new HttpResponse(response);
         }
 
         #endregion

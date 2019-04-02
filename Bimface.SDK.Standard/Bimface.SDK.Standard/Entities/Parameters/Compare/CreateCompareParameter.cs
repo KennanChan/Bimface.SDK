@@ -7,20 +7,11 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Compare
 {
-    public class CreateCompareParameter : IBimfaceParameter
+    public class CreateCompareParameter : HttpParameter
     {
         #region Properties
 
         public CompareRequest Request { get; set; }
-
-        #endregion
-
-        #region Interface Implementations
-
-        public string GetName()
-        {
-            return "create-compare";
-        }
 
         #endregion
     }

@@ -1,6 +1,7 @@
 ﻿#region
 
 using Bimface.SDK.Entities;
+using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Exceptions;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
@@ -15,20 +16,11 @@ namespace Bimface.SDK.Services
     ///     The default implementation of <see cref="IResponseResolver" /> to resolve the <see cref="IHttpResponse" /> to
     ///     <see cref="GeneralResponse{T}" />
     /// </summary>
-    internal class DefaultResponseResolver : IResponseResolver
+    internal class DefaultResponseResolver : LogObject, IResponseResolver
     {
-        #region Constructors
-
-        public DefaultResponseResolver(IJsonSerializer serializer)
-        {
-            Serializer = serializer;
-        }
-
-        #endregion
-
         #region Properties
 
-        private IJsonSerializer Serializer { get; }
+        private IJsonSerializer Serializer => Container.GetService<IJsonSerializer>();
 
         #endregion
 

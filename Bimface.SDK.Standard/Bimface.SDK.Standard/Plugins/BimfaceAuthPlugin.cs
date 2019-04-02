@@ -7,9 +7,10 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Http;
-using Bimface.SDK.Entities.Internal;
+using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Services;
 
 #endregion
 
@@ -19,7 +20,7 @@ namespace Bimface.SDK.Plugins
     ///     Use this plugin to automatically add Authorization header to an <see cref="HttpRequest" /> attributed with
     ///     <see cref="BimfaceAuthAttribute" />
     /// </summary>
-    internal class BimfaceAuthPlugin : LogObject, IRequestPlugin, IDisposable
+    internal class BimfaceAuthPlugin : AppDomainServiceInitializer, IRequestPlugin
     {
         #region Constructors
 
@@ -34,60 +35,49 @@ namespace Bimface.SDK.Plugins
 
         private IAuthorizationService            AuthorizationService { get; }
         private ConcurrentDictionary<Type, bool> AuthTypes            { get; } = new ConcurrentDictionary<Type, bool>();
-        private Type                             BaseRequestType      { get; } = typeof(HttpRequest);
+        private Type                             BaseParameterType    { get; } = typeof(HttpParameter);
 
         #endregion
 
         #region Interface Implementations
 
-        public void Dispose()
-        {
-            AppDomain.CurrentDomain.AssemblyLoad -= CurrentDomain_AssemblyLoad;
-            AuthTypes.Clear();
-        }
-
         /// <summary>
         ///     Add Authorization header to the <see cref="HttpRequest" />
         /// </summary>
+        /// <param name="parameter">The parameter for the request</param>
         /// <param name="request">The http request</param>
-        /// <returns>The result of the plugin</returns>
-        public async Task<bool> Handle(HttpRequest request)
+        public async Task Handle(HttpParameter parameter, HttpRequest request)
         {
             try
             {
-                var requireAuth = AuthTypes.GetOrAdd(request.GetType(), HandleType);
+                var requireAuth = AuthTypes.GetOrAdd(parameter.GetType(), HandleType);
                 if (requireAuth)
                 {
                     var accessToken = await AuthorizationService.GetAccessToken();
-                    request.AddHeader("Authorization", $"Bear {accessToken}");
-                    return true;
+                    request.AddHeader("Authorization", $"Bearer {accessToken}");
                 }
-
-                return true;
             }
             catch (Exception e)
             {
                 Error(e);
-                return false;
             }
         }
 
         public void PreBuild()
         {
-            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(AnalyzeAssembly);
-            AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
+            Initialize(Container);
         }
 
         #endregion
 
         #region Others
 
-        private void AnalyzeAssembly(Assembly assembly)
+        protected override void Handle(Assembly assembly)
         {
             assembly.GetTypes()
                     .Where(type => !type.IsInterface)
                     .Where(type => !type.IsAbstract)
-                    .Where(type => BaseRequestType.IsAssignableFrom(type))
+                    .Where(type => BaseParameterType.IsAssignableFrom(type))
                     .ToList()
                     .ForEach(type =>
                      {
@@ -96,14 +86,9 @@ namespace Bimface.SDK.Plugins
                      });
         }
 
-        private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
-        {
-            AnalyzeAssembly(args.LoadedAssembly);
-        }
-
         private bool HandleType(Type type)
         {
-            return type.GetCustomAttributes<BimfaceAuthAttribute>(true).Any();
+            return type.GetCustomAttributes<BimfaceAuthAttribute>(true).All(attribute => attribute.Enabled);
         }
 
         #endregion

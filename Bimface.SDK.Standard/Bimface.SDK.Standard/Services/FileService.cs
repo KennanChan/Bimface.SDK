@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.File;
 using Bimface.SDK.Interfaces.Core;
-using Bimface.SDK.Interfaces.Infrastructure.Http;
-using Bimface.SDK.Requests.File;
 
 #endregion
 
@@ -15,70 +13,61 @@ namespace Bimface.SDK.Services
 {
     internal class FileService : HttpService, IFileService
     {
-        #region Constructors
-
-        public FileService(IHttpClient client, IResponseResolver responseResolver) : base(client,
-            responseResolver)
-        {
-        }
-
-        #endregion
-
         #region Interface Implementations
 
         public Task<AppendFileEntity> CreateAppendFile(CreateAppendFileParameter parameter)
         {
-            return FetchAsync<AppendFileEntity>(new CreateAppendFileRequest(parameter));
+            return FetchAsync<AppendFileEntity, CreateAppendFileParameter>(parameter);
         }
 
         public Task<UploadPolicyEntity> CreateUploadPolicy(FetchUploadPolicyParameter parameter)
         {
-            return FetchAsync<UploadPolicyEntity>(new FetchUploadPolicyRequest(parameter));
+            return FetchAsync<UploadPolicyEntity, FetchUploadPolicyParameter>(parameter);
         }
 
         public Task DeleteFile(DeleteFileParameter parameter)
         {
-            return SendAsync(new DeleteFileRequest(parameter));
+            return SendAsync(parameter);
         }
 
         public Task<AppendFileEntity> FetchAppendFile(LookupAppendFileParameter parameter)
         {
-            return FetchAsync<AppendFileEntity>(new LookupAppendFileRequest(parameter));
+            return FetchAsync<AppendFileEntity, LookupAppendFileParameter>(parameter);
         }
 
         public Task<string> FetchFileTemporaryDownloadUrl(FileDownloadAddressParameter parameter)
         {
-            return FetchAsync<string>(new FileDownloadAddressRequest(parameter));
+            return FetchAsync<string, FileDownloadAddressParameter>(parameter);
         }
 
         public Task<List<FileEntity>> ListFiles(ListFilesParameter parameter)
         {
-            return FetchAsync<List<FileEntity>>(new ListFilesRequest(parameter));
+            return FetchAsync<List<FileEntity>, ListFilesParameter>(parameter);
         }
 
         public Task<FileEntity> LookupFileMeta(LookupFileParameter parameter)
         {
-            return FetchAsync<FileEntity>(new LookupFileRequest(parameter));
+            return FetchAsync<FileEntity, LookupFileParameter>(parameter);
         }
 
         public Task<AppendFileEntity> ResumeAppendFile(ResumeAppendFileParameter parameter)
         {
-            return FetchAsync<AppendFileEntity>(new ResumeAppendFileRequest(parameter));
+            return FetchAsync<AppendFileEntity, ResumeAppendFileParameter>(parameter);
         }
 
         public Task<FileEntity> Upload(PushUploadParameter parameter, IProgress<double> progressReporter = null)
         {
-            return FetchAsync<FileEntity>(new PushUploadRequest(parameter));
+            return FetchAsync<FileEntity, PushUploadParameter>(parameter, progressReporter);
         }
 
         public Task<FileEntity> Upload(PullUploadParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<FileEntity, PullUploadParameter>(parameter);
         }
 
-        public Task<SupportFileEntity> ViewSupportFileTypes()
+        public Task<SupportFileEntity> ListSupportFileTypes(ListSupportFileTypesParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<SupportFileEntity, ListSupportFileTypesParameter>(parameter);
         }
 
         #endregion

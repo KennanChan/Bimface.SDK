@@ -1,6 +1,10 @@
 ﻿#region
 
 using System.IO;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Attributes.Http;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Extensions;
 
 #endregion
@@ -10,7 +14,9 @@ namespace Bimface.SDK.Entities.Parameters.File
     /// <summary>
     ///     Parameters used to upload a file to bimface
     /// </summary>
-    public class PushUploadParameter
+    [BimfaceAuth]
+    [BimfaceFileHttpRequest(HttpMethods.Put, "/upload")]
+    public class PushUploadParameter : HttpParameter
     {
         #region Constructors
 
@@ -40,9 +46,14 @@ namespace Bimface.SDK.Entities.Parameters.File
 
         #region Properties
 
-        internal string Name     { get; }
+        [HttpQueryComponent(Alias = "name")]
+        internal string Name { get; }
+
+        [HttpQueryComponent(Alias = "sourceId")]
         internal string SourceId { get; set; }
-        internal Stream Stream   { get; }
+
+        [HttpBodyComponent]
+        internal Stream Stream { get; }
 
         #endregion
     }
