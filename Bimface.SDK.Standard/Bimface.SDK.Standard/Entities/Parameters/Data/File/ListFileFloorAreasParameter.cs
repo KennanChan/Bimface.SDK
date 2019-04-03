@@ -1,11 +1,13 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.File
 {
+    [BimfaceDataApiHttpRequest("/files/{fileId}/areas")]
     public class ListFileFloorAreasParameter : FileParameter
     {
         #region Constructors
@@ -19,6 +21,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
 
         #region Properties
 
+        [HttpQueryComponent]
         public string FloorId { get; }
 
         #endregion

@@ -1,11 +1,13 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.RfaFile
 {
+    [BimfaceDataApiHttpRequest("/rfaFiles/{fileId}/familyTypes/{familyTypeGuid}")]
     public class LookupRfaFileFamilyTypePropertyParameter : FileParameter
     {
         #region Constructors
@@ -19,6 +21,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.RfaFile
 
         #region Properties
 
+        [HttpPathComponent]
         public string FamilyTypeGuid { get; }
 
         #endregion

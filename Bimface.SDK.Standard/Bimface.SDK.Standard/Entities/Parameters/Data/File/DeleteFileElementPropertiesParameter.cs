@@ -1,13 +1,16 @@
 ﻿#region
 
 using System.Collections.Generic;
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Core;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.File
 {
+    [BimfaceDataApiHttpRequest("/files/{fileId}/elements/{elementId}/properties", Method = HttpMethods.Delete)]
     public class DeleteFileElementPropertiesParameter : FileParameter
     {
         #region Constructors
@@ -21,7 +24,10 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
 
         #region Properties
 
-        public string              ElementId  { get; }
+        [HttpPathComponent]
+        public string ElementId { get; }
+
+        [HttpBodyComponent]
         public List<PropertyGroup> Properties { get; set; } = new List<PropertyGroup>();
 
         #endregion

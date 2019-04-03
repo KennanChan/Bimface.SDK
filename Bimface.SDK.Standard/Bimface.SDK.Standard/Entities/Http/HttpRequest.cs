@@ -20,8 +20,8 @@ namespace Bimface.SDK.Entities.Http
     {
         #region Fields
 
-        private ConcurrentDictionary<string, string> _headers;
-        private ConcurrentDictionary<string, string> _queries;
+        private ConcurrentDictionary<string, string>        _headers;
+        private ConcurrentBag<KeyValuePair<string, string>> _queries;
 
         #endregion
 
@@ -50,8 +50,8 @@ namespace Bimface.SDK.Entities.Http
         private string Method { get; }
         private string Path   { get; }
 
-        private ConcurrentDictionary<string, string> Queries =>
-            _queries ?? (_queries = new ConcurrentDictionary<string, string>());
+        private ConcurrentBag<KeyValuePair<string, string>> Queries =>
+            _queries ?? (_queries = new ConcurrentBag<KeyValuePair<string, string>>());
 
         #endregion
 
@@ -102,7 +102,7 @@ namespace Bimface.SDK.Entities.Http
         internal void AddQuery(string name, object value)
         {
             var valueString = GetValueString(value);
-            Queries.AddOrUpdate(name, valueString, (n, v) => valueString);
+            Queries.Add(new KeyValuePair<string, string>(name, valueString));
         }
 
         internal string GetQueryString()
@@ -123,8 +123,8 @@ namespace Bimface.SDK.Entities.Http
         {
             if (value.IsValueType())
             {
-                if (value is DateTime time)
-                    return time.ToString("yyyy-MM-dd");
+                if (value is DateTime date)
+                    return date.ToString("yyyy-MM-dd");
             }
 
             return value?.ToString();

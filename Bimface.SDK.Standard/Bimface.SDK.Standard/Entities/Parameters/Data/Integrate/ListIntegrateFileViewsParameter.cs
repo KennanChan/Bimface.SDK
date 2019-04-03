@@ -1,11 +1,13 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
+    [BimfaceDataApiHttpRequest("/integrations/{integrateId}/fileViews")]
     public class ListIntegrateFileViewsParameter : IntegrateParameter
     {
         #region Constructors
@@ -18,6 +20,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         #region Properties
 
+        [HttpQueryComponent]
         public string ViewType { get; set; }
 
         #endregion

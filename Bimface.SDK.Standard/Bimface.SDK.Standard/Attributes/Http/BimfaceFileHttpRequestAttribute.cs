@@ -2,9 +2,15 @@
 {
     public class BimfaceFileHttpRequestAttribute : HttpRequestAttribute
     {
+        #region Fields
+
+        private const string FileHost = "https://file.bimface.com";
+
+        #endregion
+
         #region Constructors
 
-        public BimfaceFileHttpRequestAttribute(string method, string api) : base(method, "https://file.bimface.com", api)
+        public BimfaceFileHttpRequestAttribute(string method, string absoluteApi) : base(method, FileHost, absoluteApi)
         {
         }
 

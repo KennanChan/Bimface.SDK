@@ -1,13 +1,16 @@
 ﻿#region
 
 using System.Collections.Generic;
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Core;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
+    [BimfaceDataApiHttpRequest("/integrations/{integrateId}/files/{fileIdHash}/elements/{elementId}/properties", Method = HttpMethods.Delete)]
     public class DeleteIntegrateFileElementPropertiesParameter : IntegrateParameter
     {
         #region Constructors
@@ -23,9 +26,13 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         #region Properties
 
+        [HttpPathComponent]
         public string ElementId { get; }
 
-        public string              FileIdHash { get; }
+        [HttpPathComponent]
+        public string FileIdHash { get; }
+
+        [HttpBodyComponent]
         public List<PropertyGroup> Properties { get; set; } = new List<PropertyGroup>();
 
         #endregion

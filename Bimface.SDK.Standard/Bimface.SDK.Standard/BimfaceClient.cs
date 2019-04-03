@@ -85,7 +85,7 @@ namespace Bimface.SDK
         /// <param name="credential"></param>
         /// <param name="container"></param>
         /// <returns></returns>
-        public static BimfaceClient GetOrCreate(AppCredential credential, IServiceContainer container = null)
+        public static BimfaceClient Create(AppCredential credential, IServiceContainer container = null)
         {
             return container?.GetService<BimfaceClient>() ?? new BimfaceClient(credential, container);
         }
@@ -98,9 +98,11 @@ namespace Bimface.SDK
                .AddService<IHttpClient, DefaultHttpClient>()
                .AddService<IJsonSerializer, DefaultJsonSerializer>()
                .AddService<IResponseResolver, DefaultResponseResolver>()
+               .Singleton<INamingRule, CamelCaseNamingRule>()
                .Singleton<IAuthorizationService, AuthorizationService>()
                .Singleton<IFileService, FileService>()
                .Singleton<IShareService, ShareService>()
+               .Singleton<IOfflineDatabagService, OfflineDatabagService>()
                .Singleton<BimfaceAuthPlugin>()
                .Singleton<ResolveHeadersPlugin>()
                .Singleton<IHttpContext, HttpContext>()

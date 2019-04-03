@@ -1,13 +1,13 @@
 ﻿#region
 
-using Bimface.SDK.Attributes;
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Compare
 {
-    [BimfaceAuth]
+    [BimfaceDataApiHttpRequest("/comparisons/{comparisonId}/elementChange")]
     public class LookupCompareChangesParameter : CompareParameter
     {
         #region Constructors
@@ -20,10 +20,17 @@ namespace Bimface.SDK.Entities.Parameters.Data.Compare
 
         #region Properties
 
+        [HttpQueryComponent]
         public string FollowingElementId { get; set; }
-        public long?  FollowingFileId    { get; set; }
-        public string PreviousElementId  { get; set; }
-        public long?  PreviousFileId     { get; set; }
+
+        [HttpQueryComponent]
+        public long? FollowingFileId { get; set; }
+
+        [HttpQueryComponent]
+        public string PreviousElementId { get; set; }
+
+        [HttpQueryComponent]
+        public long? PreviousFileId { get; set; }
 
         #endregion
     }

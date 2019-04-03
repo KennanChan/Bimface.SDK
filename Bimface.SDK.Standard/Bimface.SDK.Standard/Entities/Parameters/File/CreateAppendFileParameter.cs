@@ -1,7 +1,11 @@
-﻿using Bimface.SDK.Attributes;
+﻿#region
+
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.File
 {
@@ -11,24 +15,23 @@ namespace Bimface.SDK.Entities.Parameters.File
     {
         #region Constructors
 
-        public CreateAppendFileParameter(string name, long? length, string sourceId = null)
+        public CreateAppendFileParameter(string name, long length)
         {
-            Name     = name;
-            Length   = length;
-            SourceId = sourceId;
+            Name   = name;
+            Length = length;
         }
 
         #endregion
 
         #region Properties
 
-        [HttpQueryComponent(Alias = "length")]
-        public long? Length { get; }
+        [HttpQueryComponent]
+        public long Length { get; }
 
-        [HttpQueryComponent(Alias = "name")]
+        [HttpQueryComponent]
         public string Name { get; }
 
-        [HttpQueryComponent(Alias = "sourceId")]
+        [HttpQueryComponent]
         public string SourceId { get; set; }
 
         #endregion

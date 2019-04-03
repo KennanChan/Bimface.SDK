@@ -1,5 +1,6 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Core.Requests;
 using Bimface.SDK.Entities.Parameters.Base;
 
@@ -7,6 +8,7 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
+    [BimfaceDataApiHttpRequest("/integrations/{integrateId}/elements")]
     public class ListIntegrateElementsPropertiesParameter : IntegrateParameter
     {
         #region Constructors
@@ -19,8 +21,10 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         #region Properties
 
+        [HttpBodyComponent]
         public FileIdHashWithElementIdsRequest[] FileIdHashWithElementIdsList { get; set; }
 
+        [HttpQueryComponent]
         public bool? IncludeOverrides { get; set; }
 
         #endregion

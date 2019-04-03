@@ -11,10 +11,10 @@ namespace Bimface.SDK.Attributes.Http
     {
         #region Constructors
 
-        public HttpRequestAttribute(string method, string host, string api)
+        public HttpRequestAttribute(string method, string host, string absoluteApi)
         {
             Method = method;
-            Api    = api;
+            Api    = absoluteApi;
             Host   = host;
         }
 
@@ -22,9 +22,9 @@ namespace Bimface.SDK.Attributes.Http
 
         #region Properties
 
-        public string Api    { get; }
-        public string Host   { get; }
-        public string Method { get; }
+        public string Api    { get; set; }
+        public string Host   { get; set; }
+        public string Method { get; set; }
 
         #endregion
     }

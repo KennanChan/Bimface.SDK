@@ -34,26 +34,25 @@ namespace Bimface.SDK.Services
         /// <typeparam name="T">The type of the data</typeparam>
         /// <param name="request">The http request</param>
         /// <param name="progress">The progress handler</param>
-        /// <returns></returns>
+        /// <returns>The data returned from the server</returns>
         protected async Task<T> FetchAsync<T>(HttpRequest request, IProgress<double> progress = null)
         {
-            return await Task.Run(() => ResponseResolver.Resolve<T>(Client.GetResponse(request, progress)));
+            return await Task.Run(() => ResponseResolver.Resolve<T>(Client.GetResponse(request, progress))).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}"/> to build a request from the <see cref="TParameter"/>
+        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}" /> to build a request from the
+        ///     <see cref="TParameter" />
         /// </summary>
         /// <typeparam name="TResult"></typeparam>
         /// <typeparam name="TParameter"></typeparam>
         /// <param name="parameter"></param>
         /// <param name="progress"></param>
-        /// <returns></returns>
+        /// <returns>The data returned from the server</returns>
         protected async Task<TResult> FetchAsync<TResult, TParameter>(TParameter parameter, IProgress<double> progress = null)
             where TParameter : HttpParameter
         {
-            var builder = Container.GetService<IRequestBuilder<TParameter>>();
-            var request = await builder.Build(parameter);
-            return await FetchAsync<TResult>(request);
+            return await Task.Run(async () => ResponseResolver.Resolve<TResult>(Client.GetResponse(await CreateHttpRequest(parameter), progress)));
         }
 
         /// <summary>
@@ -64,11 +63,12 @@ namespace Bimface.SDK.Services
         /// <returns>The task </returns>
         protected async Task SendAsync(HttpRequest request, IProgress<double> progress = null)
         {
-            await Task.Run(() => Client.GetResponse(request, null));
+            await Task.Run(() => Client.GetResponse(request, null)).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}"/> to build a request from the <see cref="TParameter"/>
+        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}" /> to build a request from the
+        ///     <see cref="TParameter" />
         /// </summary>
         /// <typeparam name="TParameter"></typeparam>
         /// <param name="parameter"></param>
@@ -77,9 +77,28 @@ namespace Bimface.SDK.Services
         protected async Task SendAsync<TParameter>(TParameter parameter, IProgress<double> progress = null)
             where TParameter : HttpParameter
         {
+            await Task.Run(async () => Client.GetResponse(await CreateHttpRequest(parameter), null));
+        }
+
+        /// <summary>
+        ///     Create an <see cref="HttpRequest"/> from an <see cref="HttpParameter"/>
+        /// </summary>
+        /// <typeparam name="TParameter">The type of the <see cref="HttpParameter"/></typeparam>
+        /// <param name="parameter">The <see cref="HttpParameter"/> instance</param>
+        /// <returns></returns>
+        private Task<HttpRequest> CreateHttpRequest<TParameter>(TParameter parameter)
+            where TParameter : HttpParameter
+        {
+#if DEBUG
+            var time1 = DateTime.Now;
+#endif
             var builder = Container.GetService<IRequestBuilder<TParameter>>();
-            var request = await builder.Build(parameter);
-            await SendAsync(request);
+            var request = builder.Build(parameter);
+#if DEBUG
+            var time2 = DateTime.Now;
+            Debug($"Create request for [{parameter.GetType().Name}] in {(time2 - time1).TotalMilliseconds}ms");
+#endif
+            return request;
         }
 
         #endregion

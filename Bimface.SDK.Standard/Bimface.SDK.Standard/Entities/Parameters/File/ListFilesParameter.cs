@@ -16,25 +16,25 @@ namespace Bimface.SDK.Entities.Parameters.File
     {
         #region Properties
 
-        [HttpQueryComponent(Alias = "endTime")]
+        [HttpQueryComponent]
         public DateTime EndTime { get; set; }
 
-        [HttpQueryComponent(Alias = "offset")]
+        [HttpQueryComponent]
         public long? Offset { get; set; }
 
-        [HttpQueryComponent(Alias = "rows")]
+        [HttpQueryComponent]
         public long? Rows { get; set; }
 
-        [HttpQueryComponent(Alias = "scope")]
+        [HttpQueryComponent]
         public string Scope { get; set; }
 
-        [HttpQueryComponent(Alias = "startTime")]
+        [HttpQueryComponent]
         public DateTime StartTime { get; set; }
 
-        [HttpQueryComponent(Alias = "status")]
+        [HttpQueryComponent]
         public string Status { get; set; }
 
-        [HttpQueryComponent(Alias = "suffix")]
+        [HttpQueryComponent]
         public string Suffix { get; set; }
 
         #endregion

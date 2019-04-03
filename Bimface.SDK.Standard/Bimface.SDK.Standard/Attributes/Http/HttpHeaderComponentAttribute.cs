@@ -2,8 +2,5 @@
 {
     public class HttpHeaderComponentAttribute : HttpComponentAttribute
     {
-        #region Constructors
-
-        #endregion
     }
 }

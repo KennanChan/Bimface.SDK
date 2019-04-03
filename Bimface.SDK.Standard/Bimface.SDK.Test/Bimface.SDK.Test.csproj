@@ -12,4 +12,8 @@
     <PackageReference Include="MSTest.TestFramework" Version="1.3.2" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Bimface.SDK.Standard\Bimface.SDK.Standard.csproj" />
+  </ItemGroup>
+
 </Project>

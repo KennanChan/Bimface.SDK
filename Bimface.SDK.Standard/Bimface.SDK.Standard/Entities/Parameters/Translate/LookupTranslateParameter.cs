@@ -8,7 +8,7 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Translate
 {
-    [HttpRequest(HttpMethods.Get, "https://file.bimface.com", "/translate/:fileId")]
+    [BimfaceFileHttpRequest(HttpMethods.Get, "/translate/{fileId}")]
     public class LookupTranslateParameter : FileParameter
     {
         #region Constructors

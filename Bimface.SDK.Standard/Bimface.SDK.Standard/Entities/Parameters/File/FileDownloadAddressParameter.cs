@@ -24,11 +24,11 @@ namespace Bimface.SDK.Entities.Parameters.File
 
         #region Properties
 
-        [HttpQueryComponent(Alias = "name")]
-        public string Name { get; set; }
+        [HttpQueryComponent]
+        public long FileId { get; }
 
-        [HttpQueryComponent(Alias = "fileId")]
-        public long? FileId { get; }
+        [HttpQueryComponent]
+        public string Name { get; set; }
 
         #endregion
     }

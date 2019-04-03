@@ -1,21 +1,28 @@
-﻿using System;
+﻿#region
+
 using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.Translate;
 using Bimface.SDK.Interfaces.Core;
 
+#endregion
+
 namespace Bimface.SDK.Services
 {
     internal class TranslateService : HttpService, ITranslateService
     {
+        #region Interface Implementations
+
         public Task<FileTranslateEntity> CreateTranslate(CreateTranslateParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<FileTranslateEntity, CreateTranslateParameter>(parameter);
         }
 
         public Task<FileTranslateEntity> LookupTranslate(LookupTranslateParameter parameter)
         {
-            throw new NotImplementedException();
+            return FetchAsync<FileTranslateEntity, LookupTranslateParameter>(parameter);
         }
+
+        #endregion
     }
 }

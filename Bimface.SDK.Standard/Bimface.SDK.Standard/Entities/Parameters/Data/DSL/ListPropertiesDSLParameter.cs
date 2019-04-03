@@ -1,11 +1,13 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.DSL;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.DSL
 {
+    [BimfaceDataApiHttpRequest("/query/propertyValues")]
     public class ListPropertiesDSLParameter : DSLParameter
     {
         #region Constructors
@@ -18,8 +20,8 @@ namespace Bimface.SDK.Entities.Parameters.Data.DSL
 
         #region Properties
 
-        public bool?  IncludeOverrides { get; set; }
-        public string Properties       { get; set; }
+        [HttpQueryComponent]
+        public bool? IncludeOverrides { get; set; }
 
         #endregion
     }

@@ -1,18 +1,28 @@
 ﻿#region
 
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Core.Requests
 {
+    [DataContract]
     public class IntegrationTreeOptionalRequest
     {
         #region Properties
 
-        public Dictionary<string, string> CustomizedNodeKeys   { get; set; }
-        public List<ElementIdWithFileId>  ElementIdWithFileIds { get; set; }
-        public List<List<string>>         SortedNamesHierarchy { get; set; }
+        [DataMember(Name = "customizedNodeKeys")]
+        public Dictionary<string, string> CustomizedNodeKeys { get; set; }
+
+        [DataMember(Name = "fileIdElementIds")]
+        public List<ElementIdWithFileId> FileIdWithElementIds { get; set; }
+
+        [DataMember(Name = "sortedNamesHierarchy")]
+        public List<List<string>> SortedNamesHierarchy { get; set; }
+
+        [DataMember(Name = "sorts")]
+        public List<TreeNodeSort> Sorts { get; set; }
 
         #endregion
     }

@@ -7,7 +7,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Entities.Parameters.Base;
+using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 
@@ -15,7 +17,7 @@ using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 namespace Bimface.SDK.Services
 {
-    internal class RequestBuilder<T> : IRequestBuilder<T> where T : HttpParameter
+    internal class RequestBuilder<T> : LogObject, IRequestBuilder<T> where T : HttpParameter
     {
         #region Constructors
 
@@ -28,18 +30,19 @@ namespace Bimface.SDK.Services
 
         #region Properties
 
-        private ConcurrentDictionary<string, HttpComponentAttribute> Components { get; }
-            = new ConcurrentDictionary<string, HttpComponentAttribute>();
+        private ConcurrentDictionary<string, HttpComponentInfo> Components { get; }
+            = new ConcurrentDictionary<string, HttpComponentInfo>();
 
         private IHttpContext Context { get; }
 
         private ConcurrentDictionary<string, Func<T, object>> Getters { get; }
             = new ConcurrentDictionary<string, Func<T, object>>();
 
-        private string Host          { get; set; }
-        private string Method        { get; set; }
-        private Type   ParameterType { get; } = typeof(T);
-        private string UrlPattern    { get; set; }
+        private string      Host          { get; set; }
+        private string      Method        { get; set; }
+        private INamingRule NamingRule    => Container.GetService<INamingRule>();
+        private Type        ParameterType { get; } = typeof(T);
+        private string      UrlPattern    { get; set; }
 
         #endregion
 
@@ -60,7 +63,8 @@ namespace Bimface.SDK.Services
                     Getters.AddOrUpdate(propertyName, getter, (k, v) => getter);
                     var attribute = propertyInfo.GetCustomAttribute<HttpComponentAttribute>(true);
                     if (null == attribute) return;
-                    Components.AddOrUpdate(propertyName, attribute, (p, a) => attribute);
+                    var component = new HttpComponentInfo(propertyName, attribute, NamingRule);
+                    Components.AddOrUpdate(propertyName, component, (p, a) => component);
                 });
             }
         }
@@ -91,7 +95,7 @@ namespace Bimface.SDK.Services
 
         private void BuildBody(T parameter, HttpRequest request)
         {
-            var bodies = Components.Where(c => c.Value is HttpBodyComponentAttribute).ToArray();
+            var bodies = Components.Where(c => c.Value.Attribute is HttpBodyComponentAttribute).ToArray();
             if (bodies.Any())
             {
                 request.AddJsonBody(GetValue(parameter, bodies[0].Key));
@@ -100,43 +104,30 @@ namespace Bimface.SDK.Services
 
         private void BuildHeaders(T parameter, HttpRequest request)
         {
-            Components.Where(c => c.Value is HttpHeaderComponentAttribute)
-                      .ToList().ForEach(c =>
-                       {
-                           var name = string.IsNullOrWhiteSpace(c.Value.Alias) ? c.Key : c.Value.Alias;
-                           request.AddHeader(name, GetValue(parameter, c.Key).ToString());
-                       });
+            Components.Where(c => c.Value.Attribute is HttpHeaderComponentAttribute)
+                      .ToList().ForEach(c => request.AddHeader(c.Value.Name, GetValue(parameter, c.Key).ToString()));
         }
 
         private void BuildQueries(T parameter, HttpRequest request)
         {
-            Components.Where(c => c.Value is HttpQueryComponentAttribute)
-                      .ToList().ForEach(c =>
-                       {
-                           var name = string.IsNullOrWhiteSpace(c.Value.Alias) ? c.Key : c.Value.Alias;
-                           request.AddQuery(name, GetValue(parameter, c.Key));
-                       });
+            Components.Where(c => c.Value.Attribute is HttpQueryComponentAttribute)
+                      .ToList().ForEach(c => request.AddQuery(c.Value.Name, GetValue(parameter, c.Key)));
         }
 
         private string BuildUrl(T parameter)
         {
-            return Components.Where(c => c.Value is HttpPathComponentAttribute)
-                             .Aggregate(UrlPattern, (result, c) =>
-                              {
-                                  var name = string.IsNullOrWhiteSpace(c.Value.Alias) ? c.Key : c.Value.Alias;
-                                  return result.Replace($":{name}", GetValue(parameter, c.Key).ToString());
-                              });
+            return Components.Where(c => c.Value.Attribute is HttpPathComponentAttribute)
+                             .Aggregate(UrlPattern,
+                                  (result, c) => result.Replace($"{{{c.Value.Name}}}", GetValue(parameter, c.Key).ToString()));
         }
 
         private Func<T, object> ResolveGetter(PropertyInfo propertyInfo)
         {
-            var getMethod = propertyInfo.GetGetMethod();
+            var getMethod = propertyInfo.GetMethod;
             if (!getMethod.ReturnType.IsValueType)
             {
-                var declareType = propertyInfo.DeclaringType;
-                if (declareType == ParameterType)
-                    return (Func<T, object>) Delegate.CreateDelegate(typeof(Func<T, object>), null,
-                        propertyInfo.GetGetMethod());
+                return (Func<T, object>) Delegate.CreateDelegate(typeof(Func<T, object>), null,
+                    getMethod);
             }
 
             return propertyInfo.GetValue;
@@ -158,5 +149,26 @@ namespace Bimface.SDK.Services
         }
 
         #endregion
+
+        private class HttpComponentInfo
+        {
+            #region Constructors
+
+            public HttpComponentInfo(string propertyName, HttpComponentAttribute attribute, INamingRule namingRule)
+            {
+                Name      = string.IsNullOrWhiteSpace(attribute.Alias) ? namingRule?.Naming(propertyName) ?? propertyName : attribute.Alias;
+                Attribute = attribute;
+            }
+
+            #endregion
+
+            #region Properties
+
+            public HttpComponentAttribute Attribute { get; }
+
+            public string Name { get; }
+
+            #endregion
+        }
     }
 }

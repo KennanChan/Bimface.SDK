@@ -10,25 +10,19 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Share
 {
-    [BimfaceApiHttpRequest(HttpMethods.Post, "/share")]
     [BimfaceAuth]
-    public class CreateShareParameter : HttpParameter
+    [BimfaceApiHttpRequest(HttpMethods.Post, "/share")]
+    public abstract class CreateShareParameter : HttpParameter
     {
         #region Properties
 
-        [HttpQueryComponent(Alias = "activeHours")]
+        [HttpQueryComponent]
         public int? ActiveHours { get; set; }
 
-        [HttpQueryComponent(Alias = "expireDate")]
+        [HttpQueryComponent]
         public DateTime ExpireDate { get; set; }
 
-        [HttpQueryComponent(Alias = "fileId")]
-        public long? FileId { get; set; }
-
-        [HttpQueryComponent(Alias = "integrateId")]
-        public long? IntegrateId { get; set; }
-
-        [HttpQueryComponent(Alias = "needPassword")]
+        [HttpQueryComponent]
         public bool? NeedPassword { get; set; }
 
         #endregion

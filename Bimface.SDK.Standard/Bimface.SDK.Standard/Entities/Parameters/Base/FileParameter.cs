@@ -21,8 +21,8 @@ namespace Bimface.SDK.Entities.Parameters.Base
 
         #region Properties
 
-        [HttpPathComponent(Alias = "fileId")]
-        public long? FileId { get; }
+        [HttpPathComponent]
+        public long FileId { get; }
 
         #endregion
     }

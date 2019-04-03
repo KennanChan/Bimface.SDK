@@ -1,6 +1,7 @@
 ﻿#region
 
 using Bimface.SDK.Attributes;
+using Bimface.SDK.Attributes.Http;
 
 #endregion
 
@@ -20,6 +21,7 @@ namespace Bimface.SDK.Entities.Parameters.Base
 
         #region Properties
 
+        [HttpPathComponent]
         public long CompareId { get; }
 
         #endregion

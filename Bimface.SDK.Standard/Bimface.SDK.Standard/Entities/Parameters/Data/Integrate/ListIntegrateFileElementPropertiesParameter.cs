@@ -1,11 +1,13 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
+    [BimfaceDataApiHttpRequest("/integrations/{integrateId}/files/{fileIdHash}/elements/{elementId}")]
     public class ListIntegrateFileElementPropertiesParameter : IntegrateParameter
     {
         #region Constructors
@@ -21,10 +23,14 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         #region Properties
 
+        [HttpPathComponent]
         public string ElementId { get; }
 
-        public string FileIdHash       { get; }
-        public bool?  IncludeOverrides { get; set; }
+        [HttpPathComponent]
+        public string FileIdHash { get; }
+
+        [HttpQueryComponent]
+        public bool? IncludeOverrides { get; set; }
 
         #endregion
     }

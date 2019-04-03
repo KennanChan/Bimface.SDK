@@ -1,7 +1,11 @@
-﻿using Bimface.SDK.Attributes;
+﻿#region
+
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.File
 {
@@ -20,10 +24,10 @@ namespace Bimface.SDK.Entities.Parameters.File
 
         #region Properties
 
-        [HttpQueryComponent(Alias = "name")]
+        [HttpQueryComponent]
         public string Name { get; }
 
-        [HttpQueryComponent(Alias = "sourceId")]
+        [HttpQueryComponent]
         public string SourceId { get; set; }
 
         #endregion

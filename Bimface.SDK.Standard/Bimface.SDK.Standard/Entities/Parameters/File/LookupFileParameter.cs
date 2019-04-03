@@ -22,7 +22,11 @@ namespace Bimface.SDK.Entities.Parameters.File
 
         #endregion
 
-        [HttpQueryComponent(Alias = "fileId")]
-        public long? FileId { get; }
+        #region Properties
+
+        [HttpQueryComponent]
+        public long FileId { get; }
+
+        #endregion
     }
 }

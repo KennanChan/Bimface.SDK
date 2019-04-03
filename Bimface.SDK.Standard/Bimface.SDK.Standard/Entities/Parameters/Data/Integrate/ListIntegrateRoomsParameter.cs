@@ -1,5 +1,6 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Parameters.Base;
 
@@ -7,6 +8,7 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
+    [BimfaceDataApiHttpRequest("/integrations/{integrateId}/rooms")]
     public class ListIntegrateRoomsParameter : IntegrateParameter
     {
         #region Constructors
@@ -19,10 +21,17 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         #region Properties
 
-        public string    ElementId       { get; set; }
-        public string    FloorId         { get; set; }
+        [HttpQueryComponent]
+        public string ElementId { get; set; }
+
+        [HttpQueryComponent]
+        public string FloorId { get; set; }
+
+        [HttpQueryComponent]
         public Tolerance RoomToleranceXY { get; set; }
-        public Tolerance RoomToleranceZ  { get; set; }
+
+        [HttpQueryComponent]
+        public Tolerance RoomToleranceZ { get; set; }
 
         #endregion
     }

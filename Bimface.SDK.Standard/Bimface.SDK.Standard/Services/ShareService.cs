@@ -13,22 +13,37 @@ namespace Bimface.SDK.Services
     {
         #region Interface Implementations
 
-        public Task<ShareLinkEntity> CreateShare(CreateShareParameter parameter)
+        public Task<ShareLinkEntity> CreateShare(CreateFileShareParameter parameter)
         {
-            return FetchAsync<ShareLinkEntity, CreateShareParameter>(parameter);
+            return FetchAsync<ShareLinkEntity, CreateFileShareParameter>(parameter);
         }
 
-        public Task<string> DeleteShare(DeleteShareParameter parameter)
+        public Task<ShareLinkEntity> CreateShare(CreateIntegrateShareParameter parameter)
         {
-            return FetchAsync<string, DeleteShareParameter>(parameter);
+            return FetchAsync<ShareLinkEntity, CreateIntegrateShareParameter>(parameter);
         }
 
-        public Task<ShareLinkEntity> GetShare(LookupShareParameter parameter)
+        public Task<string> DeleteShare(DeleteFileShareParameter parameter)
         {
-            return FetchAsync<ShareLinkEntity, LookupShareParameter>(parameter);
+            return FetchAsync<string, DeleteFileShareParameter>(parameter);
         }
 
-        public Task<ShareLinkEntity[]> GetShares(ListSharesParameter parameter)
+        public Task<string> DeleteShare(DeleteIntegrateShareParameter parameter)
+        {
+            return FetchAsync<string, DeleteIntegrateShareParameter>(parameter);
+        }
+
+        public Task<ShareLinkEntity> GetShare(LookupFileShareParameter parameter)
+        {
+            return FetchAsync<ShareLinkEntity, LookupFileShareParameter>(parameter);
+        }
+
+        public Task<ShareLinkEntity> GetShare(LookupIntegrateShareParameter parameter)
+        {
+            return FetchAsync<ShareLinkEntity, LookupIntegrateShareParameter>(parameter);
+        }
+
+        public Task<ShareLinkEntity[]> ListShares(ListSharesParameter parameter)
         {
             return FetchAsync<ShareLinkEntity[], ListSharesParameter>(parameter);
         }

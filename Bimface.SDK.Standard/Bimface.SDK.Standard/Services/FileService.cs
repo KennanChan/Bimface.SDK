@@ -45,6 +45,11 @@ namespace Bimface.SDK.Services
             return FetchAsync<List<FileEntity>, ListFilesParameter>(parameter);
         }
 
+        public Task<SupportFileEntity> ListSupportFileTypes(ListSupportFileTypesParameter parameter)
+        {
+            return FetchAsync<SupportFileEntity, ListSupportFileTypesParameter>(parameter);
+        }
+
         public Task<FileEntity> LookupFileMeta(LookupFileParameter parameter)
         {
             return FetchAsync<FileEntity, LookupFileParameter>(parameter);
@@ -63,11 +68,6 @@ namespace Bimface.SDK.Services
         public Task<FileEntity> Upload(PullUploadParameter parameter)
         {
             return FetchAsync<FileEntity, PullUploadParameter>(parameter);
-        }
-
-        public Task<SupportFileEntity> ListSupportFileTypes(ListSupportFileTypesParameter parameter)
-        {
-            return FetchAsync<SupportFileEntity, ListSupportFileTypesParameter>(parameter);
         }
 
         #endregion

@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -17,16 +16,14 @@ namespace Bimface.SDK.Utilities
 
         public AsyncLocker()
         {
-            Semaphore       = new SemaphoreSlim(1, 1);
-            CurrentUnlocker = Task.FromResult(new Unlocker(this));
+            Semaphore = new SemaphoreSlim(1, 1);
         }
 
         #endregion
 
         #region Properties
 
-        private Task<Unlocker> CurrentUnlocker { get; }
-        private SemaphoreSlim  Semaphore       { get; }
+        private SemaphoreSlim Semaphore { get; }
 
         #endregion
 
@@ -40,30 +37,19 @@ namespace Bimface.SDK.Utilities
         {
             var waitTask = Semaphore.WaitAsync();
             return waitTask.IsCompleted
-                       ? CurrentUnlocker
+                       ? Task.FromResult(new Unlocker(this))
                        : waitTask.ContinueWith((_, state) => new Unlocker((AsyncLocker) state),
                            this, CancellationToken.None,
                            TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
         }
 
-        #endregion
-
-        /// <summary>
-        ///     Automatically release the lock on disposed
-        /// </summary>
-        public struct Unlocker : IDisposable
+        internal void Release()
         {
-            private AsyncLocker Locker { get; }
-
-            internal Unlocker(AsyncLocker locker)
-            {
-                Locker = locker;
-            }
-
-            public void Dispose()
-            {
-                Locker?.Semaphore.Release();
-            }
+            //Release the lock to give access to another thread
+            //Actually this call will make the semaphore complete the next waiting task
+            Semaphore.Release();
         }
+
+        #endregion
     }
 }

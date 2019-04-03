@@ -9,8 +9,8 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Share
 {
-    [BimfaceApiHttpRequest(HttpMethods.Get, "/shares")]
     [BimfaceAuth]
+    [BimfaceApiHttpRequest(HttpMethods.Get, "/shares")]
     public class ListSharesParameter : HttpParameter
     {
     }

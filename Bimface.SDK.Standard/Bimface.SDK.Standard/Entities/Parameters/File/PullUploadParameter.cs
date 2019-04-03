@@ -1,7 +1,11 @@
-﻿using Bimface.SDK.Attributes;
+﻿#region
+
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Parameters.File
 {
@@ -31,14 +35,14 @@ namespace Bimface.SDK.Entities.Parameters.File
         ///     The fingerprint of the file, that usually means the hash of the file
         ///     文件Id，通常是文件的hash值
         /// </summary>
-        [HttpQueryComponent(Alias = "etag")]
+        [HttpQueryComponent]
         public string Etag { get; set; }
 
         /// <summary>
         ///     The name of the file
         ///     文件名
         /// </summary>
-        [HttpQueryComponent(Alias = "name")]
+        [HttpQueryComponent]
         public string Name { get; }
 
         /// <summary>
@@ -46,14 +50,14 @@ namespace Bimface.SDK.Entities.Parameters.File
         ///     system
         ///     自定义文件Id，通常用于在bimface文件系统和调用方业务系统之间建立关系
         /// </summary>
-        [HttpQueryComponent(Alias = "sourceId")]
+        [HttpQueryComponent]
         public string SourceId { get; set; }
 
         /// <summary>
         ///     The remote address of the file. HTTP is currently the only supporting protocol.
         ///     要上传文件的远程路径。当前只支持HTTP协议
         /// </summary>
-        [HttpQueryComponent(Alias = "url")]
+        [HttpQueryComponent]
         public string Url { get; }
 
         #endregion

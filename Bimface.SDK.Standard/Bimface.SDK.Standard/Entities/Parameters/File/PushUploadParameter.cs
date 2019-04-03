@@ -46,10 +46,10 @@ namespace Bimface.SDK.Entities.Parameters.File
 
         #region Properties
 
-        [HttpQueryComponent(Alias = "name")]
+        [HttpQueryComponent]
         internal string Name { get; }
 
-        [HttpQueryComponent(Alias = "sourceId")]
+        [HttpQueryComponent]
         internal string SourceId { get; set; }
 
         [HttpBodyComponent]

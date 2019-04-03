@@ -1,5 +1,6 @@
 ﻿#region
 
+using Bimface.SDK.Attributes;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
@@ -8,19 +9,14 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Share
 {
+    [BimfaceAuth]
     [BimfaceApiHttpRequest(HttpMethods.Get, "/share")]
-    public class LookupShareParameter : HttpParameter
+    public abstract class LookupShareParameter : HttpParameter
     {
         #region Properties
 
-        [HttpQueryComponent(Alias = "fileId")]
-        public long? FileId { get; set; }
-
-        [HttpQueryComponent(Alias = "integrateId")]
-        public long? IntegrateId { get; set; }
-
-        [HttpQueryComponent(Alias = "token")]
-        public string Password { get; set; }
+        [HttpQueryComponent]
+        public string Token { get; set; }
 
         #endregion
     }

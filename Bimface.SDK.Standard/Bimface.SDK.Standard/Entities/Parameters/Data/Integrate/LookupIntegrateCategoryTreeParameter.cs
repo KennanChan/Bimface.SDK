@@ -1,25 +1,36 @@
 ﻿#region
 
+using System.Collections.Generic;
+using Bimface.SDK.Attributes.Http;
+using Bimface.SDK.Entities.Core.Requests;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 {
+    [BimfaceDataApiHttpRequest("/integrations/{integrateId}/tree")]
     public class LookupIntegrateCategoryTreeParameter : IntegrateParameter
     {
         #region Constructors
 
-        public LookupIntegrateCategoryTreeParameter(long integrateId, string roomId) : base(integrateId)
+        public LookupIntegrateCategoryTreeParameter(long integrateId) : base(integrateId)
         {
-            RoomId = roomId;
+
         }
 
         #endregion
 
         #region Properties
 
-        public string RoomId { get; }
+        [HttpQueryComponent]
+        public List<string> DesiredHierarchy { get; set; } = new List<string>();
+
+        [HttpQueryComponent]
+        public string TreeType { get; set; }
+
+        [HttpBodyComponent]
+        public IntegrationTreeOptionalRequest Request { get; set; }
 
         #endregion
     }

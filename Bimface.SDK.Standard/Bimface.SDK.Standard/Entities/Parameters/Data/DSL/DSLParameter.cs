@@ -1,6 +1,7 @@
 ﻿#region
 
 using Bimface.SDK.Attributes;
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.DSL;
 using Bimface.SDK.Entities.Parameters.Base;
 
@@ -22,6 +23,7 @@ namespace Bimface.SDK.Entities.Parameters.Data.DSL
 
         #region Properties
 
+        [HttpBodyComponent]
         public DSLQuery Query { get; }
 
         #endregion

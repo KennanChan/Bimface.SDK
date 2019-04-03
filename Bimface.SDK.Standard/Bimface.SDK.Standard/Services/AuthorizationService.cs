@@ -39,13 +39,15 @@ namespace Bimface.SDK.Services
 
         public async Task<string> GetAccessToken()
         {
-            using (Locker.LockAsync())
+            using (await Locker.LockAsync())
             {
                 try
                 {
-                    //Refresh the access token if there is not cache or the token is about to expire
                     if (AccessToken == null || AccessToken.ExpireTime - DateTime.Now < ExpireTolerance)
-                        AccessToken = await FetchAsync<AccessTokenEntity>(new OAuthRequest(Container.GetService<AppCredential>()));
+                    {
+                        //Refresh the access token if there is not cache or the token is about to expire
+                        AccessToken = await FetchAsync<AccessTokenEntity>(Container.CreateInstance<OAuthRequest>());
+                    }
 
                     return AccessToken.Token;
                 }

@@ -1,12 +1,18 @@
 ﻿#region
 
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Core.Requests;
+using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion
 
 namespace Bimface.SDK.Entities.Parameters.Integrate
 {
-    public class CreateIntegrateParameter
+    [BimfaceAuth]
+    [BimfaceApiHttpRequest(HttpMethods.Put, "/integrate")]
+    public class CreateIntegrateParameter : HttpParameter
     {
         #region Constructors
 
@@ -19,6 +25,7 @@ namespace Bimface.SDK.Entities.Parameters.Integrate
 
         #region Properties
 
+        [HttpBodyComponent]
         public FileIntegrateRequest Request { get; }
 
         #endregion

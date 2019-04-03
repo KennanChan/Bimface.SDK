@@ -1,10 +1,19 @@
-﻿namespace Bimface.SDK.Attributes.Http
+﻿using Bimface.SDK.Extensions;
+
+namespace Bimface.SDK.Attributes.Http
 {
     public class BimfaceApiHttpRequestAttribute : HttpRequestAttribute
     {
+        #region Fields
+
+        private const string ApiHost = "https://api.bimface.com";
+
+        #endregion
+
         #region Constructors
 
-        public BimfaceApiHttpRequestAttribute(string method, string api) : base(method, "https://api.bimface.com", api)
+        public BimfaceApiHttpRequestAttribute(string method, string absoluteApi, string apiVersion = "")
+            : base(method, ApiHost, $"/{apiVersion}".CombinePath(absoluteApi))
         {
         }
 

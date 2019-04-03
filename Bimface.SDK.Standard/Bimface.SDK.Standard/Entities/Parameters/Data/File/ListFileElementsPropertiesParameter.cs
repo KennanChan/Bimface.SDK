@@ -1,5 +1,6 @@
 ﻿#region
 
+using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Core.Requests;
 using Bimface.SDK.Entities.Parameters.Base;
 
@@ -7,6 +8,7 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.Data.File
 {
+    [BimfaceDataApiHttpRequest("/files/{fileId}/elements")]
     public class ListFileElementsPropertiesParameter : FileParameter
     {
         #region Constructors
@@ -20,8 +22,10 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
 
         #region Properties
 
+        [HttpQueryComponent]
         public bool? IncludeOverrides { get; set; }
 
+        [HttpBodyComponent]
         public ElementPropertyFilterRequest Request { get; }
 
         #endregion

@@ -27,7 +27,7 @@ namespace Bimface.SDK.Services
         private DataContractJsonSerializerSettings Settings { get; }
             = new DataContractJsonSerializerSettings
               {
-                  DateTimeFormat = new DateTimeFormat("yyyy-MM-dd hh:mm:ss") {DateTimeStyles = DateTimeStyles.None}
+                  DateTimeFormat = new DateTimeFormat("yyyy-MM-dd HH:mm:ss")
               };
 
         #endregion
@@ -42,7 +42,7 @@ namespace Bimface.SDK.Services
         /// <returns>An instance of type <see cref="T" /></returns>
         public T Deserialize<T>(string @string)
         {
-            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(new StringReader(@string).ReadToEnd())))
+            using (var stream = new MemoryStream(Encoding.UTF8.GetBytes(@string)))
             {
                 var serializer = GetSerializer(typeof(T));
                 return (T) serializer.ReadObject(stream);
@@ -86,7 +86,8 @@ namespace Bimface.SDK.Services
 
         private DataContractJsonSerializer GetSerializer(Type type)
         {
-            return Serializers.GetOrAdd(type, t => new DataContractJsonSerializer(t, Settings));
+            return Serializers.GetOrAdd(type,
+                t => new DataContractJsonSerializer(t, Settings));
         }
 
         #endregion
