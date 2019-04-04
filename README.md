@@ -1,2 +1,2 @@
 # Bimface.SDK
-A unofficial .NET SDK for BIMFACE
+An unofficial .NET SDK for BIMFACE
