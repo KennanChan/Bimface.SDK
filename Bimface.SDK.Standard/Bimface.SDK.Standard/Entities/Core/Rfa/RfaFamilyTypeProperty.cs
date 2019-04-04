@@ -1,6 +1,7 @@
 ﻿#region
 
 using System.Runtime.Serialization;
+using Bimface.SDK.Entities.Core.Responses;
 
 #endregion
 

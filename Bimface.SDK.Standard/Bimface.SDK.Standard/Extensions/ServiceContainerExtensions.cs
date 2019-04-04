@@ -27,11 +27,7 @@ namespace Bimface.SDK.Extensions
         public static IServiceContainer AddService<TService, TImplementation>(this IServiceContainer container)
             where TImplementation : TService
         {
-            return container.AddService<TService>(() =>
-            {
-                var implType = typeof(TImplementation);
-                return container.CreateInstance<TImplementation>();
-            });
+            return container.AddService<TService>(() => container.CreateInstance<TImplementation>());
         }
 
         public static IServiceContainer Singleton<TService>(this IServiceContainer container,
@@ -73,11 +69,7 @@ namespace Bimface.SDK.Extensions
         public static IServiceContainer Singleton<TService, TImplementation>(this IServiceContainer container)
             where TImplementation : TService
         {
-            return container.Singleton<TService>(() =>
-            {
-                var implType = typeof(TImplementation);
-                return container.CreateInstance<TImplementation>();
-            });
+            return container.Singleton<TService>(() => container.CreateInstance<TImplementation>());
         }
 
         #endregion

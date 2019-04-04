@@ -4,6 +4,7 @@ using System;
 using System.Threading.Tasks;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Entities.Core;
+using Bimface.SDK.Entities.Core.Responses;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Requests.Common;
