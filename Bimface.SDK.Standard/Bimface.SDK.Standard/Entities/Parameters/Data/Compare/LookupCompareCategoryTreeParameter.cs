@@ -8,11 +8,11 @@ using Bimface.SDK.Entities.Parameters.Base;
 namespace Bimface.SDK.Entities.Parameters.Data.Compare
 {
     [BimfaceDataApiHttpRequest("/comparisons/{comparisonId}/tree")]
-    public class LookupCompareTreeParameter : CompareParameter
+    public class LookupCompareCategoryTreeParameter : CompareParameter
     {
         #region Constructors
 
-        public LookupCompareTreeParameter(long compareId) : base(compareId)
+        public LookupCompareCategoryTreeParameter(long compareId) : base(compareId)
         {
         }
 
