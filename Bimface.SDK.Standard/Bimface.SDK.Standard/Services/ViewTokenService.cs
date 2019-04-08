@@ -8,7 +8,7 @@ using Bimface.SDK.Interfaces.Core;
 
 namespace Bimface.SDK.Services
 {
-    internal class ViewService : HttpService, IViewService
+    internal class ViewTokenService : HttpService, IViewTokenService
     {
         #region Interface Implementations
 

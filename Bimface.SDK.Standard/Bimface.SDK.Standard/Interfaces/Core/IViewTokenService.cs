@@ -7,7 +7,7 @@ using Bimface.SDK.Entities.Parameters.View;
 
 namespace Bimface.SDK.Interfaces.Core
 {
-    public interface IViewService
+    public interface IViewTokenService
     {
         #region Others
 

@@ -116,7 +116,7 @@ namespace Bimface.SDK
                .Singleton<ICompareDataService, CompareDataService>()
                .Singleton<IShareService, ShareService>()
                .Singleton<ITranslateService, TranslateService>()
-               .Singleton<IViewService, ViewService>()
+               .Singleton<IViewTokenService, ViewTokenService>()
                .Singleton<IRfaFileService, RfaFileService>()
                .Singleton<IOfflineDatabagService, OfflineDatabagService>()
                .Singleton<IDSLDataService, DSLDataService>()
