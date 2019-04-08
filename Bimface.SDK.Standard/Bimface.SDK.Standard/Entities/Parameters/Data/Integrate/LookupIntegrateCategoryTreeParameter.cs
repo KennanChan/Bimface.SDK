@@ -16,7 +16,6 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
 
         public LookupIntegrateCategoryTreeParameter(long integrateId) : base(integrateId)
         {
-
         }
 
         #endregion
@@ -26,11 +25,11 @@ namespace Bimface.SDK.Entities.Parameters.Data.Integrate
         [HttpQueryComponent]
         public List<string> DesiredHierarchy { get; set; } = new List<string>();
 
-        [HttpQueryComponent]
-        public string TreeType { get; set; }
-
         [HttpBodyComponent]
         public IntegrationTreeOptionalRequest Request { get; set; }
+
+        [HttpQueryComponent]
+        public string TreeType { get; set; }
 
         #endregion
     }

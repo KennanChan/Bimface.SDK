@@ -20,6 +20,10 @@ namespace Bimface.SDK.Entities.Parameters.Data.Databag
             FileId = fileId;
         }
 
+        #endregion
+
+        #region Properties
+
         [HttpQueryComponent]
         public new long FileId { get; }
 

@@ -1,13 +1,19 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core;
 using Bimface.SDK.Entities.Core.Responses;
 using Bimface.SDK.Entities.Parameters.Data.Integrate;
 using Bimface.SDK.Interfaces.Core;
 
+#endregion
+
 namespace Bimface.SDK.Services
 {
     internal class IntegrateDataService : HttpService, IIntegrateDataService
     {
+        #region Interface Implementations
+
         public Task<string> DeleteFileElementProperties(DeleteIntegrateFileElementPropertyParameter parameter)
         {
             return FetchAsync<string, DeleteIntegrateFileElementPropertyParameter>(parameter);
@@ -92,5 +98,7 @@ namespace Bimface.SDK.Services
         {
             return FetchAsync<string, ModifyIntegrateFileElementPropertiesParameter>(parameter);
         }
+
+        #endregion
     }
 }

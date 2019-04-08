@@ -57,7 +57,7 @@ namespace Bimface.SDK.Services
                    //fist split the string by special chars
                   .Split(' ', '-', '.', ',')
                   .SelectMany(s =>
-                           //then split each word by capital letter as starting letter
+                       //then split each word by capital letter as starting letter
                            Regex.Replace(s, "([A-Z])", " $1", RegexOptions.Compiled).Trim().Split(' '))
                   .ToArray();
         }

@@ -33,10 +33,10 @@ namespace Bimface.SDK.Extensions
         }
 
         /// <summary>
-        ///     Copy the binary data from one <see cref="Stream"/> to another
+        ///     Copy the binary data from one <see cref="Stream" /> to another
         /// </summary>
-        /// <param name="source">The original <see cref="Stream"/></param>
-        /// <param name="target">The target <see cref="Stream"/></param>
+        /// <param name="source">The original <see cref="Stream" /></param>
+        /// <param name="target">The target <see cref="Stream" /></param>
         /// <param name="bufferSize">The size of memory used to buffer the binary data</param>
         /// <param name="onBytesCopied">The handler that invoked each time some binary data copied</param>
         public static void CopyTo(this Stream source, Stream target, int bufferSize = 1024,

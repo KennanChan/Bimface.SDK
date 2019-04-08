@@ -2,7 +2,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Globalization;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;

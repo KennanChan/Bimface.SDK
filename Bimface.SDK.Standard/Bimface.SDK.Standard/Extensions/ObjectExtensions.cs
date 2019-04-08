@@ -1,6 +1,5 @@
 ﻿#region
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -14,6 +13,11 @@ namespace Bimface.SDK.Extensions
     {
         #region Others
 
+        public static bool IsValueType(this object obj)
+        {
+            return obj != null && obj.GetType().IsValueType;
+        }
+
         internal static IEnumerable<PropertyInfo> GetInjectableProperties(this object obj)
         {
             var properties = obj.GetType().GetProperties(BindingFlags.Instance    |
@@ -22,11 +26,6 @@ namespace Bimface.SDK.Extensions
                                                          BindingFlags.Public);
             return properties.Where(property => property.GetCustomAttributes(typeof(InjectAttribute), false).Any())
                              .Where(property => property.GetValue(obj, null) == null);
-        }
-
-        public static bool IsValueType(this object obj)
-        {
-            return obj != null && obj.GetType().IsValueType;
         }
 
         #endregion

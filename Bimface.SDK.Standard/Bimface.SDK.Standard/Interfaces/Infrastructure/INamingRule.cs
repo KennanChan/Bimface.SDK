@@ -2,7 +2,11 @@
 {
     internal interface INamingRule
     {
-        string Naming(string name);
+        #region Others
+
         string GetName();
+        string Naming(string name);
+
+        #endregion
     }
 }

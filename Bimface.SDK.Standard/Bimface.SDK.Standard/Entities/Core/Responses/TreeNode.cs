@@ -1,10 +1,16 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Responses
 {
     [DataContract]
     public class TreeNode
     {
+        #region Properties
+
         [DataMember(Name = "actualName")]
         public string ActualName { get; set; }
 
@@ -25,5 +31,7 @@ namespace Bimface.SDK.Entities.Core.Responses
 
         [DataMember(Name = "type")]
         public string Type { get; set; }
+
+        #endregion
     }
 }

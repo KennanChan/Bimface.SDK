@@ -19,7 +19,11 @@ namespace Bimface.SDK
 {
     public class BimfaceClient : IServiceContainer
     {
+        #region Fields
+
         private bool _initialized;
+
+        #endregion
 
         #region Constructors
 

@@ -1,9 +1,6 @@
 ﻿#region
 
 using Bimface.SDK.Attributes.Http;
-using Bimface.SDK.Entities.Http;
-using Bimface.SDK.Entities.Parameters.Base;
-using Bimface.SDK.Entities.Parameters.OfflineDatabag;
 
 #endregion
 

@@ -1,4 +1,8 @@
-﻿using System;
+﻿#region
+
+using System;
+
+#endregion
 
 namespace Bimface.SDK.Interfaces.Infrastructure.Http
 {

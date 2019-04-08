@@ -24,14 +24,14 @@ namespace Bimface.SDK.Entities.Parameters.Data.File
         [HttpBodyComponent]
         public FileTreeRequest FileTreeRequest { get; set; }
 
-        [HttpQueryComponent]
-        public string TreeType { get; set; }
-
         /// <summary>
         ///     The format of the tree, representing v in the api document
         /// </summary>
         [HttpQueryComponent(Alias = "v")]
         public string TreeFormat { get; set; }
+
+        [HttpQueryComponent]
+        public string TreeType { get; set; }
 
         #endregion
     }

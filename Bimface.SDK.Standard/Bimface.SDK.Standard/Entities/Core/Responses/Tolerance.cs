@@ -1,6 +1,4 @@
-﻿// ReSharper disable UnusedMember.Global
-// ReSharper disable InconsistentNaming
-namespace Bimface.SDK.Entities.Core.Responses
+﻿namespace Bimface.SDK.Entities.Core.Responses
 {
     public enum Tolerance
     {

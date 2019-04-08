@@ -1,13 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿#region
+
 using System.Runtime.Serialization;
-using System.Text;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Responses
 {
     [DataContract]
     public class ModelCompareDiff
     {
+        #region Properties
+
         [DataMember(Name = "categoryId")]
         public string CategoryId { get; set; }
 
@@ -37,5 +40,7 @@ namespace Bimface.SDK.Entities.Core.Responses
 
         [DataMember(Name = "specialty")]
         public string Specialty { get; set; }
+
+        #endregion
     }
 }

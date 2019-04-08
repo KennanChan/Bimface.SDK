@@ -1,11 +1,17 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
 using Bimface.SDK.Entities.Core.Geometry;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Responses
 {
     [DataContract]
     public class ObjectOnFloor
     {
+        #region Properties
+
         [DataMember(Name = "boundary")]
         public string Boundary { get; set; }
 
@@ -23,5 +29,7 @@ namespace Bimface.SDK.Entities.Core.Responses
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
+
+        #endregion
     }
 }

@@ -1,10 +1,16 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Responses
 {
     [DataContract]
     public class Floor
     {
+        #region Properties
+
         [DataMember(Name = "archElev")]
         public float ArchtectureElevation { get; set; }
 
@@ -31,5 +37,7 @@ namespace Bimface.SDK.Entities.Core.Responses
 
         [DataMember(Name = "structElev")]
         public float StructureElevation { get; set; }
+
+        #endregion
     }
 }

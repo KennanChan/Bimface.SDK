@@ -1,4 +1,8 @@
-﻿using Bimface.SDK.Extensions;
+﻿#region
+
+using Bimface.SDK.Extensions;
+
+#endregion
 
 namespace Bimface.SDK.Attributes.Http
 {

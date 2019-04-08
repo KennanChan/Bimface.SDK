@@ -81,10 +81,10 @@ namespace Bimface.SDK.Services
         }
 
         /// <summary>
-        ///     Create an <see cref="HttpRequest"/> from an <see cref="HttpParameter"/>
+        ///     Create an <see cref="HttpRequest" /> from an <see cref="HttpParameter" />
         /// </summary>
-        /// <typeparam name="TParameter">The type of the <see cref="HttpParameter"/></typeparam>
-        /// <param name="parameter">The <see cref="HttpParameter"/> instance</param>
+        /// <typeparam name="TParameter">The type of the <see cref="HttpParameter" /></typeparam>
+        /// <param name="parameter">The <see cref="HttpParameter" /> instance</param>
         /// <returns></returns>
         private Task<HttpRequest> CreateHttpRequest<TParameter>(TParameter parameter)
             where TParameter : HttpParameter

@@ -9,28 +9,28 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.OfflineDatabag
 {
-  [BimfaceApiHttpRequest(HttpMethods.Put, "/files/{fileId}/offlineDatabag")]
-  public class CreateFileOfflineDatabagParameter : FileParameter
-  {
-    #region Constructors
-
-    public CreateFileOfflineDatabagParameter(long fileId, string callback, DatabagDerivativeRequest request) :
-        base(fileId)
+    [BimfaceApiHttpRequest(HttpMethods.Put, "/files/{fileId}/offlineDatabag")]
+    public class CreateFileOfflineDatabagParameter : FileParameter
     {
-      Callback = callback;
-      Request = request;
+        #region Constructors
+
+        public CreateFileOfflineDatabagParameter(long fileId, string callback, DatabagDerivativeRequest request) :
+            base(fileId)
+        {
+            Callback = callback;
+            Request  = request;
+        }
+
+        #endregion
+
+        #region Properties
+
+        [HttpQueryComponent]
+        public string Callback { get; }
+
+        [HttpBodyComponent]
+        public DatabagDerivativeRequest Request { get; }
+
+        #endregion
     }
-
-    #endregion
-
-    #region Properties
-
-    [HttpQueryComponent]
-    public string Callback { get; }
-
-    [HttpBodyComponent]
-    public DatabagDerivativeRequest Request { get; }
-
-    #endregion
-  }
 }

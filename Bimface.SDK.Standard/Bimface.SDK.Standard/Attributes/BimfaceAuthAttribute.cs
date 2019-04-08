@@ -14,6 +14,10 @@ namespace Bimface.SDK.Attributes
     [AttributeUsage(AttributeTargets.Class)]
     public class BimfaceAuthAttribute : Attribute
     {
+        #region Properties
+
         public bool Enabled { get; set; } = true;
+
+        #endregion
     }
 }

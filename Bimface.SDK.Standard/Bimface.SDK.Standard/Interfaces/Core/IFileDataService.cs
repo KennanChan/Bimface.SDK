@@ -1,11 +1,17 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core.Responses;
 using Bimface.SDK.Entities.Parameters.Data.File;
+
+#endregion
 
 namespace Bimface.SDK.Interfaces.Core
 {
     public interface IFileDataService
     {
+        #region Others
+
         Task<string> DeleteElementProperty(DeleteFileElementPropertiesParameter     parameter);
         Task<DrawingSheet[]> ListDrawingSheets(ListFileDrawingSheetsParameter       parameter);
         Task<ElementIdWithBoundingBox[]> ListElementIds(ListFileElementIdsParameter parameter);
@@ -20,5 +26,7 @@ namespace Bimface.SDK.Interfaces.Core
         Task<Property> LookupElementProperty(LookupFileElementPropertyParameter     parameter);
         Task<Room> LookupRoom(LookupFileRoomParameter                               parameter);
         Task<string> ModifyElementProperies(ModifyFileElementPropertiesParameter    parameter);
+
+        #endregion
     }
 }

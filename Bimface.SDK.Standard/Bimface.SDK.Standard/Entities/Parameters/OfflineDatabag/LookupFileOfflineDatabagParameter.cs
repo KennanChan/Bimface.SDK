@@ -8,15 +8,15 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.OfflineDatabag
 {
-  [BimfaceApiHttpRequest(HttpMethods.Get, "/files/{fileId}/offlineDatabag")]
-  public class LookupFileOfflineDatabagParameter : FileParameter
-  {
-    #region Constructors
-
-    public LookupFileOfflineDatabagParameter(long fileId) : base(fileId)
+    [BimfaceApiHttpRequest(HttpMethods.Get, "/files/{fileId}/offlineDatabag")]
+    public class LookupFileOfflineDatabagParameter : FileParameter
     {
-    }
+        #region Constructors
 
-    #endregion
-  }
+        public LookupFileOfflineDatabagParameter(long fileId) : base(fileId)
+        {
+        }
+
+        #endregion
+    }
 }

@@ -8,15 +8,15 @@ using Bimface.SDK.Entities.Parameters.Base;
 
 namespace Bimface.SDK.Entities.Parameters.OfflineDatabag
 {
-  [BimfaceApiHttpRequest(HttpMethods.Get, "/integrations/{integrateId}/offlineDatabag")]
-  public class LookupIntegrateOfflineDatabagParameter : IntegrateParameter
-  {
-    #region Constructors
-
-    public LookupIntegrateOfflineDatabagParameter(long integrateId) : base(integrateId)
+    [BimfaceApiHttpRequest(HttpMethods.Get, "/integrations/{integrateId}/offlineDatabag")]
+    public class LookupIntegrateOfflineDatabagParameter : IntegrateParameter
     {
-    }
+        #region Constructors
 
-    #endregion
-  }
+        public LookupIntegrateOfflineDatabagParameter(long integrateId) : base(integrateId)
+        {
+        }
+
+        #endregion
+    }
 }

@@ -1,6 +1,5 @@
 ﻿#region
 
-using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Extensions;

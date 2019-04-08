@@ -12,10 +12,14 @@ namespace Bimface.SDK.Entities.Parameters.Compare
     [BimfaceApiHttpRequest(HttpMethods.Post, "/compare", "v2")]
     public class CreateCompareParameter : HttpParameter
     {
+        #region Constructors
+
         public CreateCompareParameter(CompareRequest request)
         {
             Request = request;
         }
+
+        #endregion
 
         #region Properties
 

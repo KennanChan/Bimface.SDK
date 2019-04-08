@@ -1,10 +1,16 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Responses
 {
     [DataContract]
     public class ModelCompareChange
     {
+        #region Properties
+
         [DataMember(Name = "_A")]
         public string A { get; set; }
 
@@ -28,5 +34,7 @@ namespace Bimface.SDK.Entities.Core.Responses
 
         [DataMember(Name = "newQuantities")]
         public Quantity[] NewQuantities { get; set; }
+
+        #endregion
     }
 }

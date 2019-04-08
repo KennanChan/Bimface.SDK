@@ -1,12 +1,18 @@
-﻿using System.Threading.Tasks;
+﻿#region
+
+using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core.Responses;
 using Bimface.SDK.Entities.Parameters.Data.File;
 using Bimface.SDK.Interfaces.Core;
+
+#endregion
 
 namespace Bimface.SDK.Services
 {
     internal class FileDataService : HttpService, IFileDataService
     {
+        #region Interface Implementations
+
         public Task<string> DeleteElementProperty(DeleteFileElementPropertiesParameter parameter)
         {
             return FetchAsync<string, DeleteFileElementPropertiesParameter>(parameter);
@@ -76,5 +82,7 @@ namespace Bimface.SDK.Services
         {
             return FetchAsync<string, ModifyFileElementPropertiesParameter>(parameter);
         }
+
+        #endregion
     }
 }

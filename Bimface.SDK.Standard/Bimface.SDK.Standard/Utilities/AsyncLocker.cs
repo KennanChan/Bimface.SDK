@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Bimface.SDK.Utilities
 {
     /// <summary>
-    ///     A locker to ensure that only one thread can access the resource at one time using <see cref="SemaphoreSlim"/>
+    ///     A locker to ensure that only one thread can access the resource at one time using <see cref="SemaphoreSlim" />
     /// </summary>
     public class AsyncLocker
     {
@@ -30,9 +30,9 @@ namespace Bimface.SDK.Utilities
         #region Others
 
         /// <summary>
-        ///     Create an <see cref="Unlocker"/> to release the <see cref="AsyncLocker"/>
+        ///     Create an <see cref="Unlocker" /> to release the <see cref="AsyncLocker" />
         /// </summary>
-        /// <returns>The instance of <see cref="Unlocker"/> used to release <see cref="AsyncLocker"/></returns>
+        /// <returns>The instance of <see cref="Unlocker" /> used to release <see cref="AsyncLocker" /></returns>
         public Task<Unlocker> LockAsync()
         {
             var waitTask = Semaphore.WaitAsync();

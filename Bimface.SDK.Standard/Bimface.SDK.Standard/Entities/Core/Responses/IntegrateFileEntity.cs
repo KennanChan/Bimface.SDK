@@ -1,10 +1,16 @@
-﻿using System.Runtime.Serialization;
+﻿#region
+
+using System.Runtime.Serialization;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Core.Responses
 {
     [DataContract]
     public class IntegrateFileEntity
     {
+        #region Properties
+
         [DataMember(Name = "databagId")]
         public string DatabagId { get; set; }
 
@@ -34,5 +40,7 @@ namespace Bimface.SDK.Entities.Core.Responses
 
         [DataMember(Name = "specialtySort")]
         public float SpecialtySort { get; set; }
+
+        #endregion
     }
 }
