@@ -84,16 +84,19 @@ namespace Bimface.SDK
         #region Others
 
         /// <summary>
-        ///     Get or create a <see cref="BimfaceClient" /> using the <see cref="AppCredential" /> acquired from bimface.com
+        ///     Create a <see cref="BimfaceClient" /> using the <see cref="AppCredential" /> acquired from bimface.com
         /// </summary>
-        /// <param name="credential"></param>
-        /// <param name="container"></param>
-        /// <returns></returns>
+        /// <param name="credential">The appkey and appsecret pair</param>
+        /// <param name="container">The <see cref="IServiceContainer"/> used by the invoker's system</param>
+        /// <returns>The client</returns>
         public static BimfaceClient Create(AppCredential credential, IServiceContainer container = null)
         {
             return container?.GetService<BimfaceClient>() ?? new BimfaceClient(credential, container);
         }
 
+        /// <summary>
+        ///     Initialize all the internal services
+        /// </summary>
         private void Initialize()
         {
             if (_initialized) return;
