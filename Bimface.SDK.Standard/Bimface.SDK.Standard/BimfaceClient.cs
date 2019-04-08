@@ -31,7 +31,7 @@ namespace Bimface.SDK
         {
             Container = container ?? new ServiceContainer();
             Container.Singleton(credential);
-            Init();
+            Initialize();
         }
 
         #endregion
@@ -94,7 +94,7 @@ namespace Bimface.SDK
             return container?.GetService<BimfaceClient>() ?? new BimfaceClient(credential, container);
         }
 
-        private void Init()
+        private void Initialize()
         {
             if (_initialized) return;
             Container
@@ -102,22 +102,24 @@ namespace Bimface.SDK
                .AddService<IHttpClient, DefaultHttpClient>()
                .AddService<IJsonSerializer, DefaultJsonSerializer>()
                .AddService<IResponseResolver, DefaultResponseResolver>()
+               .Singleton<IHttpContext, HttpContext>()
                .Singleton<INamingRule, CamelCaseNamingRule>()
                .Singleton<IAuthorizationService, AuthorizationService>()
                .Singleton<IFileService, FileService>()
+               .Singleton<IFileDataService, FileDataService>()
+               .Singleton<IIntegrateService, IntegrateService>()
+               .Singleton<IIntegrateDataService, IntegrateDataService>()
+               .Singleton<ICompareService, CompareService>()
+               .Singleton<ICompareDataService, CompareDataService>()
                .Singleton<IShareService, ShareService>()
                .Singleton<ITranslateService, TranslateService>()
                .Singleton<IViewService, ViewService>()
                .Singleton<IRfaFileService, RfaFileService>()
                .Singleton<IOfflineDatabagService, OfflineDatabagService>()
-               .Singleton<IIntegrateService, IntegrateService>()
-               .Singleton<IIntegrateDataService, IntegrateDataService>()
-               .Singleton<ICompareService, CompareService>()
-               .Singleton<ICompareDataService, CompareDataService>()
                .Singleton<IDSLDataService, DSLDataService>()
+               .Singleton<IDatabagDataService, DatabagDataService>()
                .Singleton<BimfaceAuthPlugin>()
                .Singleton<ResolveHeadersPlugin>()
-               .Singleton<IHttpContext, HttpContext>()
                .Singleton(this);
             Container
                .GetService<IHttpContext>()
