@@ -12,7 +12,18 @@ namespace Bimface.SDK.Interfaces.Core
     {
         #region Others
 
+        /// <summary>
+        ///     Create a translation for the given file
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns>The <see cref="FileTranslateEntity"/> instance</returns>
         Task<FileTranslateEntity> CreateTranslate(CreateTranslateParameter parameter);
+
+        /// <summary>
+        ///     Lookup the status of a translation for the given file
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns>The <see cref="FileTranslateEntity"/> instance</returns>
         Task<FileTranslateEntity> LookupTranslate(LookupTranslateParameter parameter);
 
         #endregion

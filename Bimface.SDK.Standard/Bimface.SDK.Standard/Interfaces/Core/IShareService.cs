@@ -12,13 +12,54 @@ namespace Bimface.SDK.Interfaces.Core
     {
         #region Others
 
-        Task<ShareLinkEntity> CreateShare(CreateFileShareParameter      parameter);
+        /// <summary>
+        ///     Create a share link for the given file
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns>The <see cref="ShareLinkEntity"/> instance</returns>
+        Task<ShareLinkEntity> CreateShare(CreateFileShareParameter parameter);
+
+        /// <summary>
+        ///     Create a share link for the given integration
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns>The <see cref="ShareLinkEntity"/> instance</returns>
         Task<ShareLinkEntity> CreateShare(CreateIntegrateShareParameter parameter);
-        Task<string> DeleteShare(DeleteFileShareParameter               parameter);
-        Task<string> DeleteShare(DeleteIntegrateShareParameter          parameter);
-        Task<ShareLinkEntity> GetShare(LookupFileShareParameter         parameter);
-        Task<ShareLinkEntity> GetShare(LookupIntegrateShareParameter    parameter);
-        Task<ShareLinkEntity[]> ListShares(ListSharesParameter          parameter);
+
+        /// <summary>
+        ///     Delete a share link of the given file
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns></returns>
+        Task<string> DeleteShare(DeleteFileShareParameter parameter);
+
+        /// <summary>
+        ///     Delete a share link of the given integration
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns></returns>
+        Task<string> DeleteShare(DeleteIntegrateShareParameter parameter);
+
+        /// <summary>
+        ///     Get the <see cref="ShareLinkEntity"/> for the given file
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns>The <see cref="ShareLinkEntity"/> instance</returns>
+        Task<ShareLinkEntity> GetShare(LookupFileShareParameter parameter);
+
+        /// <summary>
+        ///     Get the <see cref="ShareLinkEntity"/> for the given integration
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns>The <see cref="ShareLinkEntity"/> instance</returns>
+        Task<ShareLinkEntity> GetShare(LookupIntegrateShareParameter parameter);
+
+        /// <summary>
+        ///     List all the <see cref="ShareLinkEntity"/> that have been created
+        /// </summary>
+        /// <param name="parameter">The parameter required for the request</param>
+        /// <returns>All the instances of <see cref="ShareLinkEntity"/></returns>
+        Task<ShareLinkEntity[]> ListShares(ListSharesParameter parameter);
 
         #endregion
     }

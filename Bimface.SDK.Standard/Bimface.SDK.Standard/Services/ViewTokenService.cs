@@ -12,22 +12,22 @@ namespace Bimface.SDK.Services
     {
         #region Interface Implementations
 
-        public Task<string> FetchCompareViewToken(FetchCompareViewTokenParameter parameter)
+        public Task<string> FetchViewToken(FetchCompareViewTokenParameter parameter)
         {
             return FetchAsync<string, FetchCompareViewTokenParameter>(parameter);
         }
 
-        public Task<string> FetchFileViewToken(FetchFileViewTokenParameter parameter)
+        public Task<string> FetchViewToken(FetchFileViewTokenParameter parameter)
         {
             return FetchAsync<string, FetchFileViewTokenParameter>(parameter);
         }
 
-        public Task<string> FetchIntegrateFileViewToken(FetchIntegrateFileViewTokenParameter parameter)
+        public Task<string> FetchViewToken(FetchIntegrateFileViewTokenParameter parameter)
         {
             return FetchAsync<string, FetchIntegrateFileViewTokenParameter>(parameter);
         }
 
-        public Task<string> FetchIntegrateViewToken(FetchIntegrateViewTokenParameter parameter)
+        public Task<string> FetchViewToken(FetchIntegrateViewTokenParameter parameter)
         {
             return FetchAsync<string, FetchIntegrateViewTokenParameter>(parameter);
         }
