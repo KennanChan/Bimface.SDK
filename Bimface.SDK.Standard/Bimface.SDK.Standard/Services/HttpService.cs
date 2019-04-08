@@ -41,13 +41,12 @@ namespace Bimface.SDK.Services
         }
 
         /// <summary>
-        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}" /> to build a request from the
-        ///     <see cref="TParameter" />
+        ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}" /> to build a request from the <typeparamref name="TParameter"/>
         /// </summary>
-        /// <typeparam name="TResult"></typeparam>
-        /// <typeparam name="TParameter"></typeparam>
-        /// <param name="parameter"></param>
-        /// <param name="progress"></param>
+        /// <typeparam name="TResult">The type of the result</typeparam>
+        /// <typeparam name="TParameter">The type of the parameter</typeparam>
+        /// <param name="parameter">The parameter instance</param>
+        /// <param name="progress">The progress reporter</param>
         /// <returns>The data returned from the server</returns>
         protected async Task<TResult> FetchAsync<TResult, TParameter>(TParameter parameter, IProgress<double> progress = null)
             where TParameter : HttpParameter
@@ -59,8 +58,8 @@ namespace Bimface.SDK.Services
         ///     Send an http request without caring about the response
         /// </summary>
         /// <param name="request">The http request</param>
-        /// <param name="progress"></param>
-        /// <returns>The task </returns>
+        /// <param name="progress">The progress reporter</param>
+        /// <returns>The task used to wait</returns>
         protected async Task SendAsync(HttpRequest request, IProgress<double> progress = null)
         {
             await Task.Run(() => Client.GetResponse(request, null)).ConfigureAwait(false);
@@ -68,7 +67,7 @@ namespace Bimface.SDK.Services
 
         /// <summary>
         ///     Send an http request using the prebuilt <see cref="IRequestBuilder{T}" /> to build a request from the
-        ///     <see cref="TParameter" />
+        ///     <typeparamref name="TParameter"/>
         /// </summary>
         /// <typeparam name="TParameter"></typeparam>
         /// <param name="parameter"></param>

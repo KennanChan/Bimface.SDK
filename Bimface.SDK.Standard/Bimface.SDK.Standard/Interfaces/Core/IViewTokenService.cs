@@ -16,28 +16,28 @@ namespace Bimface.SDK.Interfaces.Core
         /// </summary>
         /// <param name="parameter">The parameter required for the request</param>
         /// <returns>The view token</returns>
-        Task<string> FetchViewToken(FetchCompareViewTokenParameter parameter);
+        Task<string> GetViewToken(FetchCompareViewTokenParameter parameter);
 
         /// <summary>
         ///     Fetch a view token for a file model
         /// </summary>
         /// <param name="parameter">The parameter required for the request</param>
         /// <returns>The view token</returns>
-        Task<string> FetchViewToken(FetchFileViewTokenParameter parameter);
+        Task<string> GetViewToken(FetchFileViewTokenParameter parameter);
 
         /// <summary>
         ///     Fetch a view token for a sub file of an integrate model
         /// </summary>
         /// <param name="parameter">The parameter required for the request</param>
         /// <returns>The view token</returns>
-        Task<string> FetchViewToken(FetchIntegrateFileViewTokenParameter parameter);
+        Task<string> GetViewToken(FetchIntegrateFileViewTokenParameter parameter);
 
         /// <summary>
         ///     Fetch a view token for an integrate model
         /// </summary>
         /// <param name="parameter">The parameter required for the request</param>
         /// <returns>The view token</returns>
-        Task<string> FetchViewToken(FetchIntegrateViewTokenParameter parameter);
+        Task<string> GetViewToken(FetchIntegrateViewTokenParameter parameter);
 
         #endregion
     }
