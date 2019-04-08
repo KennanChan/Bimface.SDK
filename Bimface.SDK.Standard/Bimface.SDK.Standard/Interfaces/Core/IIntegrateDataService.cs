@@ -13,7 +13,7 @@ namespace Bimface.SDK.Interfaces.Core
     {
         #region Others
 
-        Task<string> DeleteFileElementProperties(DeleteIntegrateFileElementPropertyParameter             parameter);
+        Task<string> DeleteFileElementProperties(DeleteIntegrateFileElementPropertyParameter               parameter);
         Task<Area[]> ListAreas(ListIntegrateAreasParameter                                                 parameter);
         Task<ElementsWithBoundingBox[]> ListElementIds(ListIntegrateElementIdsParameter                    parameter);
         Task<ElementIdWithBoundingBox[]> ListElementsBoundingBox(ListIntegrateElementsBoundingBoxParameter parameter);
