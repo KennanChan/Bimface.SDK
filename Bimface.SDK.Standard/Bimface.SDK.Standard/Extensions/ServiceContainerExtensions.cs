@@ -11,12 +11,27 @@ namespace Bimface.SDK.Extensions
     {
         #region Others
 
+        /// <summary>
+        ///     Add a service to the <see cref="IServiceContainer"/>
+        /// </summary>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <param name="creator">The method to create the service instance</param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer AddService<TService>(this IServiceContainer container, Func<TService> creator)
         {
+            container.RemoveService(typeof(TService));
             container.AddService(typeof(TService), (c, t) => creator());
             return container;
         }
 
+        /// <summary>
+        ///     Add a service to the <see cref="IServiceContainer"/>
+        /// </summary>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <param name="creator">The method to create the service instance from the <see cref="IServiceContainer"/></param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer AddService<TService>(this IServiceContainer            container,
                                                              Func<IServiceContainer, TService> creator)
         {
@@ -24,12 +39,26 @@ namespace Bimface.SDK.Extensions
             return container;
         }
 
+        /// <summary>
+        ///     Add a service to the <see cref="IServiceContainer"/>
+        /// </summary>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <typeparam name="TImplementation">The type of the service implementation</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer AddService<TService, TImplementation>(this IServiceContainer container)
             where TImplementation : TService
         {
             return container.AddService<TService>(() => container.CreateInstance<TImplementation>());
         }
 
+        /// <summary>
+        ///     Add a singleton service to the <see cref="IServiceContainer"/>
+        /// </summary>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <param name="implementation">The only instance of the service</param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer Singleton<TService>(this IServiceContainer container,
                                                             TService               implementation)
         {
@@ -38,6 +67,13 @@ namespace Bimface.SDK.Extensions
             return container;
         }
 
+        /// <summary>
+        ///     Add a singleton service to the <see cref="IServiceContainer"/>
+        /// </summary>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <param name="creator">The method to create the service instance</param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer Singleton<TService>(this IServiceContainer container,
                                                             Func<TService>         creator)
         {
@@ -46,6 +82,13 @@ namespace Bimface.SDK.Extensions
             return container.AddService(() => lazy.Value);
         }
 
+        /// <summary>
+        ///     Add a singleton service to the <see cref="IServiceContainer"/>
+        /// </summary>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <param name="creator">The method to create the service instance from the <see cref="IServiceContainer"/></param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer Singleton<TService>(this IServiceContainer            container,
                                                             Func<IServiceContainer, TService> creator)
         {
@@ -53,6 +96,12 @@ namespace Bimface.SDK.Extensions
             return container.AddService(() => lazy.Value);
         }
 
+        /// <summary>
+        ///     Add a singleton service to the <see cref="IServiceContainer"/>. Use this method if the <see cref="TService"/> itself is the implementation
+        /// </summary>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer Singleton<TService>(this IServiceContainer container)
         {
             return container.Singleton<TService, TService>();
@@ -62,10 +111,10 @@ namespace Bimface.SDK.Extensions
         ///     Add a service instance by providing the implementing type, a new singleton will be automatically created from the
         ///     <see cref="IServiceContainer" />
         /// </summary>
-        /// <typeparam name="TService">Service to add to the </typeparam>
-        /// <typeparam name="TImplementation"></typeparam>
-        /// <param name="container"></param>
-        /// <returns></returns>
+        /// <typeparam name="TService">The type of the service</typeparam>
+        /// <typeparam name="TImplementation">The type of the service implementation</typeparam>
+        /// <param name="container">The <see cref="IServiceContainer"/> instance</param>
+        /// <returns>The <see cref="IServiceContainer"/> instance</returns>
         public static IServiceContainer Singleton<TService, TImplementation>(this IServiceContainer container)
             where TImplementation : TService
         {
