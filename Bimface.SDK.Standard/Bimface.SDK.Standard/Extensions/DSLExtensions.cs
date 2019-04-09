@@ -1,6 +1,6 @@
 ﻿#region
 
-using Bimface.SDK.DSL.Clauses;
+using Bimface.SDK.Entities.Core.Requests.DSL.Clauses;
 
 #endregion
 

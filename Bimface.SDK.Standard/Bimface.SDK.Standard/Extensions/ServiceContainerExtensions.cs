@@ -52,6 +52,13 @@ namespace Bimface.SDK.Extensions
             return container.AddService<TService>(() => container.CreateInstance<TImplementation>());
         }
 
+        public static IServiceContainer Singleton(this IServiceContainer container, Type serviceType, object implementation)
+        {
+            container.RemoveService(serviceType);
+            container.AddService(serviceType, implementation);
+            return container;
+        }
+
         /// <summary>
         ///     Add a singleton service to the <see cref="IServiceContainer"/>
         /// </summary>

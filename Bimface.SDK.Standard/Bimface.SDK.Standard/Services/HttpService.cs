@@ -85,14 +85,14 @@ namespace Bimface.SDK.Services
         /// <typeparam name="TParameter">The type of the <see cref="HttpParameter" /></typeparam>
         /// <param name="parameter">The <see cref="HttpParameter" /> instance</param>
         /// <returns></returns>
-        private Task<HttpRequest> CreateHttpRequest<TParameter>(TParameter parameter)
+        private async Task<HttpRequest> CreateHttpRequest<TParameter>(TParameter parameter)
             where TParameter : HttpParameter
         {
 #if DEBUG
             var time1 = DateTime.Now;
 #endif
             var builder = Container.GetService<IRequestBuilder<TParameter>>();
-            var request = builder.Build(parameter);
+            var request = await builder.Build(parameter);
 #if DEBUG
             var time2 = DateTime.Now;
             Debug($"Create request for [{parameter.GetType().Name}] in {(time2 - time1).TotalMilliseconds}ms");

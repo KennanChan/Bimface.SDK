@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 #endregion
 
-namespace Bimface.SDK.Entities.Core.DSL
+namespace Bimface.SDK.Entities.Core.Responses.DSL
 {
     [DataContract]
     public class PropertyValuesResponse

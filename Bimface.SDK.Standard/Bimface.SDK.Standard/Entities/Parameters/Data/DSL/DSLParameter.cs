@@ -2,7 +2,8 @@
 
 using Bimface.SDK.Attributes;
 using Bimface.SDK.Attributes.Http;
-using Bimface.SDK.DSL;
+using Bimface.SDK.Entities.Core.Requests.DSL;
+using Bimface.SDK.Entities.Core.Requests.DSL.Queries;
 using Bimface.SDK.Entities.Parameters.Base;
 
 #endregion

@@ -11,6 +11,7 @@ namespace Bimface.SDK.Interfaces.Infrastructure
         #region Others
 
         void Initialize(IServiceContainer container);
+        bool HasInitialized { get; }
 
         #endregion
     }

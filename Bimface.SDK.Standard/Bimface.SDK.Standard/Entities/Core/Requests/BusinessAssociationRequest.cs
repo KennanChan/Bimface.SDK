@@ -8,7 +8,7 @@ using Bimface.SDK.Interfaces.Core;
 namespace Bimface.SDK.Entities.Core.Requests
 {
     [DataContract]
-    public class BusinessAssociationRequest : ICallbackSource, IConfigurable
+    public class BusinessAssociationRequest
     {
         #region Properties
 

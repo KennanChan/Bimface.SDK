@@ -5,12 +5,10 @@ using System.ComponentModel.Design;
 using System.Linq;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Entities.Http;
-using Bimface.SDK.Entities.Parameters.Base;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
-using Bimface.SDK.Plugins;
 using Bimface.SDK.Services;
 
 #endregion
@@ -38,7 +36,7 @@ namespace Bimface.SDK
 
         #region Properties
 
-        private IServiceContainer Container { get; }
+        private static IServiceContainer Container { get; set; }
 
         #endregion
 
@@ -84,12 +82,12 @@ namespace Bimface.SDK
         #region Others
 
         /// <summary>
-        ///     Create a <see cref="BimfaceClient" /> using the <see cref="AppCredential" /> acquired from bimface.com
+        ///     Get or create a <see cref="BimfaceClient" /> using the <see cref="AppCredential" /> acquired from bimface.com
         /// </summary>
-        /// <param name="credential">The appkey and appsecret pair</param>
-        /// <param name="container">The <see cref="IServiceContainer"/> used by the invoker's system</param>
+        /// <param name="credential">The app key and appsecret pair</param>
+        /// <param name="container">The <see cref="IServiceContainer" /> used by the user's system</param>
         /// <returns>The client</returns>
-        public static BimfaceClient Create(AppCredential credential, IServiceContainer container = null)
+        public static BimfaceClient GetOrCreate(AppCredential credential, IServiceContainer container = null)
         {
             return container?.GetService<BimfaceClient>() ?? new BimfaceClient(credential, container);
         }
@@ -103,7 +101,7 @@ namespace Bimface.SDK
             Container
                .AddService<ILog, DefaultLogger>()
                .AddService<IHttpClient, DefaultHttpClient>()
-               .AddService<IJsonSerializer, DefaultJsonSerializer>()
+               .AddService<IJsonSerializer, NewtonsoftJsonSerializer>()
                .AddService<IResponseResolver, DefaultResponseResolver>()
                .Singleton<IHttpContext, HttpContext>()
                .Singleton<INamingRule, CamelCaseNamingRule>()
@@ -121,38 +119,20 @@ namespace Bimface.SDK
                .Singleton<IOfflineDatabagService, OfflineDatabagService>()
                .Singleton<IDSLDataService, DSLDataService>()
                .Singleton<IDatabagDataService, DatabagDataService>()
-               .Singleton<BimfaceAuthPlugin>()
-               .Singleton<ResolveHeadersPlugin>()
                .Singleton(this);
-            Container
-               .GetService<IHttpContext>()
-               .UseContainer(Container)
-               .UseRequestPlugin<BimfaceAuthPlugin>()
-               .UseRequestPlugin<ResolveHeadersPlugin>();
-            InitializeRequestBuilders();
-            _initialized = true;
-        }
-
-        private void InitializeRequestBuilders()
-        {
-            var baseType             = typeof(HttpParameter);
-            var genericInterfaceType = typeof(IRequestBuilder<>);
-            var genericType          = typeof(RequestBuilder<>);
             AppDomain.CurrentDomain.GetAssemblies()
-                     .SelectMany(assembly => assembly.GetTypes())
-                     .Where(type => !type.IsAbstract)
-                     .Where(type => !type.IsInterface)
-                     .Where(type => baseType.IsAssignableFrom(type))
+                     .SelectMany(assembly => assembly.GetConcreteTypes<IServiceInitializer>())
                      .ToList()
-                     .ForEach(type =>
-                      {
-                          var typeArgs             = new[] {type};
-                          var builderInterfaceType = genericInterfaceType.MakeGenericType(typeArgs);
-                          var builderType          = genericType.MakeGenericType(typeArgs);
-                          var builder              = Container.CreateInstance(builderType) as IRequestBuilder;
-                          builder?.Init();
-                          Container.AddService(builderInterfaceType, builder);
-                      });
+                     .ForEach(
+                          initializerType =>
+                          {
+                              var initializer = Container.GetService(initializerType) as IServiceInitializer ??
+                                                Container.CreateInstance(initializerType) as IServiceInitializer;
+                              if (null == initializer || initializer.HasInitialized) return;
+                              Container.Singleton(initializerType, initializer);
+                              initializer.Initialize(Container);
+                          });
+            _initialized = true;
         }
 
         #endregion

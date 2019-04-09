@@ -12,8 +12,7 @@ namespace Bimface.SDK.Interfaces.Infrastructure
     {
         #region Others
 
-        Task Handle(HttpParameter parameter, HttpRequest request);
-        void PreBuild();
+        Task HandleRequest(HttpParameter parameter, HttpRequest request);
 
         #endregion
     }

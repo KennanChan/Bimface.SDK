@@ -144,7 +144,7 @@ namespace Bimface.SDK.Services
             var plugins = Context.GetRequestPlugins();
             foreach (var plugin in plugins)
             {
-                await plugin.Handle(parameter, request);
+                await plugin.HandleRequest(parameter, request);
             }
         }
 

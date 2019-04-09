@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bimface.SDK.Attributes;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
+using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Services;
@@ -46,7 +47,7 @@ namespace Bimface.SDK.Plugins
         /// </summary>
         /// <param name="parameter">The parameter for the request</param>
         /// <param name="request">The http request</param>
-        public async Task Handle(HttpParameter parameter, HttpRequest request)
+        public async Task HandleRequest(HttpParameter parameter, HttpRequest request)
         {
             try
             {
@@ -63,16 +64,11 @@ namespace Bimface.SDK.Plugins
             }
         }
 
-        public void PreBuild()
-        {
-            Initialize(Container);
-        }
-
         #endregion
 
         #region Others
 
-        protected override void Handle(Assembly assembly)
+        protected override void HandleAssembly(Assembly assembly)
         {
             assembly.GetTypes()
                     .Where(type => !type.IsInterface)
@@ -86,9 +82,15 @@ namespace Bimface.SDK.Plugins
                      });
         }
 
-        private bool HandleType(Type type)
+        protected override void Initialized()
         {
-            return type.GetCustomAttributes<BimfaceAuthAttribute>(true).All(attribute => attribute.Enabled);
+            Container.Singleton(this);
+        }
+
+        private static bool HandleType(Type type)
+        {
+            var attibutes = type.GetCustomAttributes<BimfaceAuthAttribute>(true).ToArray();
+            return attibutes.Any() && attibutes.All(attribute => attribute.Enabled);
         }
 
         #endregion

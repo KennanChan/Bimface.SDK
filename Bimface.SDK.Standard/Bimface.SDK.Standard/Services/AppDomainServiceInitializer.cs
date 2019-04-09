@@ -11,8 +11,13 @@ using Bimface.SDK.Interfaces.Infrastructure;
 
 namespace Bimface.SDK.Services
 {
+    /// <summary>
+    ///     Initialize the service by searching all the types within the current <see cref="AppDomain"/>
+    /// </summary>
     internal abstract class AppDomainServiceInitializer : LogObject, IServiceInitializer, IDisposable
     {
+        public bool HasInitialized { get; protected set; }
+
         #region Interface Implementations
 
         public virtual void Dispose()
@@ -22,19 +27,23 @@ namespace Bimface.SDK.Services
 
         public void Initialize(IServiceContainer container)
         {
+            if (HasInitialized) return;
             AppDomain.CurrentDomain.AssemblyLoad += CurrentDomain_AssemblyLoad;
-            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(Handle);
+            AppDomain.CurrentDomain.GetAssemblies().ToList().ForEach(HandleAssembly);
+            Initialized();
+            HasInitialized = true;
         }
 
         #endregion
 
         #region Others
 
-        protected abstract void Handle(Assembly assembly);
+        protected abstract void HandleAssembly(Assembly assembly);
+        protected abstract void Initialized();
 
         private void CurrentDomain_AssemblyLoad(object sender, AssemblyLoadEventArgs args)
         {
-            Handle(args.LoadedAssembly);
+            HandleAssembly(args.LoadedAssembly);
         }
 
         #endregion

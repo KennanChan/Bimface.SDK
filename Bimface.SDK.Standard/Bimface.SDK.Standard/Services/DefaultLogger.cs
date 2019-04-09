@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Diagnostics;
 using Bimface.SDK.Interfaces.Infrastructure;
 
 #endregion
@@ -16,7 +17,7 @@ namespace Bimface.SDK.Services
 
         public void Debug(Type logType, object log)
         {
-            Console.WriteLine($"[DEBUG] {logType}{Environment.NewLine}{log}");
+            InternalDebug(logType, log);
         }
 
         public void Error(Type logType, object log)
@@ -27,6 +28,12 @@ namespace Bimface.SDK.Services
         public void Info(Type logType, object log)
         {
             Console.WriteLine($"[INFO] {logType}{Environment.NewLine}{log}");
+        }
+
+        [Conditional("DEBUG")]
+        private void InternalDebug(Type logType, object log)
+        {
+            Console.WriteLine($"[DEBUG] {logType}{Environment.NewLine}{log}");
         }
 
         #endregion

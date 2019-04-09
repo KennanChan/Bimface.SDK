@@ -8,7 +8,7 @@ using Bimface.SDK.Interfaces.Core;
 namespace Bimface.SDK.Entities.Core.Responses
 {
     [DataContract]
-    public class CompareRequestEntity : ICallbackSource, IConfigurable
+    public class CompareRequestEntity
     {
         #region Properties
 

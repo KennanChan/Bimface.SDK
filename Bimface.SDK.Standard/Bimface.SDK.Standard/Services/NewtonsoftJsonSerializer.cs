@@ -1,11 +1,16 @@
-﻿using System;
+﻿#region
+
 using Bimface.SDK.Interfaces.Infrastructure;
 using Newtonsoft.Json;
 
-namespace TestAppFx
+#endregion
+
+namespace Bimface.SDK.Services
 {
-    internal class JsonSerializer : IJsonSerializer
+    internal class NewtonsoftJsonSerializer : IJsonSerializer
     {
+        #region Interface Implementations
+
         public T Deserialize<T>(string json)
         {
             return JsonConvert.DeserializeObject<T>(json);
@@ -15,5 +20,7 @@ namespace TestAppFx
         {
             return JsonConvert.SerializeObject(obj);
         }
+
+        #endregion
     }
 }

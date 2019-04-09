@@ -1,4 +1,4 @@
-﻿namespace Bimface.SDK.DSL.Clauses
+﻿namespace Bimface.SDK.Entities.Core.Requests.DSL.Clauses
 {
     public interface IClause
     {

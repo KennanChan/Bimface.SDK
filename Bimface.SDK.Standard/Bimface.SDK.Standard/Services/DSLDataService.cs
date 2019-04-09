@@ -1,7 +1,7 @@
 ﻿#region
 
 using System.Threading.Tasks;
-using Bimface.SDK.Entities.Core.DSL;
+using Bimface.SDK.Entities.Core.Responses.DSL;
 using Bimface.SDK.Entities.Parameters.Data.DSL;
 using Bimface.SDK.Interfaces.Core;
 

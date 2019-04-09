@@ -12,12 +12,16 @@ namespace TestAppFx
     {
         static void Main(string[] args)
         {
-            var client = BimfaceClient.Create(new AppCredential("i6K9yCQqGh0OshxIoPDdOEou2HhFNnFn", "ZzMqkFGG3Enh0GcFkKsGyC8JV8nPwwzg"));
-            //client.Singleton<IJsonSerializer, JsonSerializer>();
+            var client = BimfaceClient.GetOrCreate(new AppCredential("i6K9yCQqGh0OshxIoPDdOEou2HhFNnFn", "ZzMqkFGG3Enh0GcFkKsGyC8JV8nPwwzg"));
             var shareService = client.GetService<IShareService>();
+
             shareService.ListShares(new ListSharesParameter()).ContinueWith(task1 =>
             {
-                shareService.ListShares(new ListSharesParameter()).ContinueWith(task2 => { });
+                Console.WriteLine(client.GetService<IJsonSerializer>().Serialize(task1.Result));
+                shareService.ListShares(new ListSharesParameter()).ContinueWith(task2 =>
+                {
+                    Console.WriteLine(client.GetService<IJsonSerializer>().Serialize(task2.Result));
+                });
             });
             Console.ReadKey();
         }

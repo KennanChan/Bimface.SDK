@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Parameters.Base;
+using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Services;
 
@@ -17,7 +18,7 @@ using Bimface.SDK.Services;
 namespace Bimface.SDK.Plugins
 {
     /// <summary>
-    ///     Plugin to automatically add predefined headers to an <see cref="HttpRequest" /> attributed with
+    ///     Use this plugin to automatically add predefined headers to an <see cref="HttpRequest" /> attributed with
     ///     <see cref="HttpHeaderAttribute" />
     /// </summary>
     internal class ResolveHeadersPlugin : AppDomainServiceInitializer, IRequestPlugin
@@ -33,7 +34,7 @@ namespace Bimface.SDK.Plugins
 
         #region Interface Implementations
 
-        public Task Handle(HttpParameter parameter, HttpRequest request)
+        public Task HandleRequest(HttpParameter parameter, HttpRequest request)
         {
             try
             {
@@ -49,16 +50,11 @@ namespace Bimface.SDK.Plugins
             }
         }
 
-        public void PreBuild()
-        {
-            Initialize(Container);
-        }
-
         #endregion
 
         #region Others
 
-        protected override void Handle(Assembly assembly)
+        protected override void HandleAssembly(Assembly assembly)
         {
             assembly.GetTypes()
                     .Where(type => !type.IsInterface)
@@ -70,6 +66,11 @@ namespace Bimface.SDK.Plugins
                          var headerList = HandleType(type);
                          Headers.AddOrUpdate(type, headerList, (t, h) => headerList);
                      });
+        }
+
+        protected override void Initialized()
+        {
+            Container.Singleton(this);
         }
 
         private List<KeyValuePair<string, string>> HandleType(Type type)

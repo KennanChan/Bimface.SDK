@@ -4,9 +4,8 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Security;
-using System.Security.Cryptography.X509Certificates;
 using Bimface.SDK.Entities.Http;
+using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 
@@ -17,33 +16,27 @@ namespace Bimface.SDK.Services
     /// <summary>
     ///     The default implementation of <see cref="IHttpClient" /> using the built-in <see cref="HttpWebRequest" />
     /// </summary>
-    internal class DefaultHttpClient : IHttpClient
+    internal class DefaultHttpClient : LogObject, IHttpClient
     {
-        #region Constructors
-
-        public DefaultHttpClient()
-        {
-            ServicePointManager.ServerCertificateValidationCallback = CheckValidationResult;
-        }
-
-        #endregion
-
         #region Interface Implementations
 
         public IHttpResponse GetResponse(IHttpRequest request, IProgress<double> progress)
         {
             var realRequest = CreateRequest(request, progress);
-            return GenerateResponse(realRequest.GetResponse() as HttpWebResponse);
+#if DEBUG
+            var time1 = DateTime.Now;
+#endif
+            var response = GenerateResponse(realRequest.GetResponse() as HttpWebResponse);
+#if DEBUG
+            var time2 = DateTime.Now;
+            Debug($"[{(time2 - time1).TotalMilliseconds} ms]-[{request.GetMethod()}] {request.GetUri()}");
+#endif
+            return response;
         }
 
         #endregion
 
         #region Others
-
-        private static bool CheckValidationResult(object sender, X509Certificate certificate, X509Chain chain, SslPolicyErrors errors)
-        {
-            return true;
-        }
 
         private static HttpWebRequest SetBody(HttpWebRequest request, Stream body, IProgress<double> progress)
         {

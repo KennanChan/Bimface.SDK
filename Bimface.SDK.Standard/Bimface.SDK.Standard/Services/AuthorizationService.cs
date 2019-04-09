@@ -2,10 +2,11 @@
 
 using System;
 using System.Threading.Tasks;
+using Bimface.SDK.Entities;
 using Bimface.SDK.Entities.Core.Responses;
+using Bimface.SDK.Entities.Parameters.Common;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
-using Bimface.SDK.Requests.Common;
 using Bimface.SDK.Utilities;
 
 #endregion
@@ -45,7 +46,7 @@ namespace Bimface.SDK.Services
                     if (AccessToken == null || AccessToken.ExpireTime - DateTime.Now < ExpireTolerance)
                     {
                         //Refresh the access token if there is not cache or the token is about to expire
-                        AccessToken = await FetchAsync<AccessTokenEntity>(Container.CreateInstance<OAuthRequest>());
+                        AccessToken = await FetchAsync<AccessTokenEntity, OAuthParameter>(new OAuthParameter(Container.GetService<AppCredential>()));
                     }
 
                     return AccessToken.Token;

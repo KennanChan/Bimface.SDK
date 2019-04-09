@@ -8,6 +8,9 @@ using Bimface.SDK.Entities.Parameters.Share;
 
 namespace Bimface.SDK.Interfaces.Core
 {
+    /// <summary>
+    ///     Service interface to manage share links
+    /// </summary>
     public interface IShareService
     {
         #region Others

@@ -8,7 +8,7 @@ namespace Bimface.SDK.Test
         [TestMethod]
         public void CreateShare()
         {
-            
+
         }
     }
 }
