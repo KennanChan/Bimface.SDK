@@ -32,6 +32,8 @@ bld/
 # MSTest test Results
 [Tt]est[Rr]esult*/
 [Bb]uild[Ll]og.*
+TestApp/
+TestAppFx/
 
 # NUNIT
 *.VisualState.xml
@@ -286,6 +288,3 @@ __pycache__/
 *.btm.cs
 *.odx.cs
 *.xsd.cs
-
-TestApp/
-TestAppFx/
