@@ -1,20 +1,23 @@
-﻿namespace Bimface.SDK.Entities
+﻿#region
+
+using System.Runtime.Serialization;
+
+#endregion
+
+namespace Bimface.SDK.Entities
 {
-    public class GeneralResponse<T> : GeneralResponse
+    [DataContract]
+    public class GeneralResponse<T>
     {
         #region Properties
 
-        public new T Data { get; set; }
+        [DataMember(Name = "code")]
+        public string Code { get; set; }
 
-        #endregion
-    }
+        [DataMember(Name = "data")]
+        public T Data { get; set; }
 
-    public class GeneralResponse
-    {
-        #region Properties
-
-        public string Code    { get; set; }
-        public object Data    { get; set; }
+        [DataMember(Name = "message")]
         public string Message { get; set; }
 
         #endregion

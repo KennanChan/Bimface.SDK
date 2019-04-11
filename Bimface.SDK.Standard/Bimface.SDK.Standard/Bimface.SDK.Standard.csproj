@@ -6,4 +6,11 @@
     <AssemblyName>Bimface.SDK</AssemblyName>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Entities\Core\GeneralResponse.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+  </ItemGroup>
 </Project>

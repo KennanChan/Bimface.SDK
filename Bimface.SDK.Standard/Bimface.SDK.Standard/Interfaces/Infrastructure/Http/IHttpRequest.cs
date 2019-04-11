@@ -10,13 +10,13 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
 {
     public interface IHttpRequest
     {
-        long? GetContentLength();
-        string GetContentType();
+        #region Others
+
+        Stream GetBody();
         IDictionary<string, string> GetHeaders();
         string GetMethod();
-        IDictionary<string, string> GetQueries();
-        Stream GetRequestStream();
         Uri GetUri();
-        string GetUrl();
+
+        #endregion
     }
 }

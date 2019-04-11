@@ -8,8 +8,12 @@ namespace Bimface.SDK.Interfaces.Infrastructure
 {
     public interface ILog
     {
+        #region Others
+
         void Debug(Type logType, object log);
         void Error(Type logType, object log);
-        void Info(Type logType, object log);
+        void Info(Type  logType, object log);
+
+        #endregion
     }
 }

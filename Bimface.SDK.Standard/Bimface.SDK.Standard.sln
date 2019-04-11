@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.Standard", "Bimface.SDK.Standard\Bimface.SDK.Standard.csproj", "{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimface.SDK.Standard", "Bimface.SDK.Standard\Bimface.SDK.Standard.csproj", "{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.Test", "Bimface.SDK.Test\Bimface.SDK.Test.csproj", "{DD89EA15-A407-49EA-8EE8-E7C596E112B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimface.SDK.Test", "Bimface.SDK.Test\Bimface.SDK.Test.csproj", "{DD89EA15-A407-49EA-8EE8-E7C596E112B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{F7CCB5C7-AE3C-4DC0-83D9-7D4B7313A8F7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestAppFx", "TestAppFx\TestAppFx.csproj", "{C58A1B38-F6B6-4849-A89F-6C1B52B711C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DD89EA15-A407-49EA-8EE8-E7C596E112B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7CCB5C7-AE3C-4DC0-83D9-7D4B7313A8F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7CCB5C7-AE3C-4DC0-83D9-7D4B7313A8F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7CCB5C7-AE3C-4DC0-83D9-7D4B7313A8F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7CCB5C7-AE3C-4DC0-83D9-7D4B7313A8F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58A1B38-F6B6-4849-A89F-6C1B52B711C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58A1B38-F6B6-4849-A89F-6C1B52B711C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58A1B38-F6B6-4849-A89F-6C1B52B711C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58A1B38-F6B6-4849-A89F-6C1B52B711C5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,50 +1,135 @@
-﻿using System;
+﻿#region
+
+using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Web;
+using Bimface.SDK.Attributes;
+using Bimface.SDK.Extensions;
+using Bimface.SDK.Interfaces.Infrastructure;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
+
+#endregion
 
 namespace Bimface.SDK.Entities.Http
 {
-    internal abstract class HttpRequest : IHttpRequest
+    public class HttpRequest : IHttpRequest
     {
-        public long? GetContentLength()
+        #region Fields
+
+        private ConcurrentDictionary<string, string>        _headers;
+        private ConcurrentBag<KeyValuePair<string, string>> _queries;
+
+        #endregion
+
+        #region Constructors
+
+        public HttpRequest(string method, string host, string api)
         {
-            throw new NotImplementedException();
+            Method = method;
+            Host   = host;
+            Path   = api.StartsWith("/") ? api : $"/{api}";
         }
 
-        public string GetContentType()
+        #endregion
+
+        #region Properties
+
+        [Inject]
+        protected IJsonSerializer Serializer { get; set; }
+
+        private Stream Body { get; set; }
+
+        private ConcurrentDictionary<string, string> Headers =>
+            _headers ?? (_headers = new ConcurrentDictionary<string, string>());
+
+        private string Host   { get; }
+        private string Method { get; }
+        private string Path   { get; }
+
+        private ConcurrentBag<KeyValuePair<string, string>> Queries =>
+            _queries ?? (_queries = new ConcurrentBag<KeyValuePair<string, string>>());
+
+        #endregion
+
+        #region Interface Implementations
+
+        public Stream GetBody()
         {
-            throw new NotImplementedException();
+            return Body;
         }
 
         public IDictionary<string, string> GetHeaders()
         {
-            throw new NotImplementedException();
+            return Headers.ToDictionary(h => h.Key, h => h.Value);
         }
 
         public string GetMethod()
         {
-            throw new NotImplementedException();
-        }
-
-        public IDictionary<string, string> GetQueries()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Stream GetRequestStream()
-        {
-            throw new NotImplementedException();
+            return Method;
         }
 
         public Uri GetUri()
         {
-            throw new NotImplementedException();
+            var queryString = GetQueryString();
+            return new Uri($"{Host}{Path}{(string.IsNullOrWhiteSpace(queryString) ? "" : "?")}{queryString}");
         }
 
-        public string GetUrl()
+        #endregion
+
+        #region Others
+
+        internal void AddBody(Stream stream)
         {
-            throw new NotImplementedException();
+            Body = stream;
+            SetContentLength(Body.Length);
         }
+
+        internal void AddHeader(string name, string value)
+        {
+            Headers.AddOrUpdate(name, value, (n, v) => value);
+        }
+
+        internal void AddJsonBody(object body)
+        {
+            AddBody(Serializer.Serialize(body).ToStream());
+            AddHeader("Content-Type", "application/json");
+        }
+
+        internal void AddQuery(string name, object value)
+        {
+            var valueString = GetValueString(value);
+            Queries.Add(new KeyValuePair<string, string>(name, valueString));
+        }
+
+        internal string GetQueryString()
+        {
+            var queries =
+                Queries
+                   .Where(query => !string.IsNullOrWhiteSpace(query.Value))
+                   .Select(query => $"{query.Key}={HttpUtility.UrlEncode(query.Value, Encoding.UTF8)}");
+            return string.Join("&", queries);
+        }
+
+        internal void SetContentLength(long length)
+        {
+            AddHeader("Content-Length", length.ToString());
+        }
+
+        private string GetValueString(object value)
+        {
+            if (value.IsValueType())
+            {
+                if (value is DateTime date)
+                    return date.ToString("yyyy-MM-dd");
+            }
+
+            return value?.ToString();
+        }
+
+        #endregion
     }
 }
