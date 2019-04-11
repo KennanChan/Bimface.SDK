@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 #endregion
 
-namespace Bimface.SDK.Entities.Core.Geometry
+namespace Bimface.SDK.Entities.Core.Responses.Geometry
 {
     [DataContract]
     public class BoundingBox

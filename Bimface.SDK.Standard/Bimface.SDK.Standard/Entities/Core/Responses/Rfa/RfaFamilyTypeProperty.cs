@@ -1,11 +1,10 @@
 ﻿#region
 
 using System.Runtime.Serialization;
-using Bimface.SDK.Entities.Core.Responses;
 
 #endregion
 
-namespace Bimface.SDK.Entities.Core.Rfa
+namespace Bimface.SDK.Entities.Core.Responses.Rfa
 {
     [DataContract]
     public class RfaFamilyTypeProperty : RfaFamilyType
