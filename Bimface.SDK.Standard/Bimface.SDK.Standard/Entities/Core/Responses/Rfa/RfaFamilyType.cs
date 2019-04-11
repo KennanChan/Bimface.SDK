@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 
 #endregion
 
-namespace Bimface.SDK.Entities.Core.Rfa
+namespace Bimface.SDK.Entities.Core.Responses.Rfa
 {
     [DataContract]
     public class RfaFamilyType

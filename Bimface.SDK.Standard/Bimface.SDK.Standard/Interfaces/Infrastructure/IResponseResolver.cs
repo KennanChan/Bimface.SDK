@@ -4,7 +4,7 @@ using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 #endregion
 
-namespace Bimface.SDK.Interfaces.Core
+namespace Bimface.SDK.Interfaces.Infrastructure
 {
     public interface IResponseResolver
     {

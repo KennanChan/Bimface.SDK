@@ -6,7 +6,7 @@ using System;
 
 namespace Bimface.SDK.Interfaces.Infrastructure
 {
-    public interface ILog
+    public interface ILogService
     {
         #region Others
 
