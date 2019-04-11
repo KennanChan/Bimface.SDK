@@ -1,7 +1,7 @@
 # Bimface.SDK
 A unofficial .NET SDK for BIMFACE
 
-##Service list
+## Service list
 
 ### Infrastructure  service list
 
@@ -32,11 +32,11 @@ A unofficial .NET SDK for BIMFACE
 | ITranslateService      | Service handling the business about file translation   |
 | IViewTokenService      | Service handling the business about view token         |
 
-##Usage
+## Usage
 
 All business service interface methods are asynchronized method using TAP.
 
-###Straight way:
+### Straight way:
 ```csharp
 public void Foo()
 {
@@ -59,7 +59,7 @@ public void Foo()
 }
 ```
 
-###Using async / await
+### Using async / await
 
 ```csharp
 public async Task Bar()
@@ -81,13 +81,13 @@ public async Task Bar()
 }
 ```
 
-###Service replacement
+### Service replacement
 
 BimfaceClient is supported by IServiceContainer. 
 
 It is possible for the user to replace the services in that container
 
-####Example
+#### Example
 
 Bimface SDK outputs all the logs to the Console by [default](https://github.com/KennanChan/Bimface.SDK/blob/master/Bimface.SDK.Standard/Bimface.SDK.Standard/Services/DefaultLogger.cs).
 
@@ -132,7 +132,7 @@ public void ServiceReplace()
 }
 ```
 
-###Service Container
+### Service Container
 
 Bimface sdk can also be used as a service container to serve other business.
 
