@@ -99,7 +99,7 @@ namespace Bimface.SDK
         {
             if (_initialized) return;
             Container
-               .AddService<ILog, DefaultLogger>()
+               .AddService<ILogService, DefaultLogger>()
                .AddService<IHttpClient, DefaultHttpClient>()
                .AddService<IJsonSerializer, NewtonsoftJsonSerializer>()
                .AddService<IResponseResolver, DefaultResponseResolver>()

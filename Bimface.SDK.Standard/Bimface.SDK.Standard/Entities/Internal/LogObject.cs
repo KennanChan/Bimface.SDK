@@ -18,7 +18,7 @@ namespace Bimface.SDK.Entities.Internal
 
         #region Properties
 
-        protected ILog Logger => Container.GetService<ILog>();
+        protected ILogService Logger => Container.GetService<ILogService>();
 
         private Type Type => _type ?? (_type = GetType());
 
