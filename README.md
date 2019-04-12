@@ -1,5 +1,7 @@
 # Bimface.SDK
-A unofficial .NET SDK for BIMFACE
+A unofficial .NET SDK for BIMFACE.
+
+[Online Docs](http://static.bimface.com/restful-apidoc/dist/app.html)
 
 ## Service list
 
@@ -42,15 +44,21 @@ public void Foo()
 {
     //create a credential with the app key and secret from bimface
     var credential = new AppCredential("your app key","your app secret");
+    
     //create the client
     var client = BimfaceClient.GetOrCreate(credential);
+    
     //get the service you want
     var shareService = client.GetService<IShareService>();
+    
     //create a service parameter for later invoke
     var parameter = new ListSharesParameter();
+    
     //invoke the service method to get the result and hanle the result when responded
-    shareService.ListShares(parameter).ContinueWith(task=>{
+    shareService.ListShares(parameter).ContinueWith(task => {
+        
         var result = task.Result;
+        
         //get a json serializer from the client
         var jsonSerializer = client.GetService<IJsonSerializer>();
         
@@ -66,14 +74,19 @@ public async Task Bar()
 {
     //create a credential with the app key and secret from bimface
     var credential = new AppCredential("your app key","your app secret");
+    
     //create the client
     var client = BimfaceClient.GetOrCreate(credential);
+    
     //get the service you want
     var shareService = client.GetService<IShareService>();
+    
     //create a service parameter for later invoke
     var parameter = new ListSharesParameter();
+    
     //invoke the service method to get the result and hanle the result when responded
     var result = await shareService.ListShares(parameter);
+    
     //get a json serializer from the client
     var jsonSerializer = client.GetService<IJsonSerializer>();
     
@@ -91,7 +104,7 @@ It is possible for the user to replace the services in that container
 
 Bimface SDK outputs all the logs to the Console by [default](https://github.com/KennanChan/Bimface.SDK/blob/master/Bimface.SDK.Standard/Bimface.SDK.Standard/Services/DefaultLogger.cs).
 
-User can replace this log service with log4net
+User can replace the default log service with log4net.
 
 ```csharp
 //User implementation of ILogService using log4net
@@ -122,12 +135,16 @@ public void ServiceReplace()
 {
     //create a credential with the app key and secret from bimface
     var credential = new AppCredential("your app key","your app secret");
+    
     //create the client
     var client = BimfaceClient.GetOrCreate(credential);
+    
     //the default ILogService will be replace by MyLogger
     client.Singleton<ILogService, MyLogger>();
+    
     //get the log service
     var logService = client.GetService<ILogService>();
+    
     logService.Info(typeof(SomeType), "Hello Bimface!");
 }
 ```
@@ -150,23 +167,35 @@ public class Business : IBusiness
     }
 }
 
+public class Module
+{
+    [Inject]
+    public IBusiness Business { get; set; }
+}
+
 public void ServiceRegister()
 {
     //create a credential with the app key and secret from bimface
     var credential = new AppCredential("your app key","your app secret");
+    
     //create the client
     var client = BimfaceClient.GetOrCreate(credential);
+    
     //register the IBusiness service as a singleton using Business as implementation
     client.Singleton<IBusiness, Business>();
-    //get the IBusiness service instance
-    var business = client.GetService<IBusiness>();
-    business.Foo();
+    
+    //create a Module instance from the container which will automatically inject the Business property
+    var module = client.CreateInstance<Module>();
+    
+    module.Business.Foo();
 }
 ```
 
 ### Use external container
 
-It is likely that container is used by many business system. Bimface sdk can make use of the existing Container. The only requirement is an adapter of the container
+It is likely that container is used by many business systems. Bimface sdk can make use of the existing Container. The only requirement is an adapter of the container.
+
+It's recommended to use the BimfaceClient this way because BimfaceClient will register itself to the Container after initialized. This makes it possible for the user to access BimfaceClient instance anywhere without creating an AppCredential every time.
 
 ```csharp
 public class Container
@@ -176,7 +205,9 @@ public class Container
 
 public class ContainerAdapter : IServiceContainer
 {
+
 	private Container Container { get; }
+	
 	public ContainerAdapter(Container container)
     {
     	Container = container;
@@ -189,19 +220,23 @@ public void UseExistingContainer()
 {
     //create a credential with the app key and secret from bimface
     var credential = new AppCredential("your app key","your app secret");
+    
     //create the client
     var client = BimfaceClient.GetOrCreate(credential, new ContainerAdapter());
+    
     //register the IBusiness service as a singleton using Business as implementation
     client.Singleton<IBusiness, Business>();
+    
     //get the IBusiness service instance
     var business = client.GetService<IBusiness>();
+    
     business.Foo();
 }
 ```
 
 ### Request Plugin
 
-Request plugins runs before any API request is about to sent out. User can define their own plugin to do extra business.
+Request plugins runs before any API request is about to sent out. User can define their own plugins to do extra business.
 
 It is useful when there is a change in the bimface server side API but the sdk doesn't update in time.
 
@@ -211,11 +246,11 @@ The only thing is to define the plugin and make sure the assembly is referenced 
 //in MyLibrary.dll
 public class MyPlugin : IRequestPlugin
 {
-	//should be invoked
+	//should be invoked before every HTTP request
 	public Task HandleRequest(HttpParameter parameter, HttpRequest request)
-    {
-    	if(parameter is LookupFileShareParameter)
-    	{
+	{
+		if(parameter is LookupFileShareParameter)
+		{
     		request.AddQuery("query name","query value");
     	}
     	return Task.CompletedTask;

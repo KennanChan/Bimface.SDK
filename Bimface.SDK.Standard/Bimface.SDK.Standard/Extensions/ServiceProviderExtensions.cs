@@ -47,7 +47,7 @@ namespace Bimface.SDK.Extensions
         }
 
         /// <summary>
-        ///     Inject all the injectable properties which are attibuted with <see cref="InjectAttribute" />
+        ///     Inject all the injectable properties which are attributed with <see cref="InjectAttribute" />
         /// </summary>
         /// <param name="container"></param>
         /// <param name="instance"></param>
