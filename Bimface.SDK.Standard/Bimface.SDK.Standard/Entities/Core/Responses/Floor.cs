@@ -12,7 +12,7 @@ namespace Bimface.SDK.Entities.Core.Responses
         #region Properties
 
         [DataMember(Name = "archElev")]
-        public float ArchtectureElevation { get; set; }
+        public float ArchitectureElevation { get; set; }
 
         [DataMember(Name = "areas")]
         public ObjectOnFloor[] Areas { get; set; }

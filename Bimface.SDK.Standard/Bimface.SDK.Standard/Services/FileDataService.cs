@@ -43,9 +43,9 @@ namespace Bimface.SDK.Services
             return FetchAsync<Area[], ListFileFloorAreasParameter>(parameter);
         }
 
-        public Task ListFloors(ListFileFloorMappingsParameter parameter)
+        public Task<FileFloorsMapping[]> ListFloors(ListFileFloorMappingsParameter parameter)
         {
-            return FetchAsync<string, ListFileFloorMappingsParameter>(parameter);
+            return FetchAsync<FileFloorsMapping[], ListFileFloorMappingsParameter>(parameter);
         }
 
         public Task<Link[]> ListLinks(ListFileLinksParameter parameter)
@@ -78,7 +78,7 @@ namespace Bimface.SDK.Services
             return FetchAsync<Room, LookupFileRoomParameter>(parameter);
         }
 
-        public Task<string> ModifyElementProperies(ModifyFileElementPropertiesParameter parameter)
+        public Task<string> ModifyElementProperties(ModifyFileElementPropertiesParameter parameter)
         {
             return FetchAsync<string, ModifyFileElementPropertiesParameter>(parameter);
         }
