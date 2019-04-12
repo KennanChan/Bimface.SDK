@@ -18,14 +18,14 @@ namespace Bimface.SDK.Interfaces.Core
         Task<MaterialInfo[]> ListElementMaterials(ListFileElementMaterialsParameter parameter);
         Task<Property[]> ListElementsProperties(ListFileElementsPropertiesParameter parameter);
         Task<Area[]> ListFloorAreas(ListFileFloorAreasParameter                     parameter);
-        Task ListFloors(ListFileFloorMappingsParameter                              parameter);
+        Task<FileFloorsMapping[]> ListFloors(ListFileFloorMappingsParameter         parameter);
         Task<Link[]> ListLinks(ListFileLinksParameter                               parameter);
         Task<Room[]> ListRooms(ListFileRoomsParameter                               parameter);
         Task<Area> LookupArea(LookupFileAreaParameter                               parameter);
         Task<Tree> LookupCategoryTree(LookupFileCategoryTreeParameter               parameter);
         Task<Property> LookupElementProperty(LookupFileElementPropertyParameter     parameter);
         Task<Room> LookupRoom(LookupFileRoomParameter                               parameter);
-        Task<string> ModifyElementProperies(ModifyFileElementPropertiesParameter    parameter);
+        Task<string> ModifyElementProperties(ModifyFileElementPropertiesParameter   parameter);
 
         #endregion
     }

@@ -89,8 +89,8 @@ namespace Bimface.SDK.Plugins
 
         private static bool HandleType(Type type)
         {
-            var attibutes = type.GetCustomAttributes<BimfaceAuthAttribute>(true).ToArray();
-            return attibutes.Any() && attibutes.All(attribute => attribute.Enabled);
+            var attributes = type.GetCustomAttributes<BimfaceAuthAttribute>(true).ToArray();
+            return attributes.Any() && attributes.All(attribute => attribute.Enabled);
         }
 
         #endregion
