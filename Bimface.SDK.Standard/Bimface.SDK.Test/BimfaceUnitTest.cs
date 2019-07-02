@@ -15,7 +15,6 @@ namespace Bimface.SDK.Test
         #region Fields
 
         private Configuration _configuration;
-        protected ITestOutputHelper Output { get; }
 
         #endregion
 
@@ -37,7 +36,8 @@ namespace Bimface.SDK.Test
         protected Configuration Configuration =>
             _configuration ?? (_configuration = JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(ConfigurationPath)));
 
-        protected T Service { get; }
+        protected ITestOutputHelper Output  { get; }
+        protected T                 Service { get; }
 
         /// <summary>
         ///     Assign the property to use another test configuration
