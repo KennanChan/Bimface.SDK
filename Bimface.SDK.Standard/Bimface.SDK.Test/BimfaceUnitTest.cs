@@ -3,6 +3,7 @@
 using System.IO;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Extensions;
+using Bimface.SDK.Interfaces.Infrastructure;
 using Newtonsoft.Json;
 using Xunit.Abstractions;
 
@@ -25,6 +26,11 @@ namespace Bimface.SDK.Test
             Output  = testOutputHelper;
             Client  = BimfaceClient.GetOrCreate(new AppCredential(Configuration.AppKey, Configuration.AppSecret));
             Service = Client.GetService<T>();
+            if (Client.GetService<ITestOutputHelper>() == null)
+            {
+                Client.Singleton(testOutputHelper);
+                Client.Singleton<ILogService, TestLogger>();
+            }
         }
 
         #endregion

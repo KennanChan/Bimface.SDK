@@ -51,7 +51,18 @@ namespace Bimface.SDK.Services
         protected async Task<TResult> FetchAsync<TResult, TParameter>(TParameter parameter, IProgress<double> progress = null)
             where TParameter : HttpParameter
         {
-            return await Task.Run(async () => ResponseResolver.Resolve<TResult>(Client.GetResponse(await CreateHttpRequest(parameter), progress)));
+            return await Task.Run(async () =>
+            {
+                try
+                {
+                    return ResponseResolver.Resolve<TResult>(Client.GetResponse(await CreateHttpRequest(parameter), progress));
+                }
+                catch (Exception e)
+                {
+                    Error(e);
+                    return default(TResult);
+                }
+            });
         }
 
         /// <summary>

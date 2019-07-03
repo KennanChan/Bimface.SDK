@@ -29,7 +29,8 @@ namespace Bimface.SDK.Services
             var response = GenerateResponse(realRequest.GetResponse() as HttpWebResponse);
 #if DEBUG
             var time2 = DateTime.Now;
-            Debug($"[{(time2 - time1).TotalMilliseconds} ms]-[{request.GetMethod()}] {request.GetUri()}");
+            Debug(
+                $"[{(time2 - time1).TotalMilliseconds} ms]-[{request.GetMethod()}] {request.GetUri()} {Environment.NewLine} {response.GetResponseStream().AsString()}");
 #endif
             return response;
         }

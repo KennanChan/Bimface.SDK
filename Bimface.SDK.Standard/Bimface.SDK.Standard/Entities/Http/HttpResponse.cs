@@ -22,10 +22,24 @@ namespace Bimface.SDK.Entities.Http
         #region Properties
 
         private HttpWebResponse Response { get; }
+        private MemoryStream Stream { get; set; }
 
         #endregion
 
         #region Interface Implementations
+
+        public HttpContentType GetContentType()
+        {
+            switch (Response.ContentType)
+            {
+                case "application/json":
+                    return HttpContentType.Json;
+                case "application/octet-stream":
+                    return HttpContentType.Binary;
+            }
+
+            return HttpContentType.Binary;
+        }
 
         public string GetHeader(string name)
         {
@@ -34,7 +48,14 @@ namespace Bimface.SDK.Entities.Http
 
         public Stream GetResponseStream()
         {
-            return Response.GetResponseStream();
+            if (null == Stream)
+            {
+                Stream = new MemoryStream();
+                Response.GetResponseStream()?.CopyTo(Stream);
+            }
+
+            Stream.Seek(0, SeekOrigin.Begin);
+            return Stream;
         }
 
         public int GetStatusCode()

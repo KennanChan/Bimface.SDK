@@ -1,5 +1,7 @@
 ﻿#region
 
+using System.IO;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Interfaces.Infrastructure.Http;
 
 #endregion
@@ -11,6 +13,7 @@ namespace Bimface.SDK.Interfaces.Infrastructure
         #region Others
 
         T Resolve<T>(IHttpResponse response);
+        T Resolve<T>(Stream        content);
 
         #endregion
     }
