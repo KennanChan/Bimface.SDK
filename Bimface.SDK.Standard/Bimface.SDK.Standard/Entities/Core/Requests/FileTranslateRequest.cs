@@ -11,6 +11,12 @@ namespace Bimface.SDK.Entities.Core.Requests
     [DataContract]
     public class FileTranslateRequest
     {
+        public FileTranslateRequest(TranslateSource translateSource, int priority)
+        {
+            Source   = translateSource;
+            Priority = priority;
+        }
+
         #region Properties
 
         [DataMember(Name = "callback")]
@@ -20,10 +26,10 @@ namespace Bimface.SDK.Entities.Core.Requests
         public IDictionary<string, string> Config { get; set; }
 
         [DataMember(Name = "priority")]
-        public int? Priority { get; set; }
+        public int Priority { get; set; }
 
         [DataMember(Name = "source")]
-        public TranslateSource Source { get; set; }
+        public TranslateSource Source { get; }
 
         #endregion
     }

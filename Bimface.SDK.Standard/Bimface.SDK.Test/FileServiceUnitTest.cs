@@ -174,8 +174,6 @@ namespace Bimface.SDK.Test
             Assert.NotNull(file);
             var status = await GetFileUploadStatus(file.FileId);
             Assert.True(status.FileId == file.FileId);
-
-            await AssertDeleteFile(file.FileId);
         }
 
         [Fact]

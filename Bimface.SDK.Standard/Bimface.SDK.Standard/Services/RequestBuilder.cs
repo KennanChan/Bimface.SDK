@@ -73,6 +73,7 @@ namespace Bimface.SDK.Services
         public async Task<HttpRequest> Build(T parameter)
         {
             var request = new HttpRequest(Method, Host, BuildUrl(parameter));
+            Container.InjectProperties(request);
             BuildQueries(parameter, request);
             BuildHeaders(parameter, request);
             BuildBody(parameter, request);

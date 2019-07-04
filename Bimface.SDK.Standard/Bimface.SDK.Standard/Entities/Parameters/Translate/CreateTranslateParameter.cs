@@ -11,7 +11,7 @@ using Bimface.SDK.Entities.Parameters.Base;
 namespace Bimface.SDK.Entities.Parameters.Translate
 {
     [BimfaceAuth]
-    [BimfaceFileHttpRequest(HttpMethods.Put, "/translate")]
+    [BimfaceApiHttpRequest(HttpMethods.Put, "/translate")]
     public class CreateTranslateParameter : HttpParameter
     {
         #region Constructors
