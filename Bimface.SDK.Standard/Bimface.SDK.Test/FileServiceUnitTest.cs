@@ -215,6 +215,8 @@ namespace Bimface.SDK.Test
         {
             var types = await Service.ListSupportFileTypes(new ListSupportFileTypesParameter());
             Assert.NotNull(types);
+            Assert.True(types.Length       > 0);
+            Assert.True(types.Types.Length > 0);
         }
     }
 }
