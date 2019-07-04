@@ -55,6 +55,11 @@ namespace Bimface.SDK.Services
             return FetchAsync<FileEntity, LookupFileParameter>(parameter);
         }
 
+        public Task<FileUploadStatusEntity> LookupFileUploadStatus(LookupFileUploadStatusParameter parameter)
+        {
+            return FetchAsync<FileUploadStatusEntity, LookupFileUploadStatusParameter>(parameter);
+        }
+
         public Task<AppendFileEntity> ResumeAppendFile(ResumeAppendFileParameter parameter)
         {
             return FetchAsync<AppendFileEntity, ResumeAppendFileParameter>(parameter);

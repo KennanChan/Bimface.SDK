@@ -49,10 +49,23 @@ namespace Bimface.SDK.Test
             return await Service.LookupFileMeta(new LookupFileParameter(fileId.Value));
         }
 
+        private async Task<FileUploadStatusEntity> GetFileUploadStatus(long? fileId)
+        {
+            Assert.True(fileId.HasValue);
+            return await Service.LookupFileUploadStatus(new LookupFileUploadStatusParameter(fileId.Value));
+        }
+
         private async Task DeleteFile(long? fileId)
         {
             Assert.True(fileId.HasValue);
             await Service.DeleteFile(new DeleteFileParameter(fileId.Value));
+        }
+
+        private async Task AssertDeleteFile(long? fileId)
+        {
+            await DeleteFile(fileId);
+            var file = await GetFile(fileId);
+            Assert.Null(file);
         }
 
         [Fact]
@@ -85,6 +98,8 @@ namespace Bimface.SDK.Test
                     Assert.True(appendFile.Length.HasValue);
                 }
             }
+
+            await AssertDeleteFile(appendFile.File.FileId);
         }
 
         [Fact]
@@ -157,7 +172,10 @@ namespace Bimface.SDK.Test
             Assert.True(response.StatusCode == HttpStatusCode.OK);
             var file = Client.GetService<IResponseResolver>().Resolve<FileEntity>(response.GetResponseStream());
             Assert.NotNull(file);
-            //await DeleteFile(file.FileId);
+            var status = await GetFileUploadStatus(file.FileId);
+            Assert.True(status.FileId == file.FileId);
+
+            await AssertDeleteFile(file.FileId);
         }
 
         [Fact]
@@ -174,7 +192,7 @@ namespace Bimface.SDK.Test
             Assert.NotNull(file);
             Assert.True(fileId == file.FileId);
 
-            //await DeleteFile(fileId);
+            await AssertDeleteFile(file.FileId);
         }
 
         [Fact]
@@ -189,7 +207,7 @@ namespace Bimface.SDK.Test
             Assert.NotNull(file);
             Assert.True(fileId == file.FileId);
 
-            //await DeleteFile(fileId);
+            await AssertDeleteFile(file.FileId);
         }
 
         [Fact]
