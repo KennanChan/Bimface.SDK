@@ -8,7 +8,7 @@ using Bimface.SDK.Entities.Parameters.Integrate;
 
 namespace Bimface.SDK.Interfaces.Core
 {
-    internal interface IIntegrateService
+    public interface IIntegrateService
     {
         #region Others
 

@@ -20,18 +20,21 @@ using Xunit.Abstractions;
 
 namespace Bimface.SDK.Test
 {
-    public class FileServiceUnitTest : BimfaceUnitTest<IFileService>
+    public class FileServiceUnitTest : BimfaceUnitTest
     {
         public FileServiceUnitTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
+            FileService = Client.GetService<IFileService>();
         }
+
+        private IFileService FileService { get; }
 
         private int UploadBufferSize { get; } = 1024 * 1024;
 
         private async Task<List<FileEntity>> ListRecentFiles()
         {
             var today = DateTime.Now;
-            var files = await Service.ListFiles(new ListFilesParameter {EndTime = today + TimeSpan.FromDays(1)});
+            var files = await FileService.ListFiles(new ListFilesParameter {EndTime = today + TimeSpan.FromDays(1)});
             return files;
         }
 
@@ -46,19 +49,19 @@ namespace Bimface.SDK.Test
         private async Task<FileEntity> GetFile(long? fileId)
         {
             Assert.True(fileId.HasValue);
-            return await Service.LookupFileMeta(new LookupFileParameter(fileId.Value));
+            return await FileService.LookupFileMeta(new LookupFileParameter(fileId.Value));
         }
 
         private async Task<FileUploadStatusEntity> GetFileUploadStatus(long? fileId)
         {
             Assert.True(fileId.HasValue);
-            return await Service.LookupFileUploadStatus(new LookupFileUploadStatusParameter(fileId.Value));
+            return await FileService.LookupFileUploadStatus(new LookupFileUploadStatusParameter(fileId.Value));
         }
 
         private async Task DeleteFile(long? fileId)
         {
             Assert.True(fileId.HasValue);
-            await Service.DeleteFile(new DeleteFileParameter(fileId.Value));
+            await FileService.DeleteFile(new DeleteFileParameter(fileId.Value));
         }
 
         private async Task AssertDeleteFile(long? fileId)
@@ -73,7 +76,7 @@ namespace Bimface.SDK.Test
         {
             var localFile  = new FileInfo(Configuration.LocalRevitFilePath);
             var name       = Path.GetFileName(localFile.FullName);
-            var appendFile = await Service.CreateAppendFile(new CreateAppendFileParameter(name, localFile.Length));
+            var appendFile = await FileService.CreateAppendFile(new CreateAppendFileParameter(name, localFile.Length));
             Assert.NotNull(appendFile);
 
             //persist this value to continue uploading next time
@@ -91,7 +94,8 @@ namespace Bimface.SDK.Test
                     fileStream.Seek(appendFile.Position.Value, SeekOrigin.Begin);
                     var count  = fileStream.Read(buffer, 0, UploadBufferSize);
                     var stream = new MemoryStream(buffer, 0, count);
-                    appendFile = await Service.ResumeAppendFile(new ResumeAppendFileParameter(appendFileId.Value, appendFile.Position.Value, stream));
+                    appendFile = await FileService.ResumeAppendFile(new ResumeAppendFileParameter(appendFileId.Value, appendFile.Position.Value,
+                                     stream));
                     Assert.True(appendFile.AppendFileId.HasValue);
                     Assert.True(appendFileId == appendFile.AppendFileId);
                     Assert.True(appendFile.Position.HasValue);
@@ -107,7 +111,7 @@ namespace Bimface.SDK.Test
         {
             var file = await GetFirstFile();
             Assert.True(file.FileId.HasValue);
-            var url = await Service.FetchFileTemporaryDownloadUrl(new FileDownloadAddressParameter(file.FileId.Value));
+            var url = await FileService.FetchFileTemporaryDownloadUrl(new FileDownloadAddressParameter(file.FileId.Value));
             Output.WriteLine(url);
             Assert.NotNull(url);
             var request  = WebRequest.CreateHttp(url);
@@ -120,7 +124,7 @@ namespace Bimface.SDK.Test
         {
             var file = await GetFirstFile();
             Assert.True(file.FileId.HasValue);
-            var info = await Service.LookupFileMeta(new LookupFileParameter(file.FileId.Value));
+            var info = await FileService.LookupFileMeta(new LookupFileParameter(file.FileId.Value));
             Output.WriteLine(JsonConvert.SerializeObject(info));
             Assert.NotNull(info);
             Assert.True(info.FileId == file.FileId);
@@ -139,7 +143,7 @@ namespace Bimface.SDK.Test
         {
             Assert.True(File.Exists(Configuration.LocalRevitFilePath));
             var name   = Path.GetFileName(Configuration.LocalRevitFilePath);
-            var policy = await Service.CreateUploadPolicy(new FetchUploadPolicyParameter(name));
+            var policy = await FileService.CreateUploadPolicy(new FetchUploadPolicyParameter(name));
             Assert.NotNull(policy);
             var httpRequest = WebRequest.Create(new Uri(policy.Host));
             httpRequest.Method = WebRequestMethods.Http.Post;
@@ -182,7 +186,7 @@ namespace Bimface.SDK.Test
             var request  = WebRequest.CreateHttp(Configuration.RemoteRevitFileUrl);
             var response = (HttpWebResponse) request.GetResponse();
             Assert.True(response.StatusCode == HttpStatusCode.OK);
-            var file = await Service.Upload(new PullUploadParameter(Configuration.RemoteRevitFileName, Configuration.RemoteRevitFileUrl));
+            var file = await FileService.Upload(new PullUploadParameter(Configuration.RemoteRevitFileName, Configuration.RemoteRevitFileUrl));
             Assert.NotNull(file);
 
             var fileId = file.FileId;
@@ -197,7 +201,7 @@ namespace Bimface.SDK.Test
         public async void TestPushUploadFile()
         {
             Assert.True(File.Exists(Configuration.LocalRevitFilePath));
-            var file = await Service.Upload(new PushUploadParameter(Configuration.LocalRevitFilePath));
+            var file = await FileService.Upload(new PushUploadParameter(Configuration.LocalRevitFilePath));
             Assert.NotNull(file);
 
             var fileId = file.FileId;
@@ -211,7 +215,7 @@ namespace Bimface.SDK.Test
         [Fact]
         public async void TestSupportFileType()
         {
-            var types = await Service.ListSupportFileTypes(new ListSupportFileTypesParameter());
+            var types = await FileService.ListSupportFileTypes(new ListSupportFileTypesParameter());
             Assert.NotNull(types);
             Assert.True(types.Length       > 0);
             Assert.True(types.Types.Length > 0);

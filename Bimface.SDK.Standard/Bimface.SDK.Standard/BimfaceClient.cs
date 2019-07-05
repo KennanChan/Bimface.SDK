@@ -1,6 +1,7 @@
 ﻿#region
 
 using System;
+using System.Collections.Concurrent;
 using System.ComponentModel.Design;
 using System.Linq;
 using Bimface.SDK.Entities;
@@ -36,7 +37,10 @@ namespace Bimface.SDK
 
         #region Properties
 
-        private static IServiceContainer Container { get; set; }
+        private static ConcurrentDictionary<AppCredential, BimfaceClient> Clients { get; } =
+            new ConcurrentDictionary<AppCredential, BimfaceClient>();
+
+        private IServiceContainer Container { get; }
 
         #endregion
 
@@ -89,7 +93,7 @@ namespace Bimface.SDK
         /// <returns>The client</returns>
         public static BimfaceClient GetOrCreate(AppCredential credential, IServiceContainer container = null)
         {
-            return container?.GetService<BimfaceClient>() ?? new BimfaceClient(credential, container);
+            return Clients.GetOrAdd(credential, c => new BimfaceClient(c, container));
         }
 
         /// <summary>

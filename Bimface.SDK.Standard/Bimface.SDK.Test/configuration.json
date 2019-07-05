@@ -3,5 +3,6 @@
   "AppSecret": "",
   "LocalRevitFilePath": "",
   "RemoteRevitFileUrl": "",
-  "RemoteRevitFileName": "" 
+  "RemoteRevitFileName": "",
+  "LocalIntegrateRevitFilePaths": []
 }

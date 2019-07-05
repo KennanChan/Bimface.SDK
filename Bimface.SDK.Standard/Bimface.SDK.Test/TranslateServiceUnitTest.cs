@@ -1,5 +1,7 @@
 ﻿#region
 
+using System;
+using System.Linq;
 using Bimface.SDK.Entities.Core.Requests;
 using Bimface.SDK.Entities.Core.Responses;
 using Bimface.SDK.Entities.Parameters.File;
@@ -13,30 +15,47 @@ using Xunit.Abstractions;
 
 namespace Bimface.SDK.Test
 {
-    public class TranslateServiceUnitTest : BimfaceUnitTest<ITranslateService>
+    public class TranslateServiceUnitTest : BimfaceUnitTest
     {
-        #region Constructors
-
         public TranslateServiceUnitTest(ITestOutputHelper testOutputHelper) : base(testOutputHelper)
         {
-            FileService = Client.GetService<IFileService>();
+            FileService      = Client.GetService<IFileService>();
+            TranslateService = Client.GetService<ITranslateService>();
         }
 
-        private IFileService FileService { get; }
+        private IFileService      FileService      { get; }
+        private ITranslateService TranslateService { get; }
 
         [Fact]
-        public async void TestCreateTranslate()
+        public async void TestTranslate()
         {
             var file = await FileService.Upload(new PullUploadParameter(Configuration.RemoteRevitFileName, Configuration.RemoteRevitFileUrl));
             Assert.NotNull(file);
             Assert.True(file.FileId.HasValue);
             var translate =
-                await Service.CreateTranslate(
-                    new CreateTranslateParameter(new FileTranslateRequest(new TranslateSource(file.FileId.Value, file.Name, false), 2)));
+                await TranslateService.CreateTranslate(
+                    new CreateTranslateParameter(new FileTranslateRequest(new TranslateSource(file.FileId.Value, file.Name, false))));
             Assert.NotNull(translate);
             Assert.True(translate.FileId == file.FileId);
-        }
 
-        #endregion
+            translate = await TranslateService.LookupTranslate(new LookupTranslateParameter(file.FileId.Value));
+            Assert.NotNull(translate);
+            Assert.True(translate.FileId == file.FileId);
+
+            var translates = await TranslateService.ListTranslateDetails(new ListTranslateDetailsParameter(new TranslateQueryRequest
+                                                                                                           {
+                                                                                                               StartDate =
+                                                                                                                   DateTime.Now - TimeSpan
+                                                                                                                      .FromDays(1),
+                                                                                                               EndDate =
+                                                                                                                   DateTime.Now + TimeSpan.FromDays(1)
+                                                                                                           }));
+            Assert.NotNull(translates);
+            Assert.Contains(file.FileId, translates.List.Select(t => t.FileId));
+
+            await FileService.DeleteFile(new DeleteFileParameter(file.FileId.Value));
+            file = await FileService.LookupFileMeta(new LookupFileParameter(file.FileId.Value));
+            Assert.Null(file);
+        }
     }
 }

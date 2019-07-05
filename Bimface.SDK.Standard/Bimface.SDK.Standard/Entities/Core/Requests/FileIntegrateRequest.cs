@@ -35,7 +35,7 @@ namespace Bimface.SDK.Entities.Core.Requests
         public long? ParentIntegrateId { get; set; }
 
         [DataMember(Name = "priority")]
-        public int? Priority { get; set; }
+        public int Priority { get; set; } = 2;
 
         [DataMember(Name = "propertyOverrides")]
         public ElementPropertyOverride[] PropertyOverrides { get; set; }
