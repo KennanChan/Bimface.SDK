@@ -23,9 +23,9 @@ namespace Bimface.SDK.Services
             return FetchAsync<DrawingSheet[], ListFileDrawingSheetsParameter>(parameter);
         }
 
-        public Task<ElementIdWithBoundingBox[]> ListElementIds(ListFileElementIdsParameter parameter)
+        public Task<string[]> ListElementIds(ListFileElementIdsParameter parameter)
         {
-            return FetchAsync<ElementIdWithBoundingBox[], ListFileElementIdsParameter>(parameter);
+            return FetchAsync<string[], ListFileElementIdsParameter>(parameter);
         }
 
         public Task<MaterialInfo[]> ListElementMaterials(ListFileElementMaterialsParameter parameter)

@@ -22,17 +22,25 @@ namespace Bimface.SDK.Services
 
         public IHttpResponse GetResponse(IHttpRequest request, IProgress<double> progress)
         {
-            var realRequest = CreateRequest(request, progress);
+            try
+            {
+                var realRequest = CreateRequest(request, progress);
 #if DEBUG
-            var time1 = DateTime.Now;
+                var time1 = DateTime.Now;
 #endif
-            var response = GenerateResponse(realRequest.GetResponse() as HttpWebResponse);
+                var response = GenerateResponse(realRequest.GetResponse() as HttpWebResponse);
 #if DEBUG
-            var time2 = DateTime.Now;
-            Debug(
-                $"[{(time2 - time1).TotalMilliseconds} ms]-[{request.GetMethod()}] {request.GetUri()} {Environment.NewLine} {response.GetResponseStream().AsString()}");
+                var time2 = DateTime.Now;
+                Debug(
+                    $"[{(time2 - time1).TotalMilliseconds} ms]-[{request.GetMethod()}] {request.GetUri()} {Environment.NewLine} {response.GetResponseStream().AsString()}");
 #endif
-            return response;
+                return response;
+            }
+            catch (WebException e)
+            {
+                Error(e.Response.GetResponseStream().AsString());
+                throw;
+            }
         }
 
         #endregion

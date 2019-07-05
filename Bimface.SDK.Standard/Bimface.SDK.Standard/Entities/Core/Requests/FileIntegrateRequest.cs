@@ -26,13 +26,13 @@ namespace Bimface.SDK.Entities.Core.Requests
         public string[] FloorSort { get; set; }
 
         [DataMember(Name = "internalConfigMap")]
-        public IDictionary<string, string> InternalConfigMap { get; set; }
+        public IDictionary<string, string> InternalConfigMap { get; set; } = new Dictionary<string, string>();
 
         [DataMember(Name = "name")]
         public string Name { get; set; }
 
         [DataMember(Name = "parentIntegrateId")]
-        public long? ParentIntegrateId { get; set; }
+        public long? ParentIntegrateId { get; set; } 
 
         [DataMember(Name = "priority")]
         public int Priority { get; set; } = 2;
@@ -49,7 +49,7 @@ namespace Bimface.SDK.Entities.Core.Requests
         [DataMember(Name = "sources")]
         public IntegrateSource[] Sources { get; set; }
 
-        [DataMember(Name = "boundingBox")]
+        [DataMember(Name = "specialtySort")]
         public string[] SpecialtySort { get; set; }
 
         #endregion
