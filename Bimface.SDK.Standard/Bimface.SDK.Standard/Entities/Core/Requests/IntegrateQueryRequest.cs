@@ -9,7 +9,7 @@ using Bimface.SDK.Entities.Core.Common;
 namespace Bimface.SDK.Entities.Core.Requests
 {
     [DataContract]
-    public class TranslateQueryRequest
+    public class IntegrateQueryRequest
     {
         #region Properties
 
@@ -19,11 +19,14 @@ namespace Bimface.SDK.Entities.Core.Requests
         [DataMember(Name = "endDate")]
         public DateTime EndDate { get; set; } = DateTime.Now;
 
-        [DataMember(Name = "fileId")]
-        public long? FileId { get; set; }
-
         [DataMember(Name = "fileName")]
         public string FileName { get; set; }
+
+        [DataMember(Name = "integrateId")]
+        public long? IntegrateId { get; set; }
+
+        [DataMember(Name = "integrateType")]
+        public string IntegrateType { get; set; }
 
         [DataMember(Name = "pageNo")]
         public int? PageNo { get; set; } = 1;
@@ -42,9 +45,6 @@ namespace Bimface.SDK.Entities.Core.Requests
 
         [DataMember(Name = "status")]
         public JobStatus? Status { get; set; }
-
-        [DataMember(Name = "suffix")]
-        public string Suffix { get; set; }
 
         #endregion
     }

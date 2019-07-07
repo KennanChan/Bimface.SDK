@@ -1,6 +1,6 @@
 ﻿namespace Bimface.SDK.Entities.Core.Common
 {
-    public enum TranslateStatus
+    public enum JobStatus
     {
         Failed      = -1,
         Prepare     = 0,

@@ -1,13 +1,11 @@
 ﻿#region
 
+using System;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using Bimface.SDK.Entities.Core.Requests;
 using Bimface.SDK.Entities.Core.Responses;
-using Bimface.SDK.Entities.Parameters.File;
 using Bimface.SDK.Entities.Parameters.Integrate;
-using Bimface.SDK.Entities.Parameters.Translate;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Core;
 using Bimface.SDK.Interfaces.Infrastructure;
@@ -57,6 +55,26 @@ namespace Bimface.SDK.Test
                 Output.WriteLine(JsonSerializer.Serialize(request));
                 var integrate = await IntegrateService.CreateIntegrate(new CreateIntegrateParameter(request));
                 Assert.NotNull(integrate);
+                Assert.True(integrate.IntegrateId.HasValue);
+
+                integrate = await IntegrateService.LookupIntegrate(new LookupIntegrateParameter(integrate.IntegrateId.Value));
+                Assert.NotNull(integrate);
+                Assert.True(integrate.IntegrateId.HasValue);
+
+                var integrates = await IntegrateService.ListFileIntegrateDetails(
+                                     new ListFileIntegrateDetailsParameter(
+                                         new IntegrateQueryRequest
+                                         {
+                                             EndDate = DateTime.Now + TimeSpan.FromDays(1)
+                                         }));
+                Assert.NotNull(integrates);
+                Assert.True(integrates.List.Length > 0);
+                Assert.Contains(integrate.IntegrateId, integrates.List.Select(i => i.IntegrateId));
+
+                await IntegrateService.DeleteIntegrate(new DeleteIntegrateParameter(integrate.IntegrateId.Value));
+
+                integrate = await IntegrateService.LookupIntegrate(new LookupIntegrateParameter(integrate.IntegrateId.Value));
+                Assert.Null(integrate);
             });
         }
     }
