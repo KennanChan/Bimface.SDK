@@ -103,8 +103,9 @@ namespace Bimface.SDK
         {
             if (_initialized) return;
             Container
+               .Singleton(this)
                .AddService<ILogService, DefaultLogger>()
-               .AddService<IHttpClient, DefaultHttpClient>()
+               .Singleton<IHttpClient, HttpClientFactory>()
                .AddService<IJsonSerializer, NewtonsoftJsonSerializer>()
                .AddService<IResponseResolver, DefaultResponseResolver>()
                .Singleton<IHttpContext, HttpContext>()
@@ -122,8 +123,7 @@ namespace Bimface.SDK
                .Singleton<IRfaFileService, RfaFileService>()
                .Singleton<IOfflineDatabagService, OfflineDatabagService>()
                .Singleton<IDSLDataService, DSLDataService>()
-               .Singleton<IDatabagDataService, DatabagDataService>()
-               .Singleton(this);
+               .Singleton<IDatabagDataService, DatabagDataService>();
             AppDomain.CurrentDomain.GetAssemblies()
                      .SelectMany(assembly => assembly.GetConcreteTypes<IServiceInitializer>())
                      .ToList()

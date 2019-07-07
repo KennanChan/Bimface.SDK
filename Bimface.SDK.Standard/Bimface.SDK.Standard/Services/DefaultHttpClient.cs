@@ -20,6 +20,16 @@ namespace Bimface.SDK.Services
     {
         #region Interface Implementations
 
+        public bool CanGetResponse(IHttpRequest request)
+        {
+            if (request.GetMethod() == HttpMethods.Get)
+            {
+                return request.GetBody() == null;
+            }
+
+            return true;
+        }
+
         public IHttpResponse GetResponse(IHttpRequest request, IProgress<double> progress)
         {
             try

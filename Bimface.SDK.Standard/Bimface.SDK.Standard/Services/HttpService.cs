@@ -62,7 +62,7 @@ namespace Bimface.SDK.Services
                     Error(e);
                     return default(TResult);
                 }
-            });
+            }).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -73,7 +73,7 @@ namespace Bimface.SDK.Services
         /// <returns>The task used to wait</returns>
         protected async Task SendAsync(HttpRequest request, IProgress<double> progress = null)
         {
-            await Task.Run(() => Client.GetResponse(request, null)).ConfigureAwait(false);
+            await Task.Run(() => Client.GetResponse(request, progress)).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Bimface.SDK.Services
         protected async Task SendAsync<TParameter>(TParameter parameter, IProgress<double> progress = null)
             where TParameter : HttpParameter
         {
-            await Task.Run(async () => Client.GetResponse(await CreateHttpRequest(parameter), null));
+            await Task.Run(async () => Client.GetResponse(await CreateHttpRequest(parameter),progress)).ConfigureAwait(false);
         }
 
         /// <summary>

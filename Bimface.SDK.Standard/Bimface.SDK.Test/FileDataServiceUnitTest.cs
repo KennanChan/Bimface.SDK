@@ -1,6 +1,5 @@
 ﻿#region
 
-using System.Linq;
 using Bimface.SDK.Entities.Core.Requests;
 using Bimface.SDK.Entities.Parameters.Data.File;
 using Bimface.SDK.Extensions;
@@ -53,12 +52,33 @@ namespace Bimface.SDK.Test
                 var translate = await TranslateService.EnsureTranslated(file);
                 Assert.NotNull(translate);
 
-                var elements = await FileDataService.ListElementIds(new ListFileElementIdsParameter(file.FileId.Value));
+                var elementIds = await FileDataService.ListElementIds(new ListFileElementIdsParameter(file.FileId.Value));
 
-                var elementId = elements.FirstOrDefault();
+                var elementId = elementIds.GetRandom();
                 var materials = await FileDataService.ListElementMaterials(new ListFileElementMaterialsParameter(file.FileId.Value, elementId));
 
                 Assert.NotNull(materials);
+            });
+        }
+
+        [Fact]
+        public async void TestListElementProperties()
+        {
+            await FileService.TemporarilyUpload(Configuration.RemoteRevitFileUrl, Configuration.RemoteRevitFileName, async file =>
+            {
+                Assert.NotNull(file);
+                Assert.True(file.FileId.HasValue);
+
+                var translate = await TranslateService.EnsureTranslated(file);
+                Assert.NotNull(translate);
+
+                var elementIds = await FileDataService.ListElementIds(new ListFileElementIdsParameter(file.FileId.Value));
+
+                var elementId = elementIds.GetRandom();
+                var properties =
+                    await FileDataService.LookupElementProperty(new LookupFileElementPropertyParameter(file.FileId.Value, elementId));
+
+                Assert.NotNull(properties);
             });
         }
 
@@ -73,11 +93,11 @@ namespace Bimface.SDK.Test
                 var translate = await TranslateService.EnsureTranslated(file);
                 Assert.NotNull(translate);
 
-                var elements = await FileDataService.ListElementIds(new ListFileElementIdsParameter(file.FileId.Value));
+                var elementIds = await FileDataService.ListElementIds(new ListFileElementIdsParameter(file.FileId.Value));
 
                 var properties =
                     await FileDataService.ListElementsProperties(new ListFileElementsPropertiesParameter(file.FileId.Value,
-                        new ElementPropertyFilterRequest(elements)));
+                        new ElementPropertyFilterRequest(elementIds)));
 
                 Assert.NotNull(properties);
             });

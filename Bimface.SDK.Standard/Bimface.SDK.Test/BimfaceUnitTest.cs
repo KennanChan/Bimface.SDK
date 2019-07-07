@@ -1,5 +1,6 @@
 ﻿#region
 
+using System;
 using System.IO;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Extensions;
@@ -11,7 +12,7 @@ using Xunit.Abstractions;
 
 namespace Bimface.SDK.Test
 {
-    public abstract class BimfaceUnitTest
+    public abstract class BimfaceUnitTest : IDisposable
     {
         #region Fields
 
@@ -24,13 +25,15 @@ namespace Bimface.SDK.Test
         static BimfaceUnitTest()
         {
             Client = BimfaceClient.GetOrCreate(new AppCredential(Configuration.AppKey, Configuration.AppSecret));
+            Client.Singleton<ILogService>(new TestLogger(null));
         }
 
         protected BimfaceUnitTest(ITestOutputHelper testOutputHelper)
         {
-            Output = testOutputHelper;
-            Client.Singleton(testOutputHelper);
-            Client.Singleton<ILogService, TestLogger>();
+            OriginalOut = Console.Out;
+            Output      = testOutputHelper;
+            var logger = new TestLogger(testOutputHelper);
+            Console.SetOut(logger);
         }
 
         #endregion
@@ -49,6 +52,30 @@ namespace Bimface.SDK.Test
 
         protected ITestOutputHelper Output { get; }
 
+        private TextWriter OriginalOut { get; }
+
         #endregion
+
+        #region Interface Implementations
+
+        public void Dispose()
+        {
+            Console.SetOut(OriginalOut);
+        }
+
+        #endregion
+
+        //protected async Task BootstrapTest(Func<Task> test)
+        //{
+        //    Client.AddService<ILogService>(() => new TestLogger(Output));
+        //    if (null != test)
+        //        await test.Invoke();
+        //}
+
+        //protected async Task BootstrapTest(Task task)
+        //{
+        //    Client.AddService<ILogService>(() => new TestLogger(Output));
+        //    await task;
+        //}
     }
 }
