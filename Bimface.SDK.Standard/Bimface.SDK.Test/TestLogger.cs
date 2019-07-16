@@ -1,16 +1,14 @@
 ﻿#region
 
-using System;
 using System.IO;
 using System.Text;
-using Bimface.SDK.Interfaces.Infrastructure;
 using Xunit.Abstractions;
 
 #endregion
 
 namespace Bimface.SDK.Test
 {
-    internal class TestLogger : TextWriter, ILogService
+    internal class TestLogger : TextWriter
     {
         #region Constructors
 
@@ -23,30 +21,12 @@ namespace Bimface.SDK.Test
 
         #region Properties
 
-        private ITestOutputHelper Output { get; }
+        public override Encoding          Encoding { get; } = Encoding.UTF8;
+        private         ITestOutputHelper Output   { get; }
 
         #endregion
 
-        #region Interface Implementations
-
-        public void Debug(Type logType, object log)
-        {
-            Console.WriteLine($@"[DEBUG] {logType.FullName}{Environment.NewLine}{log}");
-        }
-
-        public void Error(Type logType, object log)
-        {
-            Console.WriteLine($@"[ERROR] {logType.FullName}{Environment.NewLine}{log}");
-        }
-
-        public void Info(Type logType, object log)
-        {
-            Console.WriteLine($@"[INFO] {logType.FullName}{Environment.NewLine}{log}");
-        }
-
-        #endregion
-
-        public override Encoding Encoding { get; } = Encoding.UTF8;
+        #region Others
 
         public override void Write(object value)
         {
@@ -67,5 +47,7 @@ namespace Bimface.SDK.Test
         {
             Output.WriteLine(value);
         }
+
+        #endregion
     }
 }

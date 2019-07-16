@@ -5,6 +5,7 @@ using System.IO;
 using Bimface.SDK.Entities;
 using Bimface.SDK.Extensions;
 using Bimface.SDK.Interfaces.Infrastructure;
+using Bimface.SDK.Test.Loggers;
 using Newtonsoft.Json;
 using Xunit.Abstractions;
 
@@ -25,15 +26,13 @@ namespace Bimface.SDK.Test
         static BimfaceUnitTest()
         {
             Client = BimfaceClient.GetOrCreate(new AppCredential(Configuration.AppKey, Configuration.AppSecret));
-            Client.Singleton<ILogService>(new TestLogger(null));
         }
 
         protected BimfaceUnitTest(ITestOutputHelper testOutputHelper)
         {
             OriginalOut = Console.Out;
             Output      = testOutputHelper;
-            var logger = new TestLogger(testOutputHelper);
-            Console.SetOut(logger);
+            LogService  = new TestHelperLogger(testOutputHelper);
         }
 
         #endregion
@@ -41,6 +40,7 @@ namespace Bimface.SDK.Test
         #region Properties
 
         protected static BimfaceClient Client { get; }
+        private ILogService LogService { get; }
 
         protected static Configuration Configuration =>
             _configuration ?? (_configuration = JsonConvert.DeserializeObject<Configuration>(File.ReadAllText(ConfigurationPath)));
@@ -64,18 +64,5 @@ namespace Bimface.SDK.Test
         }
 
         #endregion
-
-        //protected async Task BootstrapTest(Func<Task> test)
-        //{
-        //    Client.AddService<ILogService>(() => new TestLogger(Output));
-        //    if (null != test)
-        //        await test.Invoke();
-        //}
-
-        //protected async Task BootstrapTest(Task task)
-        //{
-        //    Client.AddService<ILogService>(() => new TestLogger(Output));
-        //    await task;
-        //}
     }
 }
