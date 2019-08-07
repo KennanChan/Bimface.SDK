@@ -32,7 +32,6 @@ namespace Bimface.SDK.Test.Context
         public BimfaceFileContext()
         {
             Client = BimfaceClient.GetOrCreate(new AppCredential(Configuration.AppKey, Configuration.AppSecret));
-            Client.Singleton<ILogService>(new TestLogger(null));
             FileService = Client.GetService<IFileService>();
         }
 
@@ -64,7 +63,7 @@ namespace Bimface.SDK.Test.Context
 
         public void SetOutput(ITestOutputHelper output)
         {
-            Client.Singleton<ILogService>(new TestLogger())
+
         }
 
         #endregion
