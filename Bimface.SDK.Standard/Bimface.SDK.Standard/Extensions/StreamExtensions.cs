@@ -53,6 +53,33 @@ namespace Bimface.SDK.Extensions
             }
         }
 
+        /// <summary>
+        ///     Write the binary data of a <see cref="string" /> into the <see cref="Stream" /> using UTF-8
+        /// </summary>
+        /// <param name="stream">The <see cref="Stream" /> instance</param>
+        /// <param name="s">The <see cref="string" /> instance</param>
+        /// <returns></returns>
+        public static Stream WriteStringData(this Stream stream, string s)
+        {
+            return stream.WriteStringData(s, Encoding.UTF8);
+        }
+
+        /// <summary>
+        ///     Write the binary data of a <see cref="string" /> into the <see cref="Stream" /> using specified
+        ///     <see cref="Encoding" />
+        /// </summary>
+        /// <param name="stream">The <see cref="Stream" /> instance</param>
+        /// <param name="s">The <see cref="string" /> instance</param>
+        /// <param name="encoding">The <see cref="Encoding" /> used to encode the <see cref="string" /></param>
+        /// <returns>The stream it self</returns>
+        public static Stream WriteStringData(this Stream stream, string s, Encoding encoding)
+        {
+            if (null == s || null == stream) return stream;
+            var bytes = encoding.GetBytes(s);
+            stream.Write(bytes, 0, bytes.Length);
+            return stream;
+        }
+
         #endregion
     }
 }

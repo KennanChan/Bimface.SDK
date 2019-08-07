@@ -1,6 +1,8 @@
 ﻿#region
 
+using System.IO;
 using Bimface.SDK.Entities;
+using Bimface.SDK.Entities.Http;
 using Bimface.SDK.Entities.Internal;
 using Bimface.SDK.Exceptions;
 using Bimface.SDK.Extensions;
@@ -35,8 +37,12 @@ namespace Bimface.SDK.Services
         /// <returns></returns>
         public T Resolve<T>(IHttpResponse response)
         {
-            var contentStream = response.GetResponseStream();
-            var res           = Serializer.Deserialize<GeneralResponse<T>>(contentStream.AsString());
+            return Resolve<T>(response.GetResponseStream());
+        }
+
+        public T Resolve<T>(Stream content)
+        {
+            var res = Serializer.Deserialize<GeneralResponse<T>>(content.AsString());
             if (res.Code == "success")
                 return res.Data;
             throw new BimfaceException(res.Code, res.Message);

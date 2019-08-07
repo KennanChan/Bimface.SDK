@@ -18,6 +18,11 @@ namespace Bimface.SDK.Services
             return FetchAsync<FileTranslateEntity, CreateTranslateParameter>(parameter);
         }
 
+        public Task<PagedList<FileTranslateDetailEntity>> ListTranslateDetails(ListTranslateDetailsParameter parameter)
+        {
+            return FetchAsync<PagedList<FileTranslateDetailEntity>, ListTranslateDetailsParameter>(parameter);
+        }
+
         public Task<FileTranslateEntity> LookupTranslate(LookupTranslateParameter parameter)
         {
             return FetchAsync<FileTranslateEntity, LookupTranslateParameter>(parameter);

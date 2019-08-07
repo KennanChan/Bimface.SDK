@@ -10,7 +10,8 @@ namespace Bimface.SDK.Interfaces.Infrastructure.Http
     {
         #region Others
 
-        IHttpResponse GetResponse(IHttpRequest request, IProgress<double> progress);
+        bool CanGetResponse(IHttpRequest       request);
+        IHttpResponse GetResponse(IHttpRequest request, IProgress<double> progress = null);
 
         #endregion
     }

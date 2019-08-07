@@ -1,5 +1,6 @@
 ﻿#region
 
+using System.IO;
 using Bimface.SDK.Attributes;
 using Bimface.SDK.Attributes.Http;
 using Bimface.SDK.Entities.Http;
@@ -15,10 +16,11 @@ namespace Bimface.SDK.Entities.Parameters.File
     {
         #region Constructors
 
-        public ResumeAppendFileParameter(long appendFileId, long position)
+        public ResumeAppendFileParameter(long appendFileId, long position, Stream stream)
         {
             AppendFileId = appendFileId;
             Position     = position;
+            Stream       = stream;
         }
 
         #endregion
@@ -30,6 +32,9 @@ namespace Bimface.SDK.Entities.Parameters.File
 
         [HttpQueryComponent]
         public long Position { get; }
+
+        [HttpBodyComponent(HttpContentType.Binary)]
+        public Stream Stream { get; }
 
         #endregion
     }

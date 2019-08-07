@@ -23,6 +23,11 @@ namespace Bimface.SDK.Services
             return SendAsync(parameter);
         }
 
+        public Task<PagedList<FileIntegrateDetailEntity>> ListFileIntegrateDetails(ListFileIntegrateDetailsParameter parameter)
+        {
+            return FetchAsync<PagedList<FileIntegrateDetailEntity>, ListFileIntegrateDetailsParameter>(parameter);
+        }
+
         public Task<FileIntegrateEntity> LookupIntegrate(LookupIntegrateParameter parameter)
         {
             return FetchAsync<FileIntegrateEntity, LookupIntegrateParameter>(parameter);

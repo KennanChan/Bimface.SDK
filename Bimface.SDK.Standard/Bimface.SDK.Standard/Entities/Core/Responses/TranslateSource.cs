@@ -9,6 +9,13 @@ namespace Bimface.SDK.Entities.Core.Responses
     [DataContract]
     public class TranslateSource
     {
+        public TranslateSource(long? fileId, string rootName, bool compressed)
+        {
+            Compressed = compressed;
+            FileId     = fileId;
+            RootName   = rootName;
+        }
+
         #region Properties
 
         [DataMember(Name = "compressed")]

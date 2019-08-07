@@ -9,7 +9,7 @@ using Bimface.SDK.Entities.Parameters.Data.Integrate;
 
 namespace Bimface.SDK.Interfaces.Core
 {
-    internal interface IIntegrateDataService
+    public interface IIntegrateDataService
     {
         #region Others
 

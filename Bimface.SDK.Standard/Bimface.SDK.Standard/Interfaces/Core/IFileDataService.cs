@@ -14,7 +14,7 @@ namespace Bimface.SDK.Interfaces.Core
 
         Task<string> DeleteElementProperty(DeleteFileElementPropertiesParameter     parameter);
         Task<DrawingSheet[]> ListDrawingSheets(ListFileDrawingSheetsParameter       parameter);
-        Task<ElementIdWithBoundingBox[]> ListElementIds(ListFileElementIdsParameter parameter);
+        Task<string[]> ListElementIds(ListFileElementIdsParameter                   parameter);
         Task<MaterialInfo[]> ListElementMaterials(ListFileElementMaterialsParameter parameter);
         Task<Property[]> ListElementsProperties(ListFileElementsPropertiesParameter parameter);
         Task<Area[]> ListFloorAreas(ListFileFloorAreasParameter                     parameter);

@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Concurrent;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -72,6 +73,7 @@ namespace Bimface.SDK.Services
         public async Task<HttpRequest> Build(T parameter)
         {
             var request = new HttpRequest(Method, Host, BuildUrl(parameter));
+            Container.InjectProperties(request);
             BuildQueries(parameter, request);
             BuildHeaders(parameter, request);
             BuildBody(parameter, request);
@@ -98,7 +100,17 @@ namespace Bimface.SDK.Services
             var bodies = Components.Where(c => c.Value.Attribute is HttpBodyComponentAttribute).ToArray();
             if (bodies.Any())
             {
-                request.AddJsonBody(GetValue(parameter, bodies[0].Key));
+                var body  = bodies.First();
+                var value = GetValue(parameter, body.Key);
+                if (((HttpBodyComponentAttribute) body.Value.Attribute).ContentType == HttpContentType.Binary)
+                {
+                    if (value is Stream stream)
+                    {
+                        request.AddBody(stream);
+                    }
+                }
+                else
+                    request.AddJsonBody(value);
             }
         }
 

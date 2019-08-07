@@ -42,18 +42,27 @@ namespace Bimface.SDK.Entities.Parameters.File
         {
         }
 
+        public PushUploadParameter(string localFilePath, string sourceId = null) : this(Path.GetFileName(localFilePath),
+            new FileInfo(localFilePath), sourceId)
+        {
+        }
+
+        public PushUploadParameter(FileInfo localFile, string sourceId = null) : this(localFile.Name, localFile.AsStream(), sourceId)
+        {
+        }
+
         #endregion
 
         #region Properties
 
         [HttpQueryComponent]
-        internal string Name { get; }
+        public string Name { get; }
 
         [HttpQueryComponent]
-        internal string SourceId { get; set; }
+        public string SourceId { get; set; }
 
-        [HttpBodyComponent]
-        internal Stream Stream { get; }
+        [HttpBodyComponent(HttpContentType.Binary)]
+        public Stream Stream { get; }
 
         #endregion
     }
