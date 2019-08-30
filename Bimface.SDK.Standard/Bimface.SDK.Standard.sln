@@ -5,9 +5,35 @@ VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimface.SDK.Standard", "Bimface.SDK.Standard\Bimface.SDK.Standard.csproj", "{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.Test", "Bimface.SDK.Test\Bimface.SDK.Test.csproj", "{9B216578-BE66-4AAE-A56D-706FB2C67574}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bimface.SDK", "Bimface.SDK\Bimface.SDK.shproj", "{A25CAF32-12B1-4BCA-AD22-D1B0A5AF2BDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.NET40", "Bimface.SDK.NET40\Bimface.SDK.NET40.csproj", "{B45E4333-573C-489E-B936-E27C9CB58EE0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.NET45", "Bimface.SDK.NET45\Bimface.SDK.NET45.csproj", "{7C6E13BA-1A6D-4110-8929-462F1FD5FA54}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "Bimface.SDK.UnitTest", "Bimface.SDK.UnitTest\Bimface.SDK.UnitTest.shproj", "{6D3788BD-B88B-4B90-928D-B799D7265FA7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.UnitTest.NET40", "Bimface.SDK.UnitTest.NET40\Bimface.SDK.UnitTest.NET40.csproj", "{A86BDD51-25B5-4919-A5CA-0C78C25CCC42}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Bimface.SDK.UnitTest.NET45", "Bimface.SDK.UnitTest.NET45\Bimface.SDK.UnitTest.NET45.csproj", "{E05591D4-FB9C-4794-8CA0-277C36C9AE94}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{99DF96D2-3BC6-466B-ADC9-DB012326D0F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SDK", "SDK", "{1FC21A83-110B-4689-A916-8109BEE38FF7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Bimface.SDK.UnitTest.Standard", "Bimface.SDK.UnitTest.Standard\Bimface.SDK.UnitTest.Standard.csproj", "{B4CDE9D1-2C2F-471B-B74D-483313962485}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{D926925D-B8DD-46F9-8328-2655B634E637}"
 EndProject
 Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		Bimface.SDK.UnitTest\Bimface.SDK.UnitTest.projitems*{6d3788bd-b88b-4b90-928d-b799d7265fa7}*SharedItemsImports = 13
+		Bimface.SDK\Bimface.SDK.projitems*{7c6e13ba-1a6d-4110-8929-462f1fd5fa54}*SharedItemsImports = 4
+		Bimface.SDK\Bimface.SDK.projitems*{a25caf32-12b1-4bca-ad22-d1b0a5af2bdf}*SharedItemsImports = 13
+		Bimface.SDK.UnitTest\Bimface.SDK.UnitTest.projitems*{a86bdd51-25b5-4919-a5ca-0c78c25ccc42}*SharedItemsImports = 4
+		Bimface.SDK\Bimface.SDK.projitems*{b45e4333-573c-489e-b936-e27c9cb58ee0}*SharedItemsImports = 4
+		Bimface.SDK.UnitTest\Bimface.SDK.UnitTest.projitems*{e05591d4-fb9c-4794-8ca0-277c36c9ae94}*SharedItemsImports = 4
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -17,13 +43,39 @@ Global
 		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{9B216578-BE66-4AAE-A56D-706FB2C67574}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9B216578-BE66-4AAE-A56D-706FB2C67574}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9B216578-BE66-4AAE-A56D-706FB2C67574}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9B216578-BE66-4AAE-A56D-706FB2C67574}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B45E4333-573C-489E-B936-E27C9CB58EE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B45E4333-573C-489E-B936-E27C9CB58EE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B45E4333-573C-489E-B936-E27C9CB58EE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B45E4333-573C-489E-B936-E27C9CB58EE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C6E13BA-1A6D-4110-8929-462F1FD5FA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C6E13BA-1A6D-4110-8929-462F1FD5FA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C6E13BA-1A6D-4110-8929-462F1FD5FA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C6E13BA-1A6D-4110-8929-462F1FD5FA54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A86BDD51-25B5-4919-A5CA-0C78C25CCC42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A86BDD51-25B5-4919-A5CA-0C78C25CCC42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A86BDD51-25B5-4919-A5CA-0C78C25CCC42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A86BDD51-25B5-4919-A5CA-0C78C25CCC42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E05591D4-FB9C-4794-8CA0-277C36C9AE94}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E05591D4-FB9C-4794-8CA0-277C36C9AE94}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E05591D4-FB9C-4794-8CA0-277C36C9AE94}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E05591D4-FB9C-4794-8CA0-277C36C9AE94}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4CDE9D1-2C2F-471B-B74D-483313962485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4CDE9D1-2C2F-471B-B74D-483313962485}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4CDE9D1-2C2F-471B-B74D-483313962485}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4CDE9D1-2C2F-471B-B74D-483313962485}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2C542FC7-5C89-4BF6-8F87-080F00DE2A2B} = {1FC21A83-110B-4689-A916-8109BEE38FF7}
+		{A25CAF32-12B1-4BCA-AD22-D1B0A5AF2BDF} = {D926925D-B8DD-46F9-8328-2655B634E637}
+		{B45E4333-573C-489E-B936-E27C9CB58EE0} = {1FC21A83-110B-4689-A916-8109BEE38FF7}
+		{7C6E13BA-1A6D-4110-8929-462F1FD5FA54} = {1FC21A83-110B-4689-A916-8109BEE38FF7}
+		{6D3788BD-B88B-4B90-928D-B799D7265FA7} = {D926925D-B8DD-46F9-8328-2655B634E637}
+		{A86BDD51-25B5-4919-A5CA-0C78C25CCC42} = {99DF96D2-3BC6-466B-ADC9-DB012326D0F6}
+		{E05591D4-FB9C-4794-8CA0-277C36C9AE94} = {99DF96D2-3BC6-466B-ADC9-DB012326D0F6}
+		{B4CDE9D1-2C2F-471B-B74D-483313962485} = {99DF96D2-3BC6-466B-ADC9-DB012326D0F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {F1A50045-6067-49F2-BC6F-838CCAD074B3}
