@@ -6,11 +6,17 @@
     <AssemblyName>Bimface.SDK</AssemblyName>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Entities\Core\GeneralResponse.cs" />
-  </ItemGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DefineConstants>TRACE;NETSTANDARD</DefineConstants>
+  </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
   </ItemGroup>
+
+  <Import Project="..\Bimface.SDK\Bimface.SDK.projitems" Label="Shared" />
 </Project>
