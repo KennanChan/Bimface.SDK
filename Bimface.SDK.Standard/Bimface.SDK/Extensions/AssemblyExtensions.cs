@@ -9,7 +9,14 @@ namespace Bimface.SDK.Extensions
     {
         public static IEnumerable<Type> GetConcreteTypes<T>(this Assembly assembly)
         {
-            return assembly.GetTypes().Where(type => type.IsConcrete() && typeof(T).IsAssignableFrom(type));
+            try
+            {
+                return assembly.GetTypes().Where(type => type.IsConcrete() && typeof(T).IsAssignableFrom(type));
+            }
+            catch (Exception e)
+            {
+                return new Type[0];
+            }
         }
     }
 }

@@ -101,46 +101,53 @@ namespace Bimface.SDK
         /// </summary>
         private void Initialize()
         {
-            if (_initialized) return;
-            Container
-               .Singleton(this)
-               .AddService<ILogService, DefaultLogger>()
-               .Singleton<IHttpClient, HttpClientFactory>()
+            try
+            {
+                if (_initialized) return;
+                Container
+                   .Singleton(this)
+                   .AddService<ILogService, DefaultLogger>()
+                   .Singleton<IHttpClient, HttpClientFactory>()
 #if NETSTANDARD
                .AddService<IJsonSerializer, NewtonsoftJsonSerializer>()
 #else
                .AddService<IJsonSerializer, DefaultJsonSerializer>()
 #endif
                .AddService<IResponseResolver, DefaultResponseResolver>()
-               .Singleton<IHttpContext, HttpContext>()
-               .Singleton<INamingRule, CamelCaseNamingRule>()
-               .Singleton<IAuthorizationService, AuthorizationService>()
-               .Singleton<IFileService, FileService>()
-               .Singleton<IFileDataService, FileDataService>()
-               .Singleton<IIntegrateService, IntegrateService>()
-               .Singleton<IIntegrateDataService, IntegrateDataService>()
-               .Singleton<ICompareService, CompareService>()
-               .Singleton<ICompareDataService, CompareDataService>()
-               .Singleton<IShareService, ShareService>()
-               .Singleton<ITranslateService, TranslateService>()
-               .Singleton<IViewTokenService, ViewTokenService>()
-               .Singleton<IRfaFileService, RfaFileService>()
-               .Singleton<IOfflineDatabagService, OfflineDatabagService>()
-               .Singleton<IDSLDataService, DSLDataService>()
-               .Singleton<IDatabagDataService, DatabagDataService>();
-            AppDomain.CurrentDomain.GetAssemblies()
-                     .SelectMany(assembly => assembly.GetConcreteTypes<IServiceInitializer>())
-                     .ToList()
-                     .ForEach(
-                          initializerType =>
-                          {
-                              var initializer = Container.GetService(initializerType) as IServiceInitializer ??
-                                                Container.CreateInstance(initializerType) as IServiceInitializer;
-                              if (null == initializer || initializer.HasInitialized) return;
-                              Container.Singleton(initializerType, initializer);
-                              initializer.Initialize(Container);
-                          });
-            _initialized = true;
+                   .Singleton<IHttpContext, HttpContext>()
+                   .Singleton<INamingRule, CamelCaseNamingRule>()
+                   .Singleton<IAuthorizationService, AuthorizationService>()
+                   .Singleton<IFileService, FileService>()
+                   .Singleton<IFileDataService, FileDataService>()
+                   .Singleton<IIntegrateService, IntegrateService>()
+                   .Singleton<IIntegrateDataService, IntegrateDataService>()
+                   .Singleton<ICompareService, CompareService>()
+                   .Singleton<ICompareDataService, CompareDataService>()
+                   .Singleton<IShareService, ShareService>()
+                   .Singleton<ITranslateService, TranslateService>()
+                   .Singleton<IViewTokenService, ViewTokenService>()
+                   .Singleton<IRfaFileService, RfaFileService>()
+                   .Singleton<IOfflineDatabagService, OfflineDatabagService>()
+                   .Singleton<IDSLDataService, DSLDataService>()
+                   .Singleton<IDatabagDataService, DatabagDataService>();
+                AppDomain.CurrentDomain.GetAssemblies()
+                         .SelectMany(assembly => assembly.GetConcreteTypes<IServiceInitializer>())
+                         .ToList()
+                         .ForEach(
+                              initializerType =>
+                              {
+                                  var initializer = Container.GetService(initializerType) as IServiceInitializer ??
+                                                    Container.CreateInstance(initializerType) as IServiceInitializer;
+                                  if (null == initializer || initializer.HasInitialized) return;
+                                  Container.Singleton(initializerType, initializer);
+                                  initializer.Initialize(Container);
+                              });
+                _initialized = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+            }
         }
 
         #endregion

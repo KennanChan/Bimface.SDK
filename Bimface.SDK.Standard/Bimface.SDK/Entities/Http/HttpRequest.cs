@@ -101,8 +101,19 @@ namespace Bimface.SDK.Entities.Http
 
         internal void AddQuery(string name, object value)
         {
-            var valueString = GetValueString(value);
-            Queries.Add(new KeyValuePair<string, string>(name, valueString));
+            if (value is string s)
+            {
+                Queries.Add(new KeyValuePair<string, string>(name, s));
+            }
+            else if (value is IEnumerable enumerable)
+            {
+                enumerable.OfType<object>().ToList().ForEach(item => AddQuery(name, item));
+            }
+            else
+            {
+                var valueString = GetValueString(value);
+                Queries.Add(new KeyValuePair<string, string>(name, valueString));
+            }
         }
 
         internal string GetQueryString()
@@ -131,11 +142,6 @@ namespace Bimface.SDK.Entities.Http
             if (value is string s)
             {
                 return s;
-            }
-
-            if (value is IEnumerable enumerable)
-            {
-                return $"{string.Join(",", enumerable)}";
             }
 
             if (value.IsValueType())
