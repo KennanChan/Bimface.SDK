@@ -3,17 +3,19 @@ A unofficial .NET SDK for BIMFACE.
 
 [Online Docs](http://static.bimface.com/restful-apidoc/dist/app.html)
 
+Since this project is currently not fully tested and may not be timely updated to the official api docs, just be cautious to use the code in production. Any issue is welcomed :)
+
 ## Service list
 
-### Infrastructure  service list
+### Infrastructure service list
 
 | Service Interface | Description                                                  |
 | ----------------- | ------------------------------------------------------------ |
 | ILogService       | Service to provide logger for bimface sdk to output infos and errors. |
 | IJsonSerializer   | Service to provide convert between json strings and structured objects. Json.NET is used by default. |
 | IRestClient       | Service to send HTTP requests. HttpWebRequest is used by default. |
-| IHttpRequest      | Interface representing an HTTP request. Users can get necessary information from this interface. |
-| IHttpResponse     | Interface representing an HTTP response. Users can get necessary information from this interface. |
+| IHttpRequest      | Interface representing an HTTP request. Users can get necessary request information from this interface. |
+| IHttpResponse     | Interface representing an HTTP response. Users can get necessary response information from this interface. |
 | IResponseHandler  | Service to handle an HTTP response. By default the sdk converts the response to GeneralResponse<T> |
 
 ### Business service list
@@ -148,6 +150,8 @@ public void ServiceReplace()
     logService.Info(typeof(SomeType), "Hello Bimface!");
 }
 ```
+
+All the services can be replaced in the same way, including the infrastructure services and business services
 
 ### Service Container
 
