@@ -13,7 +13,7 @@ Since this project is currently not fully tested and may not be timely updated t
 | ----------------- | ------------------------------------------------------------ |
 | ILogService       | Service to provide logger for bimface sdk to output infos and errors. |
 | IJsonSerializer   | Service to provide convert between json strings and structured objects. Json.NET is used by default. |
-| IRestClient       | Service to send HTTP requests. HttpWebRequest is used by default. |
+| IRestClient       | Service to send HTTP requests. System.Net.HttpWebRequest is used by default to send Http Message. |
 | IHttpRequest      | Interface representing an HTTP request. Users can get necessary request information from this interface. |
 | IHttpResponse     | Interface representing an HTTP response. Users can get necessary response information from this interface. |
 | IResponseHandler  | Service to handle an HTTP response. By default the sdk converts the response to GeneralResponse<T> |
